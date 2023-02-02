@@ -101,7 +101,7 @@ function AddTeacher() {
                 name="tid"
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
-                placeholder="Enter Teacher ID"
+                placeholder="eg. 562"
               />
             </div>
             <div className="inline-block relative items-center">
@@ -160,7 +160,7 @@ function AddTeacher() {
                 value={teacher.email}
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
-                placeholder="Enter Email Address"
+                placeholder="eg. example@gmail.com"
                 name="email"
               />
             </div>
@@ -173,7 +173,7 @@ function AddTeacher() {
                 value={teacher.phone}
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number"
-                placeholder="Enter Phone Number"
+                placeholder="eg. 722123456"
                 name="phone"
               />
             </div>
@@ -201,7 +201,7 @@ function AddTeacher() {
                 value={teacher.quali}
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
-                placeholder="Enter Qualifications"
+                placeholder="eg. Geography & History"
                 name="quali"
               />
             </div>
@@ -223,7 +223,7 @@ function AddTeacher() {
                 value={teacher.slug?.toLowerCase()}
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
-                placeholder="Enter Username"
+                placeholder="eg. 562jane"
                 name="slug"
               />
             </div>

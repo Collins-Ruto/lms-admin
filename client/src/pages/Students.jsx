@@ -209,7 +209,7 @@ function Students() {
                     <th className="p-4">Name</th>
                     <th className="p-4">Stream</th>
                     <th className="p-4">DOB</th>
-                    <th className="p-4">Parent Name</th>
+                    <th className="p-4">Guardian Name</th>
                     <th className="p-4">Mobile Number</th>
                     <th className="p-4">Gender</th>
                     {userType === "admin" && <th className="p-4">Action</th>}

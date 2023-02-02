@@ -22,8 +22,8 @@ import {
   Dashboard,
   Teachers,
 } from "./pages/admin";
-import { Student, StudentExam, StudentFee } from "./pages/student";
-import { Teacher } from "./pages/teacher";
+import { Student, StudentExam, StudentFee, Task } from "./pages/student";
+import { Teacher, TeacherTask } from "./pages/teacher";
 import axios from "axios";
 import AddStream from "./pages/admin/AddStream";
 
@@ -80,6 +80,7 @@ function App() {
                 <Route path="/addlesson" element={<AddLesson />} />
                 <Route path="/addExam" element={<AddExam />} />
                 <Route path="/account" element={<Account />} />
+                <Route path="/task" element={<TeacherTask />} />
                 <Route path="*" element={<Teacher />} />
               </Routes>
             )}
@@ -91,6 +92,7 @@ function App() {
                 <Route path="/fee" element={<StudentFee />} />
                 <Route path="/exams" element={<StudentExam />} />
                 <Route path="/account" element={<Account />} />
+                <Route path="/tasks" element={<Task />} />
                 <Route path="*" element={<Student />} />
               </Routes>
             )}

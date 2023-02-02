@@ -100,7 +100,7 @@ function AddStudent() {
                         value={student.admid}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter Admission ID"
+                        placeholder="eg. 49"
                         name="admid"
                       />
                     </div>
@@ -108,7 +108,7 @@ function AddStudent() {
                   <div>
                     <div>
                       <label>
-                        Parent Name <span className="text-red-500">*</span>
+                        Guardian Name <span className="text-red-500">*</span>
                       </label>
                       <input
                         onChange={(e) => {
@@ -117,7 +117,7 @@ function AddStudent() {
                         value={student.parent}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter Parent Name"
+                        placeholder="Enter Guardian Name"
                         name="parent"
                       />
                     </div>
@@ -178,7 +178,7 @@ function AddStudent() {
                         value={student.slug?.toLowerCase()}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter Username"
+                        placeholder="eg. 49mike"
                         name="slug"
                       />
                     </div>
@@ -196,7 +196,7 @@ function AddStudent() {
                         value={student.email}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter Email Address"
+                        placeholder="eg. example@gmail.com"
                         name="email"
                       />
                     </div>
@@ -212,7 +212,7 @@ function AddStudent() {
                       value={student.stream_slug}
                       className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       type="text"
-                      placeholder="Enter Sream ID"
+                      placeholder="Sream ID:  eg. 1w"
                       name="stream_slug"
                     />
                   </div>
@@ -227,7 +227,7 @@ function AddStudent() {
                         value={student.phone}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="number"
-                        placeholder="Enter Phone Number"
+                        placeholder="eg. 722123456"
                         name="phone"
                       />
                     </div>
