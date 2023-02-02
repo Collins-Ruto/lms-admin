@@ -16,7 +16,7 @@ function Exam() {
         setExam(res.data.student.exams);
       });
 
-    axios.get("https://lmsadmin.onrender.com/subjects").then((res) => {
+    axios.get("https://lmsadmin.onrender.com/infos").then((res) => {
       setSubjects(res.data.subjects);
       setLoading(false);
     });
