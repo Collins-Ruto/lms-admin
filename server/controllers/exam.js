@@ -11,7 +11,7 @@ export const getExams = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        examsConnection(first: 5, orderBy: publishedAt_DESC) {
+        examsConnection( orderBy: publishedAt_DESC) {
           pageInfo {
             hasNextPage
             hasPreviousPage
