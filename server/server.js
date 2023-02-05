@@ -13,7 +13,7 @@ app.use(cors());
 app.use((req, res, next) => {
   // res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Origin", "https://lms-adm.netlify.app");
-  res.setHeader("Access-Control-Allow-Origin", "https://lms-adm.netlify.app/");
+  // res.setHeader("Access-Control-Allow-Origin", "https://lms-adm.netlify.app/");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT");
   res.setHeader("Access-Control-Allow-Headers", "X-Token");
   next();
