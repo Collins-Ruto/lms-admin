@@ -188,7 +188,7 @@ function AddStudent() {
                   </div>
                   <div className="inline-block relative items-center">
                     <label>
-                      Stream <span className="text-red-500">*</span>
+                      Stream ID<span className="text-red-500">*</span>
                     </label>
                     <input
                       onChange={(e) => {
