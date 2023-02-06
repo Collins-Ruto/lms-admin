@@ -15,7 +15,7 @@ const dum2 = {
 };
 
 function AddStudent() {
-  const [student, setStudent] = useState(dum2);
+  const [student, setStudent] = useState({});
 
   const handleInput = (event) => {
     const target = event.target;
