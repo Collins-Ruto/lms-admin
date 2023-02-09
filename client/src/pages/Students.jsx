@@ -11,7 +11,10 @@ function Students() {
   const [delStudent, setDelStudent] = useState("");
   const [userType, setUserType] = useState("");
   const [search, setSearch] = useState("");
-  const [pages, setPages] = useState({});
+  const [pages, setPages] = useState({
+    hasNextPage: false,
+    hasPreviousPage: false,
+  });
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
