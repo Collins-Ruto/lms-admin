@@ -4,6 +4,7 @@ import home from '../res/home.png'
 import finance from '../res/finance.png'
 import calender from '../res/calender.png'
 import exam from '../res/exam.png'
+import { NavLink } from 'react-router-dom'
 
 function Header() {
 
@@ -37,43 +38,109 @@ function Header() {
                 setOpened(!opened);
               }}
             ></div> */}
-            <div className="flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-white">
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+            <div
+              className="
+                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-white "
+            >
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={home} alt="" className="w-7 mr-2" />
                 <span className="text-xl">Dashboard</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/Students"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-xl">Students</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/teachers"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-xl">Teachers</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/timetables"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-xl">Timetables</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/exam"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={exam} alt="" className="w-7 mr-2" />
                 <span className="text-xl">Exam Results</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/calender"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={calender} alt="" className="w-7 mr-2" />
                 <span className="text-xl">calender</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/fee"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-xl">Finance</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/class"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-xl">Assignments</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
+              </NavLink>
+              <NavLink
+                to="/account"
+                className={({ isActive }) =>
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
+                    isActive ? "bg-gray-500" : ""
+                  }`
+                }
+              >
                 <img src={user} alt="" className="w-8 mr-2" />
                 <span className="text-xl">Account</span>
-              </div>
+              </NavLink>
             </div>
           </div>
         )}

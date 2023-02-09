@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
-import { getStudents } from "../api/students";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-function Students() {
-
-  const [students, setStudents] = useState([])
+function Teachers() {
+  const [teachers, setTeachers] = useState([]);
 
   console.log("data");
   useEffect(() => {
-    axios.get("http://localhost:8000/students")
-      .then((res) => {
-        setStudents(JSON.stringify(res.data))
-        console.log("data1",students)
-      })
+    axios.get("http://localhost:8000/teachers").then((res) => {
+      setTeachers(JSON.stringify(res.data));
+      console.log("data1", teachers);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(students)
-  
+  console.log(teachers);
+
   return (
     <div className="">
       <div class="p-4 text-2xl font-semibold">
-        <h3 class="">Students</h3>
+        <h3 class="">Teachers</h3>
       </div>
       <div className="">
         <div class="">
@@ -63,7 +62,7 @@ function Students() {
               </div>
             </div>
             <div class="">
-              <button
+              <Link to="/addteacher"
                 type="btn"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
               >
@@ -74,7 +73,7 @@ function Students() {
                   alt=""
                 />
                 Add
-              </button>
+              </Link>
             </div>
           </div>
           <div className="m-4 bg-slate-900 rounded-xl">
@@ -82,9 +81,9 @@ function Students() {
               <tr>
                 <th className="p-6">ID</th>
                 <th className="p-6">Name</th>
-                <th className="p-6">Class</th>
+                <th className="p-6">Email</th>
                 <th className="p-6">DOB</th>
-                <th className="p-6">Parent Name</th>
+                <th className="p-6">Joining Date</th>
                 <th className="p-6">Mobile Number</th>
                 <th className="p-6">Address</th>
                 <th className="p-6">Action</th>
@@ -139,4 +138,4 @@ function Students() {
   );
 }
 
-export default Students;
+export default Teachers;

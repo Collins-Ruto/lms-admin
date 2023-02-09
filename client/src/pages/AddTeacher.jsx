@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddStudent() {
+function AddTeacher() {
   return (
     <div>
       <div class="p-4 text-2xl font-semibold">
@@ -197,4 +197,4 @@ function AddStudent() {
   );
 }
 
-export default AddStudent;
+export default AddTeacher;

@@ -86,11 +86,11 @@ function AddStudent() {
                   </div>
                   <div class="">
                     <div class="">
-                      <label>Roll </label>
+                      <label>Username </label>
                       <input
                         class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter Roll Number"
+                        placeholder="Enter Username"
                       />
                     </div>
                   </div>
