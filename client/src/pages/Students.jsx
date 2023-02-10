@@ -108,17 +108,17 @@ function Students() {
                       <td className="p-4">{student.node.parent}</td>
                       <td className="p-4">{student.node.phone}</td>
                       <td className="p-4">{student.node.gender}</td>
-                      <td className="p-4">
+                      <td className="p-4 flex gap-2">
                         <Link to="/addstudent">
                           <img
-                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/00B8FF/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
                             alt=""
                             className="w-8 cursor-pointer"
                           />
                         </Link>
                         <Link to="/addstudent">
                           <img
-                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/00B8FF/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                            src="https://img.icons8.com/ios-filled/50/000000/waste.png"
                             alt=""
                             className="w-8 cursor-pointer"
                           />
@@ -140,7 +140,7 @@ function Students() {
                     <td className="p-4">Female</td>
                     <td className="p-4">
                       <img
-                        src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/00B8FF/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                        src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
                         alt=""
                         className="w-8 cursor-pointer"
                       />
