@@ -12,7 +12,7 @@ function FeeData() {
           <div className="">
             <input
               type="text"
-              className="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border bg-[#F7F6FB] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Search by ID ..."
             />
           </div>
@@ -21,7 +21,7 @@ function FeeData() {
           <div className="">
             <input
               type="text"
-              className="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border bg-[#F7F6FB] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Search by Name ..."
             />
           </div>
@@ -30,7 +30,7 @@ function FeeData() {
           <div className="">
             <input
               type="text"
-              className="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border bg-[#F7F6FB] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Search by Phone ..."
             />
           </div>
@@ -61,7 +61,7 @@ function FeeData() {
           </Link>
         </div>
       </div>
-      <div className="m-4 bg-[#121212] rounded-xl p-6">
+      <div className="m-4 bg-[#F7F6FB] rounded-xl p-6">
         <table className="w-full">
           <thead className="">
             <tr>

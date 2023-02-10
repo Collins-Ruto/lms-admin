@@ -10,7 +10,7 @@ function Header() {
   const [opened, setOpened] = useState(true);
 
   return (
-    <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-[#121212]">
+    <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-[#F7F6FB]">
       <div className="p-4">
         <nav className="flex items-center justify-between">
           <div
@@ -32,20 +32,20 @@ function Header() {
         {opened && (
           <div className="">
             {/* <div
-              className="absolute right-0 w-[100%] lg:w-screen md:w-80 p-4 h-screen opacity-40 bg-blend-darken bg-[#121212]"
+              className="absolute right-0 w-[100%] lg:w-screen md:w-80 p-4 h-screen opacity-40 bg-blend-darken bg-[#F7F6FB]"
               onClick={() => {
                 setOpened(!opened);
               }}
             ></div> */}
             <div
               className="
-                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-[#121212] "
+                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-[#F7F6FB] "
             >
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >
@@ -55,8 +55,8 @@ function Header() {
               <NavLink
                 to="/students"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >
@@ -66,8 +66,8 @@ function Header() {
               <NavLink
                 to="/teachers"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >
@@ -77,8 +77,8 @@ function Header() {
               <NavLink
                 to="/exam"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >
@@ -88,8 +88,8 @@ function Header() {
               <NavLink
                 to="/calender"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >
@@ -99,8 +99,8 @@ function Header() {
               <NavLink
                 to="/fee"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >
@@ -110,8 +110,8 @@ function Header() {
               <NavLink
                 to="/class"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >
@@ -121,8 +121,8 @@ function Header() {
               <NavLink
                 to="/account"
                 className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
+                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-800 hover:text-blue-700 cursor-pointer ${
+                    isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""
                   }`
                 }
               >

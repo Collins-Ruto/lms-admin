@@ -51,7 +51,7 @@ function Dashboard() {
       <div className="flex justify-between py-6">
         {datas.map((data) => (
           <div
-            className="flex  py-4 px-6 gap- w-60 justify-between rounded-lg bg-[#121212]"
+            className="flex  py-4 px-6 gap- w-60 justify-between rounded-lg bg-[#F7F6FB]"
             key={data.title}
           >
             <div className="flex flex-col rounded-lg">
@@ -65,7 +65,7 @@ function Dashboard() {
         ))}
       </div>
       <div className="grid grid-cols-3">
-        <div className="bg-[#121212] p-4">
+        <div className="bg-[#F7F6FB] p-4">
           <span className="text-xl">Manage Data</span>
           {editInfo.map((data) => (
             <div className="flex justify-between mt-4 p-1" key={data.title}>

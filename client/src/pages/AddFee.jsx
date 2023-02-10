@@ -8,7 +8,7 @@ function AddFee() {
       </div>
       <div className="row">
         <div className="col-sm-12">
-          <div className="m-4 bg-[#121212] rounded-xl p-6">
+          <div className="m-4 bg-[#F7F6FB] rounded-xl p-6">
             <div className="card-body">
               <form>
                 <div className="row">

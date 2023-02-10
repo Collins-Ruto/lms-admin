@@ -3,38 +3,40 @@ import React, { useState } from "react";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
-  name: "Bianca Giroud",
-  email: "bianca@gmail.com",
+  name: "Cynthia Graham",
+  email: "cynthia@gmail.com",
   gender: "Female",
-  parent: "Oliver Giroud",
-  admid: "16",
-  phone: 71272729,
-  dob: "24-6-2002",
-  slug: "16bianca",
-  stream_slug: "2n",
+  parent: "George Graham",
+  admid: "19",
+  phone: 7122342729,
+  dob: "2-6-2002",
+  slug: "19cynthia",
+  stream_slug: "1e",
 };
 
 function AddStudent() {
-
-  const [student, setStudent] = useState({});
+  const [student, setStudent] = useState(dum2);
 
   const handleInput = (event) => {
     const target = event.target;
     // const value = target.type === "checkbox" ? target.checked : target.value;
-    const value = target.type === "number" ? parseInt(target.value) : target.value;
+    const value =
+      target.type === "number" ? parseInt(target.value) : target.value;
     const name = target.name;
 
-    setStudent({ ...student, [name]: value })
-  }
+    setStudent({ ...student, [name]: value });
+  };
 
   const handleSubmit = () => {
-
+    // axios
+    //   .post("https://lmsadmin.onrender.com/students", student)
+    //   .then((res) => console.log(res));
     axios
-      .post("https://lmsadmin.onrender.com/students", student)
+      .post("http://localhost:8000/students", student)
       .then((res) => console.log(res));
-  }
+  };
 
-  console.log(student)
+  console.log(student);
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">
@@ -42,7 +44,7 @@ function AddStudent() {
       </div>
       <div className="row">
         <div className="col-sm-12">
-          <div className="m-4 bg-[#121212] rounded-xl p-6">
+          <div className="m-4 bg-[#F7F6FB] rounded-xl p-6">
             <div className="card-body">
               <form>
                 <div className="col-12">
@@ -93,9 +95,11 @@ function AddStudent() {
                       <label>
                         Parent Name <span className="text-red-500">*</span>
                       </label>
-                      <input 
-                      onChange={(e) => {handleInput(e)}}
-                      value={student.parent}
+                      <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={student.parent}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         placeholder="Enter Parent Name"
@@ -228,7 +232,7 @@ function AddStudent() {
                 <div className=" mt-4">
                   <div className="">
                     <button
-                      onClick={()=>handleSubmit()}
+                      onClick={() => handleSubmit()}
                       type="submit"
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
                     >

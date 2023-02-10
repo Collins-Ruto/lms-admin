@@ -14,10 +14,9 @@ const dum2 = {
   stream_slug: "2n",
 };
 
-
 function AddTeacher() {
   const [teacher, setTeacher] = useState({});
-  const [confPass, setConfPass] = useState("")
+  const [confPass, setConfPass] = useState("");
 
   const handleInput = (event) => {
     const target = event.target;
@@ -36,8 +35,8 @@ function AddTeacher() {
   };
 
   const handleVerify = (e) => {
-    setConfPass(e.target.value)
-  }
+    setConfPass(e.target.value);
+  };
 
   console.log(teacher);
   console.log(setConfPass);
@@ -49,7 +48,7 @@ function AddTeacher() {
       </div>
       <div className="row">
         <div className="col-sm-12">
-          <div className="m-4 bg-[#121212] rounded-xl p-6">
+          <div className="m-4 bg-[#F7F6FB] rounded-xl p-6">
             <div className="card-body">
               <form>
                 <div className="col-12">
@@ -260,7 +259,11 @@ function AddTeacher() {
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Confirm Password"
                       />
-                      {confPass && confPass !== teacher.password && <div className="text-xs text-red-500">passwords do not match</div>}
+                      {confPass && confPass !== teacher.password && (
+                        <div className="text-xs text-red-500">
+                          passwords do not match
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
