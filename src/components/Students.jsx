@@ -3,8 +3,10 @@ import React from "react";
 function Students() {
   return (
     <div className="">
-      <span className="text-start">Students</span>
-      <div className="m-4 bg-slate-900 rounded-xl">
+      <div class="p-4 text-2xl font-semibold">
+        <h3 class="">Students</h3>
+      </div>
+      <div className="">
         <div class="">
           <div class="flex justify-around p-4">
             <div class="">
@@ -59,7 +61,7 @@ function Students() {
               </button>
             </div>
           </div>
-          <div className="">
+          <div className="m-4 bg-slate-900 rounded-xl">
             <thead class="">
               <tr>
                 <th className="p-6">ID</th>
@@ -77,7 +79,7 @@ function Students() {
                 <td className="p-6">PRE2209</td>
                 <td className="p-6">
                   <h2 class="table-avatar">
-                    <a href="student-details.html">Aaliyah</a>
+                    <a href="student-details.html">Aaliyah sameer</a>
                   </h2>
                 </td>
                 <td className="p-6">10 A</td>
@@ -97,7 +99,7 @@ function Students() {
                 <td className="p-6">PRE2209</td>
                 <td className="p-6">
                   <h2 class="table-avatar">
-                    <a href="student-details.html">Aaliyah</a>
+                    <a href="student-details.html">chuck norris</a>
                   </h2>
                 </td>
                 <td className="p-6">10 A</td>
