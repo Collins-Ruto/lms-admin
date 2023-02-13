@@ -1,5 +1,4 @@
-import { Students } from './components';
-import AddStudent from './components/AddStudent';
+import { AddTeacher,AddStudent, Students, FeeData, AddFee } from './components';
 import './styles/App.css';
 
 function App() {
@@ -7,6 +6,9 @@ function App() {
     <div className="App">
       <Students />
       <AddStudent />
+      <AddTeacher />
+      <FeeData />
+      <AddFee />
     </div>
   );
 }

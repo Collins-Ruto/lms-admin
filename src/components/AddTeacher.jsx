@@ -4,7 +4,7 @@ function AddStudent() {
   return (
     <div>
       <div class="p-4 text-2xl font-semibold">
-        <h3 class="">Add Students</h3>
+        <h3 class="">Add Teachers</h3>
       </div>
       <div class="row">
         <div class="col-sm-12">
@@ -13,7 +13,7 @@ function AddStudent() {
               <form>
                 <div class="col-12">
                   <h5 class="text-xl pb-4">
-                    Student Information{" "}
+                    Teacher Information{" "}
                     <span>
                       <a href="javascript">
                         <i class="feather-more-vertical"></i>
@@ -21,11 +21,11 @@ function AddStudent() {
                     </span>
                   </h5>
                 </div>
-                <div class="grid grid-cols-3 gap-4 gap-y-8">
+                <div class="grid grid-cols-3 gap-4 gap-y-8 pb-4">
                   <div class="">
                     <div class="">
                       <label>
-                        First Name <span class="text-red-500">*</span>
+                        Name <span class="text-red-500">*</span>
                       </label>
                       <input
                         class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -36,13 +36,11 @@ function AddStudent() {
                   </div>
                   <div class="">
                     <div class="">
-                      <label>
-                        Last Name <span class="text-red-500">*</span>
-                      </label>
+                      <label>Teacher ID </label>
                       <input
                         class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter First Name"
+                        placeholder="Enter Admission ID"
                       />
                     </div>
                   </div>
@@ -82,11 +80,11 @@ function AddStudent() {
                   </div>
                   <div class="">
                     <div class="">
-                      <label>Roll </label>
+                      <label>Qualification </label>
                       <input
                         class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter Roll Number"
+                        placeholder="Enter Qualifications"
                       />
                     </div>
                   </div>
@@ -103,39 +101,7 @@ function AddStudent() {
                       />
                     </div>
                   </div>
-                  <div class="inline-block relative items-center">
-                    <label>
-                      Class <span class="text-red-500">*</span>
-                    </label>
-                    <div className="flex items-center cursor-pointer">
-                      <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                        <option>Please Select Class </option>
-                        <option>12</option>
-                        <option>11</option>
-                        <option>10</option>form-control select
-                      </select>
-                      <div class="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
-                        <svg
-                          class="fill-current h-4 w-4"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div class="">
-                    <div class="">
-                      <label>Admission ID </label>
-                      <input
-                        class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
-                        placeholder="Enter Admission ID"
-                      />
-                    </div>
-                  </div>
                   <div class="">
                     <div class="">
                       <label>Phone </label>
@@ -147,14 +113,68 @@ function AddStudent() {
                     </div>
                   </div>
                   <div class="">
-                    <div class="form-group students-up-files">
-                      <label>Upload Student Photo (150px X 150px)</label>
-                      <div class="mt-2">
-                        <label className="border px-6 py-2 mx-auto cursor-pointer bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded inline-flex items-center">
-                          Choose File
-                          <input className="hidden" type="file" />
-                        </label>
-                      </div>
+                    <div class="">
+                      <label>Joining date </label>
+                      <input
+                        class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="DD-MM-YYYY"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <h5 class="text-xl py-4">
+                    <span>Login Details</span>
+                  </h5>
+                </div>
+                <div className="grid grid-cols-3 gap-4 gap-y-8 pb-4">
+                  <div class="col-12 col-sm-4">
+                    <div class="form-group local-forms">
+                      <label>
+                        Username <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Enter Username"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="form-group local-forms">
+                      <label>
+                        Email ID <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Enter Mail Id"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="form-group local-forms">
+                      <label>
+                        Password <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="password"
+                        class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Enter Password"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="form-group local-forms">
+                      <label>
+                        Repeat Password <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="password"
+                        class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Repeat Password"
+                      />
                     </div>
                   </div>
                 </div>
