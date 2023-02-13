@@ -71,10 +71,6 @@ function Header() {
                 <span className="text-xl">Assignments</span>
               </div>
               <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
-                <img src={finance} alt="" className="w-7 mr-2" />
-                <span className="text-xl">Finance</span>
-              </div>
-              <div className="mt-8 align-middle ml-2 flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer">
                 <img src={user} alt="" className="w-8 mr-2" />
                 <span className="text-xl">Account</span>
               </div>

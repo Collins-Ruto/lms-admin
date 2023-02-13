@@ -43,6 +43,10 @@ function AddStudent() {
                         class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         placeholder="Enter First Name"
+                        m-4
+                        bg-slate-900
+                        rounded-xl
+                        p-6
                       />
                     </div>
                   </div>
