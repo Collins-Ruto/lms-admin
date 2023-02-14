@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
+import { getStudents } from "../api/students";
 
 function Students() {
+
+  const [students, setStudents] = useState([])
+
+  console.log("data");
+  useEffect(() => {
+    axios.get("http://localhost:8000/students")
+      .then((res) => {
+        setStudents(JSON.stringify(res.data))
+        console.log("data1",students)
+      })
+  }, []);
+  console.log(students)
   return (
     <div className="">
       <div class="p-4 text-2xl font-semibold">
