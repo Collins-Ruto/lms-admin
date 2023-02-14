@@ -1,5 +1,5 @@
 import { request, gql } from "graphql-request";
-import graphqlAPI from "../config.js";
+import {graphqlAPI} from "../config.js";
 
 export const getFees = async (req, res) => {
   try {
