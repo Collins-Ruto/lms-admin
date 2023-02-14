@@ -1,23 +1,19 @@
 import { request, gql } from "graphql-request";
 import graphqlAPI from "../config.js";
 
-export const getStudents = async (req, res) => {
+export const getSubjects = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        studentsConnection {
+        subjectsConnection {
           edges {
             node {
-              address
-              dateOfBirth
               name
-              parent
-              phone
               slug
-              stream {
-                ... on Stream {
-                  slug
+              teacher {
+                ... on Teacher {
                   name
+                  slug
                 }
               }
             }
@@ -26,9 +22,9 @@ export const getStudents = async (req, res) => {
       }
     `;
 
-    const result = await request(graphqlAPI, query)
+    const result = await request(graphqlAPI, query);
 
-    res.status(200).json(result.studentsConnection.edges);
+    res.status(200).json(result.subjectsConnection.edges);
   } catch (error) {
     console.log(error.message);
   }
