@@ -14,7 +14,9 @@ function Students() {
         console.log("data1",students)
       })
   }, []);
+
   console.log(students)
+  
   return (
     <div className="">
       <div class="p-4 text-2xl font-semibold">

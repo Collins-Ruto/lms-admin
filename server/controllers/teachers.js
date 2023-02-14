@@ -11,11 +11,10 @@ export const getTeachers = async (req, res) => {
               name
               phone
               password
-              userName
-              teacherId
+              slug
               streams {
                 name
-                classId
+                slug
               }
             }
           }
