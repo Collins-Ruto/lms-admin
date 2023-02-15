@@ -70,15 +70,6 @@ export const addStudent = async (req, res) => {
   try {
     const result = await graphQLClient.request(query, req.body);
 
-    // const result = await fetch(graphqlAPI, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "authorization": `Bearer ${GRAPHCMS_TOKEN}`
-    //   },
-    //   body: JSON.stringify(query, req.body),
-    // });
-
     res.status(200).json(result);
   } catch (error) {
     console.log(error.message);
