@@ -6,7 +6,7 @@ function Students() {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/students").then((res) => {
+    axios.get("https://lmsadmin.onrender.com/students").then((res) => {
       setStudents(res.data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,7 +90,7 @@ function Students() {
               </tr>
             </thead>
             <tbody>
-              {/* {students?.map((student, index) => (
+              {students?.map((student, index) => (
                 <tr className="border-3 border-red-700" key={index}>
                   <td className="p-4">{student.node.slug}</td>
                   <td className="p-4">
@@ -112,7 +112,7 @@ function Students() {
                     /></Link>
                   </td>
                 </tr>
-              ))} */}
+              ))}
               <tr>
                 <td className="p-4">PRE2209</td>
                 <td className="p-4">

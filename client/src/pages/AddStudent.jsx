@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const dumyStd = { name: "", email: "", gender: "", parent: "", admid: "", phone: 0, dob: "", slug: "", stream_slug: "" }
+// eslint-disable-next-line no-unused-vars
 const dum2 = {
   name: "Bianca Giroud",
   email: "bianca@gmail.com",
@@ -16,7 +16,7 @@ const dum2 = {
 
 function AddStudent() {
 
-  const [student, setStudent] = useState(dum2);
+  const [student, setStudent] = useState({});
 
   const handleInput = (event) => {
     const target = event.target;
@@ -29,7 +29,8 @@ function AddStudent() {
 
   const handleSubmit = () => {
 
-    axios.post("http://localhost:8000/students", student)
+    axios
+      .post("https://lmsadmin.onrender.com/students", student)
       .then((res) => console.log(res));
   }
 

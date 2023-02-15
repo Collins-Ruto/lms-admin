@@ -1,6 +1,47 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+
+// eslint-disable-next-line no-unused-vars
+const dum2 = {
+  name: "Bianca Giroud",
+  email: "bianca@gmail.com",
+  gender: "Female",
+  parent: "Oliver Giroud",
+  admid: "16",
+  phone: 71272729,
+  dob: "24-6-2002",
+  slug: "16bianca",
+  stream_slug: "2n",
+};
+
 
 function AddTeacher() {
+  const [teacher, setTeacher] = useState({});
+  const [confPass, setConfPass] = useState("")
+
+  const handleInput = (event) => {
+    const target = event.target;
+    // const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "number" ? parseInt(target.value) : target.value;
+    const name = target.name;
+
+    setTeacher({ ...teacher, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    axios
+      .post("https://lmsadmin.onrender.com/teachers", teacher)
+      .then((res) => console.log(res));
+  };
+
+  const handleVerify = (e) => {
+    setConfPass(e.target.value)
+  }
+
+  console.log(teacher);
+  console.log(setConfPass);
+
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">
@@ -25,12 +66,17 @@ function AddTeacher() {
                   <div className="">
                     <div className="">
                       <label>
-                        Name <span className="text-red-500">*</span>
+                        Full Names <span className="text-red-500">*</span>
                       </label>
                       <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.name}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter First Name"
+                        placeholder="Enter Full Names"
+                        name="name"
                       />
                     </div>
                   </div>
@@ -38,9 +84,14 @@ function AddTeacher() {
                     <div className="">
                       <label>Teacher ID </label>
                       <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.tid}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Enter Admission ID"
+                        placeholder="Enter Teacher ID"
+                        name="tid"
                       />
                     </div>
                   </div>
@@ -49,13 +100,20 @@ function AddTeacher() {
                       Gender <span className="text-red-500">*</span>
                     </label>
                     <div className="flex items-center cursor-pointer">
-                      <select className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                      <select
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        name="gender"
+                        value={teacher.gender}
+                        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                      >
                         <option>Select Gender</option>
-                        <option>Female</option>
-                        <option>Male</option>
-                        <option>Others</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Others">Others</option>
                       </select>
-                      <div className="cursor-pointer absolute right-0 flex items-center px-2 text-gray-700">
+                      <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
                         <svg
                           className="fill-current h-4 w-4"
                           xmlns="http://www.w3.org/2000/svg"
@@ -72,19 +130,14 @@ function AddTeacher() {
                         Date Of Birth <span className="text-red-500">*</span>
                       </label>
                       <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.dob}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline datetimepicker"
                         type="text"
                         placeholder="DD-MM-YYYY"
-                      />
-                    </div>
-                  </div>
-                  <div className="">
-                    <div className="">
-                      <label>Qualification </label>
-                      <input
-                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
-                        placeholder="Enter Qualifications"
+                        name="dob"
                       />
                     </div>
                   </div>
@@ -95,30 +148,61 @@ function AddTeacher() {
                         E-Mail <span className="text-red-500">*</span>
                       </label>
                       <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.email}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         placeholder="Enter Email Address"
+                        name="email"
                       />
                     </div>
                   </div>
-
                   <div className="">
                     <div className="">
                       <label>Phone </label>
                       <input
+                        onInput={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.phone}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
+                        type="number"
                         placeholder="Enter Phone Number"
+                        name="phone"
+                      />
+                    </div>
+                  </div>
+                  <div className="">
+                    <div className=" calendar-icon">
+                      <label>
+                        Joining Date <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.jod}
+                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline datetimepicker"
+                        type="text"
+                        placeholder="DD-MM-YYYY"
+                        name="jod"
                       />
                     </div>
                   </div>
                   <div className="">
                     <div className="">
-                      <label>Joining date </label>
-                      <input
+                      <label>Qualification </label>
+                      <textarea
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.quali}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="DD-MM-YYYY"
+                        placeholder="Enter Qualifications"
+                        name="quali"
                       />
                     </div>
                   </div>
@@ -129,27 +213,18 @@ function AddTeacher() {
                   </h5>
                 </div>
                 <div className="grid grid-cols-3 gap-4 gap-y-8 pb-4">
-                  <div className="col-12 col-sm-4">
-                    <div className="form-group local-forms">
-                      <label>
-                        Username <span className="text-red-500">*</span>
-                      </label>
+                  <div className="">
+                    <div className="">
+                      <label>Username </label>
                       <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.slug}
+                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter Username"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-sm-4">
-                    <div className="form-group local-forms">
-                      <label>
-                        Email ID <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter Mail Id"
+                        name="slug"
                       />
                     </div>
                   </div>
@@ -159,6 +234,11 @@ function AddTeacher() {
                         Password <span className="text-red-500">*</span>
                       </label>
                       <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={teacher.password}
+                        name="password"
                         type="password"
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Enter Password"
@@ -171,16 +251,23 @@ function AddTeacher() {
                         Repeat Password <span className="text-red-500">*</span>
                       </label>
                       <input
+                        onChange={(e) => {
+                          handleVerify(e);
+                        }}
+                        value={confPass}
+                        name="password"
                         type="password"
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Repeat Password"
+                        placeholder="Confirm Password"
                       />
+                      {confPass && confPass !== teacher.password && <div className="text-xs text-red-500">passwords do not match</div>}
                     </div>
                   </div>
                 </div>
                 <div className=" mt-4">
                   <div className="">
                     <button
+                      onClick={() => handleSubmit()}
                       type="submit"
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
                     >

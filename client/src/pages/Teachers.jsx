@@ -7,7 +7,7 @@ function Teachers() {
 
   console.log("data");
   useEffect(() => {
-    axios.get("http://localhost:8000/teachers").then((res) => {
+    axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
       setTeachers(JSON.stringify(res.data));
       console.log("data1", teachers);
     });
