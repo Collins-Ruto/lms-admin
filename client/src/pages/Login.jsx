@@ -2,8 +2,8 @@ import React from "react";
 
 function Login() {
   return (
-    <div className="flex align-middle">
-            <div class="flex border items-center mt-[5%] rounded-lg bg-slate-800 mx-auto w-[50rem] ">
+    <div className="h-screen flex justify-center w-full">
+            <div class="flex border m-auto items-center rounded-lg bg-slate-800 w-[50rem] ">
               <div class="login-left">
                 <img
                   class="w-96 cover mx-4"
