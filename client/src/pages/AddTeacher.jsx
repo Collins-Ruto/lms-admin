@@ -8,7 +8,7 @@ function AddTeacher() {
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <div class="m-4 bg-slate-900 rounded-xl p-6">
+          <div class="m-4 bg-[#121212] rounded-xl p-6">
             <div class="card-body">
               <form>
                 <div class="col-12">

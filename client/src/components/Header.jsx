@@ -1,17 +1,16 @@
-import React, {useState} from 'react'
-import user from '../res/user3.png'
-import home from '../res/home.png'
-import finance from '../res/finance.png'
-import calender from '../res/calender.png'
-import exam from '../res/exam.png'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from "react";
+import user from "../res/user3.png";
+import home from "../res/home.png";
+import finance from "../res/finance.png";
+import calender from "../res/calender.png";
+import exam from "../res/exam.png";
+import { NavLink } from "react-router-dom";
 
 function Header() {
-
   const [opened, setOpened] = useState(true);
 
   return (
-    <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-black">
+    <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-[#121212]">
       <div className="p-4">
         <nav className="flex items-center justify-between">
           <div
@@ -33,14 +32,14 @@ function Header() {
         {opened && (
           <div className="">
             {/* <div
-              className="absolute right-0 w-[100%] lg:w-screen md:w-80 p-4 h-screen opacity-40 bg-blend-darken bg-black"
+              className="absolute right-0 w-[100%] lg:w-screen md:w-80 p-4 h-screen opacity-40 bg-blend-darken bg-[#121212]"
               onClick={() => {
                 setOpened(!opened);
               }}
             ></div> */}
             <div
               className="
-                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-black "
+                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-[#121212] "
             >
               <NavLink
                 to="/"
@@ -149,4 +148,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;

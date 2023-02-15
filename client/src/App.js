@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./styles/App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import {
   Students,
   AddStudent,
@@ -16,6 +16,7 @@ import Header from "./components/Header";
 import { Footer } from "./components";
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState({});
   return (
     <div className="App bg-[#212123] min-h-[110vh]">

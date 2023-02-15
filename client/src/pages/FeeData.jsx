@@ -7,12 +7,12 @@ function FeeData() {
       <div class="p-4 text-2xl font-semibold">
         <h3 class="">Fee Details</h3>
       </div>
-      <div class="flex justify-around p-4">
+      <div class="flex justify-between p-4">
         <div class="">
           <div class="">
             <input
               type="text"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Search by ID ..."
             />
           </div>
@@ -21,7 +21,7 @@ function FeeData() {
           <div class="">
             <input
               type="text"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Search by Name ..."
             />
           </div>
@@ -30,7 +30,7 @@ function FeeData() {
           <div class="">
             <input
               type="text"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Search by Phone ..."
             />
           </div>
@@ -46,13 +46,14 @@ function FeeData() {
           </div>
         </div>
         <div class="">
-          <Link to="/addfee"   
+          <Link
+            to="/addfee"
             type="btn"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
           >
             {" "}
             <img
-              src="https://img.icons8.com/ios-glyphs/30/000000/plus-math.png"
+              src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
               className="w-5 mr-1"
               alt=""
             />
@@ -60,7 +61,7 @@ function FeeData() {
           </Link>
         </div>
       </div>
-      <div class="m-4 bg-slate-900 rounded-xl p-6">
+      <div class="m-4 bg-[#121212] rounded-xl p-6">
         <table class="">
           <thead class="">
             <tr>

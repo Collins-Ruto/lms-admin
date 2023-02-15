@@ -23,12 +23,12 @@ function Teachers() {
       </div>
       <div className="">
         <div class="">
-          <div class="flex justify-around p-4">
+          <div class="flex justify-between p-4">
             <div class="">
               <div class="">
                 <input
                   type="text"
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Search by ID ..."
                 />
               </div>
@@ -37,7 +37,7 @@ function Teachers() {
               <div class="">
                 <input
                   type="text"
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Search by Name ..."
                 />
               </div>
@@ -46,7 +46,7 @@ function Teachers() {
               <div class="">
                 <input
                   type="text"
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Search by Phone ..."
                 />
               </div>
@@ -62,13 +62,14 @@ function Teachers() {
               </div>
             </div>
             <div class="">
-              <Link to="/addteacher"
+              <Link
+                to="/addteacher"
                 type="btn"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
               >
                 {" "}
                 <img
-                  src="https://img.icons8.com/ios-glyphs/30/000000/plus-math.png"
+                  src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
                   className="w-5 mr-1"
                   alt=""
                 />
@@ -76,7 +77,7 @@ function Teachers() {
               </Link>
             </div>
           </div>
-          <div className="m-4 bg-slate-900 rounded-xl">
+          <div className="m-4 bg-[#121212] rounded-xl">
             <thead class="">
               <tr>
                 <th className="p-6">ID</th>

@@ -3,8 +3,7 @@ import { Calender } from "../components";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
-
-  const termVvalue = "II"
+  const termVvalue = "II";
 
   const datas = [
     {
@@ -44,7 +43,6 @@ function Dashboard() {
     },
   ];
 
-  
   return (
     <div className="p-6">
       <div class=" text-2xl font-semibold text-gray-300">
@@ -53,7 +51,7 @@ function Dashboard() {
       <div className="flex justify-between py-6">
         {datas.map((data) => (
           <div
-            className="flex  py-4 px-6 gap- w-60 justify-between rounded-lg bg-black"
+            className="flex  py-4 px-6 gap- w-60 justify-between rounded-lg bg-[#121212]"
             key={data.title}
           >
             <div className="flex flex-col rounded-lg">
@@ -67,13 +65,10 @@ function Dashboard() {
         ))}
       </div>
       <div className="grid grid-cols-3">
-        <div className="bg-black p-4">
+        <div className="bg-[#121212] p-4">
           <span className="text-xl">Manage Data</span>
           {editInfo.map((data) => (
-            <div
-              className="flex justify-between mt-4 p-1"
-              key={data.title}
-            >
+            <div className="flex justify-between mt-4 p-1" key={data.title}>
               <span className="text-lg">{data.title}</span>
               <Link
                 to={data.path}
@@ -82,7 +77,7 @@ function Dashboard() {
               >
                 {" "}
                 <img
-                  src="https://img.icons8.com/ios-glyphs/30/000000/plus-math.png"
+                  src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
                   className="w-5 mr-1"
                   alt=""
                 />
