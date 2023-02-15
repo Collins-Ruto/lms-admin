@@ -52,8 +52,8 @@ const meetings = [
     name: 'Michael Foster',
     imageUrl:
       'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-05-13T14:00',
-    endDatetime: '2022-05-13T14:30',
+    startDatetime: '2023-02-13T14:00',
+    endDatetime: '2023-02-13T14:30',
   },
 ]
 
@@ -88,16 +88,16 @@ export default function Calender({full}) {
     console.log("calender", full)
 // ${full ? "" : ""}
   return (
-    <div className={`  border ${full ? "w-full" : "w-96"}`}>
-      <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
+    <div className={` rounded-lg ${full ? "w-full p-4" : "w-96"}`}>
+      <div className="max-w-md mx-auto sm:px-7 md:max-w-4xl">
         <div
-          className={` divide-gray-200 ${
+          className={` divide-gray-200 p-4 bg-black mx-auto ${
             full ? "divide-x md:grid md:grid-cols-2 " : "divide-y"
           }`}
         >
-          <div className="md:pr-14">
+          <div className="mx-auto ">
             <div className="flex items-center">
-              <h2 className="flex-auto font-semibold text-gray-900">
+              <h2 className="flex-auto font-semibold text-gray-400 md:pl-14">
                 {format(firstDayCurrentMonth, "MMMM yyyy")}
               </h2>
               <button
@@ -144,7 +144,7 @@ export default function Calender({full}) {
                       !isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         isSameMonth(day, firstDayCurrentMonth) &&
-                        "text-gray-900",
+                        "text-gray-300",
                       !isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         !isSameMonth(day, firstDayCurrentMonth) &&
@@ -152,8 +152,8 @@ export default function Calender({full}) {
                       isEqual(day, selectedDay) && isToday(day) && "bg-red-500",
                       isEqual(day, selectedDay) &&
                         !isToday(day) &&
-                        "bg-gray-900",
-                      !isEqual(day, selectedDay) && "hover:bg-gray-200",
+                        "bg-green-700",
+                      !isEqual(day, selectedDay) && "hover:bg-gray-900",
                       (isEqual(day, selectedDay) || isToday(day)) &&
                         "font-semibold",
                       "mx-auto flex h-8 w-8 items-center justify-center rounded-full"
@@ -176,7 +176,7 @@ export default function Calender({full}) {
             </div>
           </div>
           <section className="mt-12 md:mt-0 md:pl-14">
-            <h2 className="font-semibold text-gray-900">
+            <h2 className="font-semibold text-gray-400">
               Schedule for{" "}
               <time dateTime={format(selectedDay, "yyyy-MM-dd")}>
                 {format(selectedDay, "MMM dd, yyy")}

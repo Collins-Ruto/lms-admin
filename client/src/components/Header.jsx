@@ -11,7 +11,7 @@ function Header() {
   const [opened, setOpened] = useState(true);
 
   return (
-    <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-white">
+    <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-black">
       <div className="p-4">
         <nav className="flex items-center justify-between">
           <div
@@ -40,7 +40,7 @@ function Header() {
             ></div> */}
             <div
               className="
-                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-white "
+                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-black "
             >
               <NavLink
                 to="/"
@@ -76,7 +76,7 @@ function Header() {
                 <span className="text-xl">Teachers</span>
               </NavLink>
               <NavLink
-                to="/timetables"
+                to="/calender"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
                     isActive ? "bg-gray-500" : ""
