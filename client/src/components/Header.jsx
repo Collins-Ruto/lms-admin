@@ -75,17 +75,6 @@ function Header() {
                 <span className="text-xl">Teachers</span>
               </NavLink>
               <NavLink
-                to="/calender"
-                className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
-                    isActive ? "bg-gray-500" : ""
-                  }`
-                }
-              >
-                <img src={finance} alt="" className="w-7 mr-2" />
-                <span className="text-xl">Timetables</span>
-              </NavLink>
-              <NavLink
                 to="/exam"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${

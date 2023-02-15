@@ -18,54 +18,54 @@ function Teachers() {
 
   return (
     <div className="">
-      <div class="p-4 text-2xl font-semibold">
-        <h3 class="">Teachers</h3>
+      <div className="p-4 text-2xl font-semibold">
+        <h3 className="">Teachers</h3>
       </div>
       <div className="">
-        <div class="">
-          <div class="flex justify-between p-4">
-            <div class="">
-              <div class="">
+        <div className="">
+          <div className="flex justify-between p-4">
+            <div className="">
+              <div className="">
                 <input
                   type="text"
-                  class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Search by ID ..."
                 />
               </div>
             </div>
-            <div class="">
-              <div class="">
+            <div className="">
+              <div className="">
                 <input
                   type="text"
-                  class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Search by Name ..."
                 />
               </div>
             </div>
-            <div class="">
-              <div class="">
+            <div className="">
+              <div className="">
                 <input
                   type="text"
-                  class="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border bg-[#121212] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Search by Phone ..."
                 />
               </div>
             </div>
-            <div class="">
-              <div class="">
+            <div className="">
+              <div className="">
                 <button
                   type="btn"
-                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Search
                 </button>
               </div>
             </div>
-            <div class="">
+            <div className="">
               <Link
                 to="/addteacher"
                 type="btn"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
               >
                 {" "}
                 <img
@@ -78,7 +78,8 @@ function Teachers() {
             </div>
           </div>
           <div className="m-4 bg-[#121212] rounded-xl">
-            <thead class="">
+          <table className=" w-full">
+            <thead className="">
               <tr>
                 <th className="p-6">ID</th>
                 <th className="p-6">Name</th>
@@ -94,7 +95,7 @@ function Teachers() {
               <tr className="border-3 border-red-700">
                 <td className="p-6">PRE2209</td>
                 <td className="p-6">
-                  <h2 class="table-avatar">
+                  <h2 className="table-avatar">
                     <a href="student-details.html">Aaliyah sameer</a>
                   </h2>
                 </td>
@@ -114,7 +115,7 @@ function Teachers() {
               <tr>
                 <td className="p-6">PRE2209</td>
                 <td className="p-6">
-                  <h2 class="table-avatar">
+                  <h2 className="table-avatar">
                     <a href="student-details.html">chuck norris</a>
                   </h2>
                 </td>
@@ -132,7 +133,7 @@ function Teachers() {
                 </td>
               </tr>
             </tbody>
-          </div>
+          </table></div>
         </div>
       </div>
     </div>

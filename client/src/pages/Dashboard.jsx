@@ -45,8 +45,8 @@ function Dashboard() {
 
   return (
     <div className="p-6">
-      <div class=" text-2xl font-semibold text-gray-300">
-        <h3 class="">Admin Dashboard</h3>
+      <div className=" text-2xl font-semibold text-gray-300">
+        <h3 className="">Admin Dashboard</h3>
       </div>
       <div className="flex justify-between py-6">
         {datas.map((data) => (
@@ -73,7 +73,7 @@ function Dashboard() {
               <Link
                 to={data.path}
                 type="btn"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
               >
                 {" "}
                 <img

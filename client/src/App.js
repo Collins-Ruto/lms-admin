@@ -21,7 +21,8 @@ function App() {
   return (
     <div className="App bg-[#212123] min-h-[110vh]">
       {user ? <Header /> : ""}
-      <div className="ml-60">
+      <div className="flex ml-60">
+      <div className="grow">
         <Routes>
           <Route path="/" element={user ? <Dashboard /> : <Login />} />
           <Route path="/students" element={<Students />} />
@@ -32,7 +33,7 @@ function App() {
           <Route path="/addfee" element={<AddFee />} />
           <Route path="/calender" element={<CalenderPage />} />
         </Routes>
-      </div>
+      </div></div>
       <div className="sticky top-[100vh">{user ? <Footer /> : ""}</div>
     </div>
   );

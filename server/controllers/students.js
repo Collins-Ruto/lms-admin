@@ -18,6 +18,7 @@ export const getStudents = async (req, res) => {
               name
               parent
               phone
+              gender
               slug
               stream {
                 ... on Stream {
@@ -40,6 +41,7 @@ export const getStudents = async (req, res) => {
 };
 
 export const addStudent = async (req, res) => {
+  console.log(req.body)
   const query = gql`
     mutation CreateStudent(
       $name: String!
@@ -47,9 +49,10 @@ export const addStudent = async (req, res) => {
       $gender: String
       $parent: String
       $phone: Int
-      $password: String
-      $dateOfBirth: String
+      $dob: String
+      $admid: String
       $slug: String!
+      $stream_slug: String!
     ) {
       createStudent(
         data: {
@@ -58,9 +61,11 @@ export const addStudent = async (req, res) => {
           gender: $gender
           parent: $parent
           phone: $phone
-          password: $password
-          dateOfBirth: $dateOfBirth
+          password: $slug
+          dateOfBirth: $dob
+          admissionId: $admid
           slug: $slug
+          stream: { connect: { Stream: { slug: $stream_slug } } }
         }
       ) {
         id
