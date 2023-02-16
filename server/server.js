@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "https://lms-adm.netlify.app");
+  res.setHeader("Access-Control-Allow-Origin", "https://lms-adm.netlify.app/");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT");
   res.setHeader("Access-Control-Allow-Headers", "X-Token");
   next();
