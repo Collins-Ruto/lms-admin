@@ -24,7 +24,7 @@ function App() {
       <div className="flex ml-60">
       <div className="grow">
         <Routes>
-          <Route path="/" element={user ? <Dashboard /> : <Login />} />
+          <Route exact path="/" element={user ? <Dashboard /> : <Login />} />
           <Route path="/students" element={<Students />} />
           <Route path="/teachers" element={<Teachers />} />
           <Route path="/addstudent" element={<AddStudent />} />

@@ -53,7 +53,7 @@ function Header() {
                 <span className="text-xl">Dashboard</span>
               </NavLink>
               <NavLink
-                to="/Students"
+                to="/students"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center font-semibold text-gray-300 hover:text-gray-400 cursor-pointer ${
                     isActive ? "bg-gray-500" : ""
