@@ -30,12 +30,12 @@ function AddTeacher() {
   };
 
   const handleSubmit = () => {
-    // axios
-    //   .post("https://lmsadmin.onrender.com/teachers", teacher)
-    //   .then((res) => console.log(res));
     axios
-      .post("http://localhost:8000/teachers", teacher)
+      .post("https://lmsadmin.onrender.com/teachers", teacher)
       .then((res) => console.log(res));
+    // axios
+    //   .post("http://localhost:8000/teachers", teacher)
+    //   .then((res) => console.log(res));
   };
 
   const handleVerify = (e) => {

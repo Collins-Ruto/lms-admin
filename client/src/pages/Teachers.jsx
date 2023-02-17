@@ -9,24 +9,26 @@ function Teachers() {
 
   console.log("data");
   useEffect(() => {
-    axios.get("http://localhost:8000/teachers").then((res) => {
-      setTeachers(res.data);
-      setLoading(false);
-    });
-    // axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
+    // axios.get("http://localhost:8000/teachers").then((res) => {
     //   setTeachers(res.data);
     //   setLoading(false);
     // });
+    axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
+      setTeachers(res.data);
+      setLoading(false);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const deleteTeacher = (slug, index) => {
     axios
-      .delete("http://localhost:8000/students", { data: { slug: slug } })
+      .delete("https://lmsadmin.onrender.com/teachers", {
+        data: { slug: slug },
+      })
       .then((res) => {
         console.log("res", res.data);
       });
-    const newStudents = teachers.splice(index, 1);
-    setTeachers(newStudents);
+    const newTeachers = teachers.splice(index, 1);
+    setTeachers(newTeachers);
   };
 
   console.log(teachers);
@@ -117,7 +119,7 @@ function Teachers() {
                       </h2>
                     </td>
                     <td className="p-4">
-                      {teacher.node.email.substring(0, 29)}
+                      {teacher.node.email?.substring(0, 29)}
                     </td>
                     <td className="p-4">{teacher.node.dateOfBirth}</td>
                     <td className="p-4">

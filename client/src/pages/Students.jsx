@@ -20,7 +20,7 @@ function Students() {
   const deleteStudent = (slug, index) => {
 
     axios
-      .delete("http://localhost:8000/students", { data: { slug: slug } })
+      .delete("https://lmsadmin.onrender.com/students", { data: { slug: slug } })
       .then((res) => {
         console.log("res", res.data);
       });
