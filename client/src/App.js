@@ -11,6 +11,7 @@ import {
   Teachers,
   Login,
   CalenderPage,
+  AddLesson,
 } from "./pages";
 import Header from "./components/Header";
 import { Footer } from "./components";
@@ -32,6 +33,7 @@ function App() {
             <Route path="/fee" element={<FeeData />} />
             <Route path="/addfee" element={<AddFee />} />
             <Route path="/calender" element={<CalenderPage />} />
+            <Route path="/addlesson" element={<AddLesson />} />
           </Routes>
         </div>
       </div>

@@ -1,6 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import { DateTime } from "../components";
+import axios from "axios";
+
+const date = DateTime()
+const timeInSec = Math.floor(Date.now() / 1000)
 
 function AddFee() {
+  const [types, setTypes] = useState("invoice")
+
+  const data = { pday: date, slug: `${types.substring(0, 2)}${timeInSec}` };
+  
+  const [fee, setFee] = useState(data);
+
+
+  const handleInput = (event) => {
+    const target = event.target;
+    // const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "number" ? parseInt(target.value) : target.value;
+    const name = target.name;
+
+    (name === "type") ? (
+      setTypes(value) 
+      ) :
+      name === "amount"  && setFee({ ...fee, [types]: `${fee.amount}${.00}` })
+    setFee({ ...fee, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    idGenerator()
+
+    axios
+      .post("https://lmsadmin.onrender.com/fees", fee)
+      .then((res) => console.log(res.message));
+    // axios
+    //   .post("http://localhost:8000/fees", fee)
+    //   .then((res) => console.log(res));
+  };
+
+  const idGenerator = () => {
+    const type = fee.type === "invoice" ? "inv" : "crd"
+    setFee({ ...fee, slug: `${type}${timeInSec}`, [fee.type]:`${fee.amount}${.00}` });
+  }
+
+  console.log(fee)
+
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">
@@ -21,57 +65,99 @@ function AddFee() {
                     </h5>
                   </div>
                   <div className="grid grid-cols-3 gap-4 gap-y-8">
-                    <div
-                      className="
-                    "
-                    >
-                      <div className="form-group local-forms">
+                    <div className="">
+                      <div className="">
                         <label>
-                          Student ID <span className="text-red-500">*</span>
+                          Student Username{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <input
-                          type="text"
+                          onChange={(e) => {
+                            handleInput(e);
+                          }}
+                          value={fee.stdt_slug}
                           className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className="
-                    "
-                    >
-                      <div className="form-group local-forms">
-                        <label>
-                          Student Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
                           type="text"
-                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className="
-                    "
-                    >
-                      <div className="form-group local-forms">
-                        <label>
-                          Class <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Enter Username"
+                          name="stdt_slug"
                         />
                       </div>
                     </div>
                     <div className="">
-                      <div className="form-group local-forms">
+                      <div className="">
                         <label>
-                          Fees Amount <span className="text-red-500">*</span>
+                          Student Name <span className="text-red-500">*</span>
                         </label>
                         <input
-                          type="text"
+                          onChange={(e) => {
+                            handleInput(e);
+                          }}
+                          value={fee.name}
                           className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          type="text"
+                          placeholder="Enter Name"
+                          name="name"
                         />
+                      </div>
+                    </div>
+                    <div className="inline-block relative items-center">
+                      <label>
+                        Term<span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={fee.term}
+                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="Associated Term"
+                        name="term"
+                      />
+                    </div>
+                    <div className="">
+                      <div className="">
+                        <label>
+                          Fee Amount <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          onInput={(e) => {
+                            handleInput(e);
+                          }}
+                          value={fee.amount}
+                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          type="number"
+                          placeholder="Enter amount"
+                          name="amount"
+                        />
+                      </div>
+                    </div>
+                    <div className="inline-block relative items-center">
+                      <label>
+                        Fee Type <span className="text-red-500">*</span>
+                      </label>
+                      <div className="flex items-center cursor-pointer">
+                        <select
+                          onChange={(e) => {
+                            handleInput(e);
+                          }}
+                          name="type"
+                          value={fee.type}
+                          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                        >
+                          <option>Select type</option>
+                          <option value="invoice">invoice</option>
+                          <option value="credit">credit</option>
+                        </select>
+                        <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
+                          <svg
+                            className="fill-current h-4 w-4"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                          </svg>
+                        </div>
                       </div>
                     </div>
                     <div className="">
@@ -80,16 +166,22 @@ function AddFee() {
                           Paid Date <span className="text-red-500">*</span>
                         </label>
                         <input
+                          onChange={(e) => {
+                            handleInput(e);
+                          }}
+                          value={fee.pday}
                           className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline datetimepicker"
                           type="text"
                           placeholder="DD-MM-YYYY"
+                          name="pday"
                         />
                       </div>
                     </div>
                   </div>
-                  <div className="mt-4">
-                    <div className="student-submit">
+                  <div className=" mt-4">
+                    <div className="">
                       <button
+                        onClick={() => handleSubmit()}
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
                       >

@@ -10,8 +10,7 @@ function Teachers() {
   console.log("data");
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
-      setTeachers(JSON.stringify(res.data));
-      console.log("data1", teachers);
+      setTeachers((res.data));
       setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

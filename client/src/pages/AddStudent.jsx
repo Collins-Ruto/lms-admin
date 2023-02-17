@@ -30,7 +30,7 @@ function AddStudent() {
   const handleSubmit = () => {
     axios
       .post("https://lmsadmin.onrender.com/students", student)
-      .then((res) => console.log(res));
+      .then((res) => console.log(res.message));
     // axios
     //   .post("http://localhost:8000/students", student)
     //   .then((res) => console.log(res));

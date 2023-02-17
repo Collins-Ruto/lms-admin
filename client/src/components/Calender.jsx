@@ -6,13 +6,16 @@ import {
   getDay,
   isEqual,
   isSameDay,
+  isSameMinute,
   isSameMonth,
   isToday,
   parse,
   parseISO,
   startOfToday,
 } from "date-fns";
-import { Fragment, useState } from "react";
+import { useEffect, useState } from "react";
+import Datetime from "./DateTime";
+import axios from "axios";
 
 const meetings = [
   {
@@ -20,7 +23,7 @@ const meetings = [
     name: "Leslie Alexander",
     imageUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    startDatetime: "2022-05-11T13:00",
+    startDatetime: Datetime(),
     endDatetime: "2022-05-11T14:30",
   },
   {
@@ -62,31 +65,91 @@ function classNames(...classes) {
 }
 
 export default function Calender({ full }) {
-  let today = startOfToday();
-  let [selectedDay, setSelectedDay] = useState(today);
-  let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
-  let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
+  const today = startOfToday();
+  const [selectedDay, setSelectedDay] = useState(today);
+  const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
+  const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
+  const [lessons, setLessons] = useState([]);
 
-  let days = eachDayOfInterval({
+  useEffect(() => {
+    axios.get("https://lmsadmin.onrender.com/lessons").then((res) => {
+      setLessons(res.data);
+      // setLoading(false);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log("lessons", lessons);
+
+  const days = eachDayOfInterval({
     start: firstDayCurrentMonth,
     end: endOfMonth(firstDayCurrentMonth),
   });
 
   function previousMonth() {
-    let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
+    const firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
   function nextMonth() {
-    let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
+    const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
-  let selectedDayMeetings = meetings.filter((meeting) =>
+  const selectedDayMeetings = meetings.filter((meeting) =>
     isSameDay(parseISO(meeting.startDatetime), selectedDay)
   );
-  console.log("calender", full);
-  // ${full ? "" : ""}
+
+  const inputDate = new Date();
+  // const inputTime = "05:59";
+  // inputDate.setHours(inputTime.split(":")[0]);
+  // inputDate.setMinutes(inputTime.split(":")[1]);
+  const currentTime = new Date();
+
+  const selectedDayLessons = lessons.filter(
+    (lesson) =>
+      format(currentTime, "EEE") ===
+      format(
+        parseISO(
+          format(new Date(), "yyyy-MM-dd") +
+            `T00:00:00.000${lesson.node.day === "Sun" ? "Z" : ""}`
+        ),
+        "EEE"
+      )
+  );
+  lessons.length &&
+    console.log(
+      format(currentTime, "EEE") ===
+        format(
+          parseISO(
+            format(new Date(), "yyyy-MM-dd") +
+              `T00:00:00.000${lessons[0].node.day === "Sun" ? "Z" : ""}`
+          ),
+          "EEE"
+        )
+    );
+
+  // console.log(
+  //   "select",
+  //   format(
+  //     parseISO(
+  //       format(new Date(), "yyyy-MM-dd") +
+  //         `T00:00:00.000${lessons[0].node.day === "Sun" ? "Z" : ""}`
+  //     ),
+  //     "EEE"
+  //   ),
+  //   format(currentTime, "EEE"),
+  //   isSameDay("Fri", "Fri")
+  // );
+  console.log("select", selectedDayLessons);
+
+  if (
+    isSameDay(currentTime, inputDate) &&
+    isSameMinute(currentTime, inputDate)
+  ) {
+    console.log("The current time is the same as the input time");
+  } else {
+    console.log("The current time is different from the input time");
+  }
   return (
     <div className={` rounded-lg ${full ? "w-full p-4" : ""}`}>
       <div className="max-w-md mx-auto sm:px-7 md:max-w-4xl">
@@ -96,33 +159,40 @@ export default function Calender({ full }) {
           }`}
         >
           <div className="mx-auto ">
-            <div className="flex items-center">
-              <h2 className="flex-auto font-semibold text-gray-400 md:pl-14">
-                {format(firstDayCurrentMonth, "MMMM yyyy")}
-              </h2>
+            <div className="flex items-center justify-between">
               <button
                 type="button"
                 onClick={previousMonth}
-                className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                className="-my-1.5 w-10 items-center p-1.5 text-gray-400 hover:text-gray-500"
               >
-                <span className="sr-only">Previous month</span>
+                <img
+                  src="https://img.icons8.com/ios-filled/50/000000/less-than.png"
+                  alt=""
+                />
               </button>
+              <h2 className="text-xl font-semibold text-gray-800 mx-auto">
+                {format(firstDayCurrentMonth, "MMMM yyyy")}
+              </h2>
+
               <button
                 onClick={nextMonth}
                 type="button"
-                className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                className="-my-1.5 w-10 -mr-1.5 ml-2 items-center p-1.5 text-gray-400 hover:text-gray-500"
               >
-                <span className="sr-only">Next month</span>
+                <img
+                  src="https://img.icons8.com/ios-filled/50/000000/more-than.png"
+                  alt=""
+                />
               </button>
             </div>
-            <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
-              <div>S</div>
-              <div>M</div>
-              <div>T</div>
-              <div>W</div>
-              <div>T</div>
-              <div>F</div>
-              <div>S</div>
+            <div className="grid font-semibold grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-700">
+              <div>Sun</div>
+              <div>Mon</div>
+              <div>Tue</div>
+              <div>Wed</div>
+              <div>Thu</div>
+              <div>Fri</div>
+              <div>Sat</div>
             </div>
             <div className="grid grid-cols-7 mt-2 text-sm">
               {days.map((day, dayIdx) => (
@@ -130,7 +200,7 @@ export default function Calender({ full }) {
                   key={day.toString()}
                   className={classNames(
                     dayIdx === 0 && colStartClasses[getDay(day)],
-                    "py-1.5"
+                    "p-2 "
                   )}
                 >
                   <button
@@ -153,10 +223,11 @@ export default function Calender({ full }) {
                       isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         "bg-green-700",
-                      !isEqual(day, selectedDay) && "hover:bg-gray-900",
+                      !isEqual(day, selectedDay) &&
+                        "hover:bg-gray-900 hover:text-white ",
                       (isEqual(day, selectedDay) || isToday(day)) &&
                         "font-semibold",
-                      "mx-auto flex h-8 w-8 items-center justify-center rounded-full"
+                      "mx-auto flex h-8 w-8 text-gray-700 items-center justify-center rounded-full"
                     )}
                   >
                     <time dateTime={format(day, "yyyy-MM-dd")}>
@@ -175,13 +246,23 @@ export default function Calender({ full }) {
               ))}
             </div>
           </div>
-          <section className="mt-12 md:mt-0 md:pl-14">
-            <h2 className="font-semibold text-gray-400">
+          <section className="mt-12 md:mt-0 px-2">
+            <h2 className="font-semibold text-gray-800 text-lg">
               Schedule for{" "}
               <time dateTime={format(selectedDay, "yyyy-MM-dd")}>
                 {format(selectedDay, "MMM dd, yyy")}
               </time>
             </h2>
+
+            <ol className="mt-4 space-y-1 text-sm border-b-2 border-gray-600 leading-6 text-gray-500">
+              {selectedDayLessons.length > 0 ? (
+                selectedDayLessons.map((lesson, index) => (
+                  <Lesson lesson={lesson.node} key={index} />
+                ))
+              ) : (
+                <p>No lessons for today.</p>
+              )}
+            </ol>
             <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
               {selectedDayMeetings.length > 0 ? (
                 selectedDayMeetings.map((meeting) => (
@@ -198,9 +279,46 @@ export default function Calender({ full }) {
   );
 }
 
+function Lesson({ lesson }) {
+  const inputDate = new Date();
+  const inputTime = "05:59";
+  inputDate.setHours(inputTime.split(":")[0]);
+  inputDate.setMinutes(inputTime.split(":")[1]);
+  const currentTime = new Date();
+  if (
+    isSameDay(currentTime, inputDate) &&
+    isSameMinute(currentTime, inputDate)
+  ) {
+    console.log("The current time is the same as the input time");
+  } else {
+    console.log("The current time is different from the input time");
+  }
+
+  return (
+    <div className="flex gap-4 pb-4 divide-x-4 text-gray-700 divide-blue-600 ">
+      <div className="flex flex-col border-r-3">
+        <span className="font-semibold">{lesson.day}</span>
+        <span className="">{lesson.stream.name}</span>
+      </div>
+      <div className="flex pl-2 justify-between grow " >
+        <div className="">
+          <h2 className="text-gray-700 font-semibold text-base">
+            {lesson.subject.name}
+          </h2>
+          <h2 className="">{lesson.teacher.name}</h2>
+        </div>
+        <div className="flex flex-col justify-end">
+          <div className="">{lesson.startTime}</div>
+          <div className="">{lesson.endTime}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Meeting({ meeting }) {
-  let startDateTime = parseISO(meeting.startDatetime);
-  let endDateTime = parseISO(meeting.endDatetime);
+  const startDateTime = parseISO(meeting.startDatetime);
+  const endDateTime = parseISO(meeting.endDatetime);
 
   return (
     <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
@@ -221,62 +339,11 @@ function Meeting({ meeting }) {
           </time>
         </p>
       </div>
-      <div
-        as="div"
-        className="relative opacity-0 focus-within:opacity-100 group-hover:opacity-100"
-      >
-        <div>
-          <div className="-m-2 flex items-center rounded-full p-1.5 text-gray-500 hover:text-gray-600">
-            <span className="sr-only">Open options</span>
-          </div>
-
-          <d
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <div className="absolute right-0 z-10 mt-2 origin-top-right bg-white rounded-md shadow-lg w-36 ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <div className="py-1">
-                <div>
-                  {({ active }) => (
-                    <a
-                      href="rt"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Edit
-                    </a>
-                  )}
-                </div>
-                <div>
-                  {({ active }) => (
-                    <a
-                      href="frew"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Cancel
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </d>
-        </div>
-      </div>
     </li>
   );
 }
 
-let colStartClasses = [
+const colStartClasses = [
   "",
   "col-start-2",
   "col-start-3",

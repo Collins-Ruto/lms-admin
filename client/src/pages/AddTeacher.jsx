@@ -39,7 +39,6 @@ function AddTeacher() {
   };
 
   console.log(teacher);
-  console.log(setConfPass);
 
   return (
     <div>
