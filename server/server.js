@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { classRoutes, examRoutes, feeRoutes, studentsRoutes, subjectRoutes, teachersRoutes } from "./routes/index.js";
+import { examRoutes, feeRoutes, lessonRoutes, studentsRoutes, subjectRoutes, teachersRoutes } from "./routes/index.js";
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/students', studentsRoutes)
-app.use('/class', classRoutes)
+app.use('/lessons', lessonRoutes)
 app.use('/exams', examRoutes)
 app.use('/fees', feeRoutes)
 app.use('/subjects', subjectRoutes)
