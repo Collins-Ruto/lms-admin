@@ -41,6 +41,10 @@ function Dashboard() {
       title: "Fees",
       path: "/addfee",
     },
+    {
+      title: "Lessons",
+      path: "/addlesson",
+    },
   ];
 
   return (

@@ -15,9 +15,12 @@ export const getTeachers = async (req, res) => {
           edges {
             node {
               name
+              email
               phone
               password
               slug
+              dateOfBirth
+              joiningDate
               streams {
                 name
                 slug

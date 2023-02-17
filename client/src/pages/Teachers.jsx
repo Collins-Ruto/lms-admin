@@ -9,12 +9,25 @@ function Teachers() {
 
   console.log("data");
   useEffect(() => {
-    axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
-      setTeachers((res.data));
+    axios.get("http://localhost:8000/teachers").then((res) => {
+      setTeachers(res.data);
       setLoading(false);
     });
+    // axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
+    //   setTeachers(res.data);
+    //   setLoading(false);
+    // });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const deleteTeacher = (slug, index) => {
+    axios
+      .delete("http://localhost:8000/students", { data: { slug: slug } })
+      .then((res) => {
+        console.log("res", res.data);
+      });
+    const newStudents = teachers.splice(index, 1);
+    setTeachers(newStudents);
+  };
 
   console.log(teachers);
 
@@ -84,57 +97,56 @@ function Teachers() {
             <table className=" w-full">
               <thead className="">
                 <tr>
-                  <th className="p-6">ID</th>
-                  <th className="p-6">Name</th>
-                  <th className="p-6">Email</th>
-                  <th className="p-6">DOB</th>
-                  <th className="p-6">Joining Date</th>
-                  <th className="p-6">Mobile Number</th>
-                  <th className="p-6">Address</th>
-                  <th className="p-6">Action</th>
+                  <th className="p-4">ID</th>
+                  <th className="p-4">Name</th>
+                  <th className="p-4">Email</th>
+                  <th className="p-4">DOB</th>
+                  <th className="p-4">Streams</th>
+                  <th className="p-4">Joining Date</th>
+                  <th className="p-4">Mobile Number</th>
+                  <th className="p-4">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-3 border-red-700">
-                  <td className="p-6">PRE2209</td>
-                  <td className="p-6">
-                    <h2 className="table-avatar">
-                      <a href="student-details.html">Aaliyah sameer</a>
-                    </h2>
-                  </td>
-                  <td className="p-6">10 A</td>
-                  <td className="p-6">2 Feb 2002</td>
-                  <td className="p-6">Jeffrey Wong</td>
-                  <td className="p-6">097 3584 5870</td>
-                  <td className="p-6">911 Deer Ridge Drive,USA</td>
-                  <td className="p-6">
-                    <img
-                      src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/00B8FF/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                      alt=""
-                      className="w-8 cursor-pointer"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-6">PRE2209</td>
-                  <td className="p-6">
-                    <h2 className="table-avatar">
-                      <a href="student-details.html">chuck norris</a>
-                    </h2>
-                  </td>
-                  <td className="p-6">10 A</td>
-                  <td className="p-6">2 Feb 2002</td>
-                  <td className="p-6">Jeffrey Wong</td>
-                  <td className="p-6">097 3584 5870</td>
-                  <td className="p-6">911 Deer Ridge Drive,USA</td>
-                  <td className="p-6">
-                    <img
-                      src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/00B8FF/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                      alt=""
-                      className="w-8 cursor-pointer"
-                    />
-                  </td>
-                </tr>
+                {teachers?.map((teacher, index) => (
+                  <tr className="border-3 border-red-700" key={index}>
+                    <td className="p-4">{teacher.node.slug}</td>
+                    <td className="p-4">
+                      <h2 className="table-avatar">
+                        <a href="student-details.html">{teacher.node.name}</a>
+                      </h2>
+                    </td>
+                    <td className="p-4">
+                      {teacher.node.email.substring(0, 29)}
+                    </td>
+                    <td className="p-4">{teacher.node.dateOfBirth}</td>
+                    <td className="p-4">
+                      {teacher.node.streams?.map((stream) => stream.name)}
+                    </td>
+                    <td className="p-4">{teacher.node.joiningDate}</td>
+                    <td className="p-4">{teacher.node.phone}</td>
+                    <td className="p-4 flex gap-2">
+                      <Link to="/addteacher">
+                      <img
+                        src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                        alt=""
+                        className="w-6 cursor-pointer"
+                      />
+                      </Link>
+                      <div
+                        onClick={() => {
+                          deleteTeacher(teacher.node.slug, index);
+                        }}
+                      >
+                        <img
+                          src="https://img.icons8.com/ios-filled/50/000000/waste.png"
+                          alt=""
+                          className="w-6 cursor-pointer"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

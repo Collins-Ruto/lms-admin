@@ -3,19 +3,20 @@ import React, { useState } from "react";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
-  name: "Bianca Giroud",
-  email: "bianca@gmail.com",
-  gender: "Female",
-  parent: "Oliver Giroud",
-  admid: "16",
-  phone: 71272729,
-  dob: "24-6-2002",
-  slug: "16bianca",
-  stream_slug: "2n",
+  name: "Isaac Mayers",
+  tid: "4564",
+  gender: "Male",
+  dob: "23-05-2002",
+  email: "isaac@gmail.com",
+  phone: 213124124,
+  jod: "12-04-2023",
+  quali: "Physics & Geography",
+  slug: "123isaac",
+  password: "123isaac",
 };
 
 function AddTeacher() {
-  const [teacher, setTeacher] = useState({});
+  const [teacher, setTeacher] = useState(dum2);
   const [confPass, setConfPass] = useState("");
 
   const handleInput = (event) => {
@@ -29,8 +30,11 @@ function AddTeacher() {
   };
 
   const handleSubmit = () => {
+    // axios
+    //   .post("https://lmsadmin.onrender.com/teachers", teacher)
+    //   .then((res) => console.log(res));
     axios
-      .post("https://lmsadmin.onrender.com/teachers", teacher)
+      .post("http://localhost:8000/teachers", teacher)
       .then((res) => console.log(res));
   };
 

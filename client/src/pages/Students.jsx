@@ -15,8 +15,19 @@ function Students() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(students[0]);
+ 
 
+  const deleteStudent = (slug, index) => {
+
+    axios
+      .delete("http://localhost:8000/students", { data: { slug: slug } })
+      .then((res) => {
+        console.log("res", res.data);
+      });
+    const newStudents = students.splice(index, 1);
+    setStudents(newStudents);
+  }
+ console.log(students);
   return (
     <div>
       <div className="">
@@ -113,39 +124,19 @@ function Students() {
                           <img
                             src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
                             alt=""
-                            className="w-8 cursor-pointer"
+                            className="w-6 cursor-pointer"
                           />
                         </Link>
-                        <Link to="/addstudent">
+                        <div onClick={() => {deleteStudent(student.node.slug, index);}}>
                           <img
                             src="https://img.icons8.com/ios-filled/50/000000/waste.png"
                             alt=""
-                            className="w-8 cursor-pointer"
+                            className="w-6 cursor-pointer"
                           />
-                        </Link>
+                        </div>
                       </td>
                     </tr>
                   ))}
-                  <tr>
-                    <td className="p-4">PRE2209</td>
-                    <td className="p-4">
-                      <h2 className="table-avatar">
-                        <a href="student-details.html">ivanka grant</a>
-                      </h2>
-                    </td>
-                    <td className="p-4">10 A</td>
-                    <td className="p-4">2 Feb 2002</td>
-                    <td className="p-4">Jeffrey Wong</td>
-                    <td className="p-4">097 3584 5870</td>
-                    <td className="p-4">Female</td>
-                    <td className="p-4">
-                      <img
-                        src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                        alt=""
-                        className="w-8 cursor-pointer"
-                      />
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
