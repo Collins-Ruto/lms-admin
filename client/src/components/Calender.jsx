@@ -298,14 +298,14 @@ function Lesson({ lesson }) {
     <div className="flex gap-4 pb-4 divide-x-4 text-gray-700 divide-blue-600 ">
       <div className="flex flex-col border-r-3">
         <span className="font-semibold">{lesson.day}</span>
-        <span className="">{lesson.stream.name}</span>
+        <span className="">{lesson.stream?.name}</span>
       </div>
       <div className="flex pl-2 justify-between grow " >
         <div className="">
           <h2 className="text-gray-700 font-semibold text-base">
             {lesson.subject.name}
           </h2>
-          <h2 className="">{lesson.teacher.name}</h2>
+          <h2 className="">{lesson.teacher?.name}</h2>
         </div>
         <div className="flex flex-col justify-end">
           <div className="">{lesson.startTime}</div>
