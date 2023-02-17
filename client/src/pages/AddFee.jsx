@@ -6,9 +6,7 @@ const date = DateTime()
 const timeInSec = Math.floor(Date.now() / 1000)
 
 function AddFee() {
-  const [types, setTypes] = useState("invoice")
-
-  const data = { pday: date, slug: `${types.substring(0, 2)}${timeInSec}` };
+  const data = { pday: date };
   
   const [fee, setFee] = useState(data);
 
@@ -17,18 +15,18 @@ function AddFee() {
     const target = event.target;
     // const value = target.type === "checkbox" ? target.checked : target.value;
     const value =
-      target.type === "number" ? parseInt(target.value) : target.value;
+      target.type === "number"
+        ? Number(target.value).toFixed(
+            Math.max(target.value.split(".")[1]?.length, 2) || 2
+          )
+        : target.value;
     const name = target.name;
 
-    (name === "type") ? (
-      setTypes(value) 
-      ) :
-      name === "amount"  && setFee({ ...fee, [types]: `${fee.amount}${.00}` })
-    setFee({ ...fee, [name]: value });
+    setFee({...fee, [name]: value})
+
   };
 
   const handleSubmit = () => {
-    idGenerator()
 
     axios
       .post("https://lmsadmin.onrender.com/fees", fee)
@@ -39,8 +37,9 @@ function AddFee() {
   };
 
   const idGenerator = () => {
-    const type = fee.type === "invoice" ? "inv" : "crd"
-    setFee({ ...fee, slug: `${type}${timeInSec}`, [fee.type]:`${fee.amount}${.00}` });
+    const type = fee.type === "invoice" ? "INV" : "CRD"
+    setFee({ ...fee, slug: `${type}${timeInSec}` });
+    handleSubmit()
   }
 
   console.log(fee)
@@ -180,13 +179,13 @@ function AddFee() {
                   </div>
                   <div className=" mt-4">
                     <div className="">
-                      <button
-                        onClick={() => handleSubmit()}
-                        type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
+                      <div
+                        onClick={() => idGenerator()}
+                        // type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-32 py-2 px-10 rounded"
                       >
                         Submit
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>

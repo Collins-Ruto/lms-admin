@@ -5,29 +5,28 @@ import { Loader } from "../components";
 
 function Students() {
   const [students, setStudents] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/students").then((res) => {
       setStudents(res.data);
-      setLoading(false)
+      setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
- 
-
   const deleteStudent = (slug, index) => {
-
     axios
-      .delete("https://lmsadmin.onrender.com/students", { data: { slug: slug } })
+      .delete("https://lmsadmin.onrender.com/students", {
+        data: { slug: slug },
+      })
       .then((res) => {
         console.log("res", res.data);
       });
-    const newStudents = students.splice(index, 1);
-    setStudents(newStudents);
-  }
- console.log(students);
+    const newStudent = students.filter((student) => student.node.slug !== slug);
+    setStudents(newStudent);
+  };
+  console.log("students", students);
   return (
     <div>
       <div className="">
@@ -127,7 +126,11 @@ function Students() {
                             className="w-6 cursor-pointer"
                           />
                         </Link>
-                        <div onClick={() => {deleteStudent(student.node.slug, index);}}>
+                        <div
+                          onClick={() => {
+                            deleteStudent(student.node.slug, index);
+                          }}
+                        >
                           <img
                             src="https://img.icons8.com/ios-filled/50/000000/waste.png"
                             alt=""

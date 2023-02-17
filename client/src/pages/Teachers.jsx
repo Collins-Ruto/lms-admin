@@ -27,7 +27,7 @@ function Teachers() {
       .then((res) => {
         console.log("res", res.data);
       });
-    const newTeachers = teachers.splice(index, 1);
+    const newTeachers = teachers.filter((teacher) => teacher.node.slug !== slug);
     setTeachers(newTeachers);
   };
 

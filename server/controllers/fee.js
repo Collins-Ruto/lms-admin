@@ -14,7 +14,7 @@ export const getFees = async (req, res) => {
         feesConnection {
           edges {
             node {
-              invoice
+              type
               slug
               credited
               creditDate
@@ -46,18 +46,18 @@ export const addFee = async (req, res) => {
       $name: String!
       $term: String!
       $pday: String
-      $invoice: Float
-      $credit: Float
+      $type: String
       $slug: String!
+      $amount: String
       $stdt_slug: String
     ) {
       createFee(
         data: {
           name: $name
           term: $term
+          amount: $amount
           payday: $pday
-          invoice: $invoice
-          credit: $credit
+          type: $type
           slug: $slug
           student: { connect: { Student: { slug: $stdt_slug } } }
         }
