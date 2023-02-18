@@ -4,7 +4,7 @@ import axios from "axios";
 
 function AddFee() {
   
-  const [fee, setFee] = useState({});
+  const [fee, setFee] = useState({ pday: DateTime() });
 
   const handleInput = (event) => {
     const target = event.target;
@@ -36,7 +36,7 @@ function AddFee() {
     setFee({
       ...fee,
       slug: `${type}${Math.floor(Date.now() / 1000)}`,
-      pday: DateTime(),
+      
     });
     handleSubmit()
   }

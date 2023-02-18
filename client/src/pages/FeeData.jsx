@@ -81,13 +81,13 @@ function FeeData() {
         <table className="w-full">
           <thead className="">
             <tr>
-              <th className="p-6">ID</th>
-              <th className="p-6">Name</th>
-              <th className="p-6">Stream</th>
-              <th className="p-6">Invoiced</th>
-              <th className="p-6">Credited</th>
-              <th className="p-6">Balance</th>
-              <th className="p-6">Paid Date</th>
+              <th className="p-4">ID</th>
+              <th className="p-4">Student</th>
+              <th className="p-4">Stream</th>
+              <th className="p-4">Invoiced</th>
+              <th className="p-4">Credited</th>
+              <th className="p-4">Balance</th>
+              <th className="p-4">Paid Date</th>
               <th className="text-end">Status</th>
             </tr>
           </thead>
@@ -96,27 +96,27 @@ function FeeData() {
               const fee = fees.node
               
               return (
-              <tr>
-                <td className="p-6">{fee.slug}</td>
-                <td className="p-6">
-                  <h2 className=" ">
-                    <span>{fee.name}</span>
-                  </h2>
-                </td>
-                <td className="p-6">{fee.student.stream.name}</td>
-                <td className="p-6">
-                  {fee.type === "invoice" ?  fee.amount: "0.00"}
-                </td>
-                <td className="p-6">
-                  {fee.type === "credit" ? fee.amount: "0.00"}
-                </td>
-                <td className="p-6">10,000</td>
-                <td className="p-6">{fee.payday}</td>
-                <td className="text-end">
-                  <span className="">Arrears</span>
-                </td>
-              </tr>
-            )})}
+                <tr key={index}>
+                  <td className="p-4">{fee.slug}</td>
+                  <td className="p-4">
+                    <h2 className=" ">
+                      <span>{fee.student.name}</span>
+                    </h2>
+                  </td>
+                  <td className="p-4">{fee.student.stream.name}</td>
+                  <td className="p-4">
+                    {fee.type === "invoice" ? fee.amount : "0.00"}
+                  </td>
+                  <td className="p-4">
+                    {fee.type === "credit" ? fee.amount : "0.00"}
+                  </td>
+                  <td className="p-4">{fee.student?.balance}</td>
+                  <td className="p-4">{fee.payday}</td>
+                  <td className="text-end">
+                    <span className="">{parseFloat(fee.student?.balance) > 0 ? "Paid": "Arrears"}</span>
+                  </td>
+                </tr>
+              );})}
           </tbody>
         </table>
       </div>

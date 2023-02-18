@@ -24,6 +24,7 @@ export const getFees = async (req, res) => {
                 ... on Student {
                   name
                   slug
+                  balance
                   stream {
                     ... on Stream {
                       id
