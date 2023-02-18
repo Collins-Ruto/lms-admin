@@ -8,4 +8,6 @@ export { default as Dashboard } from "./Dashboard";
 export { default as Login } from "./Login";
 export { default as CalenderPage } from "./CalenderPage";
 export { default as AddLesson } from "./AddLesson";
+export { default as Exam } from "./Exam";
+export { default as AddExam } from "./AddExam";
 

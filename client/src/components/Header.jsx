@@ -75,7 +75,7 @@ function Header() {
                 <span className="text-lg">Teachers</span>
               </NavLink>
               <NavLink
-                to="/exam"
+                to="/exams"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
                     isActive ? "bg-blue-700 text-white hover:text hover:text-white" : ""

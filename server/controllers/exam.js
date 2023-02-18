@@ -1,5 +1,11 @@
-import { request, gql } from "graphql-request";
-import {graphqlAPI} from "../config.js";
+import { GraphQLClient, request, gql } from "graphql-request";
+import { graphqlAPI, GRAPHCMS_TOKEN } from "../config.js";
+
+const graphQLClient = new GraphQLClient(graphqlAPI, {
+  headers: {
+    authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
+  },
+});
 
 export const getExams = async (req, res) => {
   try {
@@ -8,29 +14,12 @@ export const getExams = async (req, res) => {
         examsConnection {
           edges {
             node {
-              name
-              marks
               examDate
-              term
+              id
+              name
+              results
               slug
-              subjects {
-                ... on Subject {
-                  name
-                  slug
-                }
-              }
-              students {
-                ... on Student {
-                  name
-                  slug
-                }
-              }
-              teachers {
-                ... on Teacher {
-                  name
-                  slug
-                }
-              }
+              term
             }
           }
         }
@@ -40,6 +29,56 @@ export const getExams = async (req, res) => {
     const result = await request(graphqlAPI, query);
 
     res.status(200).json(result.examsConnection.edges);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+// TODO remove s in addExams
+export const addExams = async (req, res) => {
+  console.log(req.body);
+  const query = gql`
+    mutation CreateExam(
+      $name: String!
+      $examDate: String
+      $term: String
+      $slug: String!
+      $results: Json
+    ) {
+      createExam(
+        data: {
+          name: $name
+          examDate: $examDate
+          term: $term
+          slug: $slug
+          results: $results
+        }
+      ) {
+        id
+      }
+    }
+  `;
+  try {
+    const result = await graphQLClient.request(query, req.body);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const addExam = async (req, res) => {
+  console.log(req.body);
+  const query = gql`
+    mutation CreateExam($data: ExamCreateInput!) {
+      createExam(data: $data) {
+        id
+      }
+    }
+  `;
+  try {
+    const result = await graphQLClient.request(query, req.body);
+
+    return res.status(200).json(result);
   } catch (error) {
     console.log(error.message);
   }

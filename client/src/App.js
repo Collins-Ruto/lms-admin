@@ -12,6 +12,8 @@ import {
   Login,
   CalenderPage,
   AddLesson,
+  AddExam,
+  Exam,
 } from "./pages";
 import Header from "./components/Header";
 import { Footer } from "./components";
@@ -34,6 +36,8 @@ function App() {
             <Route path="/addfee" element={<AddFee />} />
             <Route path="/calender" element={<CalenderPage />} />
             <Route path="/addlesson" element={<AddLesson />} />
+            <Route path="/exams" element={<Exam />} />
+            <Route path="/addExam" element={<AddExam />} />
           </Routes>
         </div>
       </div>

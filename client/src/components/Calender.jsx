@@ -74,11 +74,9 @@ export default function Calender({ full }) {
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/lessons").then((res) => {
       setLessons(res.data);
-      // setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("lessons", lessons);
 
   const days = eachDayOfInterval({
     start: firstDayCurrentMonth,
@@ -99,57 +97,15 @@ export default function Calender({ full }) {
     isSameDay(parseISO(meeting.startDatetime), selectedDay)
   );
 
-  const inputDate = new Date();
-  // const inputTime = "05:59";
-  // inputDate.setHours(inputTime.split(":")[0]);
-  // inputDate.setMinutes(inputTime.split(":")[1]);
   const currentTime = new Date();
 
   const selectedDayLessons = lessons.filter(
-    (lesson) =>
-      format(currentTime, "EEE") ===
-      format(
-        parseISO(
-          format(new Date(), "yyyy-MM-dd") +
-            `T00:00:00.000${lesson.node.day === "Sun" ? "Z" : ""}`
-        ),
-        "EEE"
-      )
+    (lesson) => format(selectedDay, "EEE") === lesson.node.day
   );
+
   lessons.length &&
-    console.log(
-      format(currentTime, "EEE") ===
-        format(
-          parseISO(
-            format(new Date(), "yyyy-MM-dd") +
-              `T00:00:00.000${lessons[0].node.day === "Sun" ? "Z" : ""}`
-          ),
-          "EEE"
-        )
-    );
-
-  // console.log(
-  //   "select",
-  //   format(
-  //     parseISO(
-  //       format(new Date(), "yyyy-MM-dd") +
-  //         `T00:00:00.000${lessons[0].node.day === "Sun" ? "Z" : ""}`
-  //     ),
-  //     "EEE"
-  //   ),
-  //   format(currentTime, "EEE"),
-  //   isSameDay("Fri", "Fri")
-  // );
-  console.log("select", selectedDayLessons);
-
-  if (
-    isSameDay(currentTime, inputDate) &&
-    isSameMinute(currentTime, inputDate)
-  ) {
-    console.log("The current time is the same as the input time");
-  } else {
-    console.log("The current time is different from the input time");
-  }
+    console.log(format(currentTime, "EEE") === "Sat");
+    
   return (
     <div className={` rounded-lg ${full ? "w-full p-4" : ""}`}>
       <div className="max-w-md mx-auto sm:px-7 md:max-w-4xl">
@@ -238,9 +194,12 @@ export default function Calender({ full }) {
                   <div className="w-1 h-1 mx-auto mt-1">
                     {meetings.some((meeting) =>
                       isSameDay(parseISO(meeting.startDatetime), day)
-                    ) && (
-                      <div className="w-1 h-1 rounded-full bg-sky-500"></div>
-                    )}
+                    ) ||
+                      (lessons.some((lesson) =>
+                        (lesson.node.day) === format(day, "EEE")
+                      ) && (
+                        <div className="w-1 h-1 rounded-full bg-sky-500"></div>
+                      ))}
                   </div>
                 </div>
               ))}

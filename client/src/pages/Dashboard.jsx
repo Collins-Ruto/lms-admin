@@ -45,6 +45,10 @@ function Dashboard() {
       title: "Lessons",
       path: "/addlesson",
     },
+    {
+      title: "Exams",
+      path: "/addexam",
+    },
   ];
 
   return (
