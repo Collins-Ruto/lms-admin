@@ -14,15 +14,23 @@ export const getFees = async (req, res) => {
         feesConnection {
           edges {
             node {
+              name
               type
               slug
-              credited
-              creditDate
+              term
+              payday
+              amount
               student {
                 ... on Student {
                   name
                   slug
-                  stream
+                  stream {
+                    ... on Stream {
+                      id
+                      name
+                      slug
+                    }
+                  }
                 }
               }
             }
@@ -68,9 +76,82 @@ export const addFee = async (req, res) => {
   `;
   try {
     const result = await graphQLClient.request(query, req.body);
+    computeFee(req.body);
 
     res.status(200).json(result);
   } catch (error) {
     console.log(error.message);
   }
 };
+
+export const getStudentFees = async (slug) => {
+  console.log(slug);
+  try {
+    const query = gql`
+      query MyQuery($slug: String!) {
+        studentsConnection(where: { slug: $slug }) {
+          edges {
+            node {
+              fees {
+                amount
+                payday
+                type
+                term
+                slug
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, { slug: slug });
+
+    return result.studentsConnection.edges;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const computeFee = async (feeData) => {
+  console.log("feeData", feeData);
+  const studentData = await getStudentFees(feeData.stdt_slug);
+  console.log("studentData", studentData);
+  let invoice = 0;
+  let credit = 0;
+
+  studentData && studentData[0].node.fees.forEach((fee) => {
+    fee.type === "invoice" ? (invoice += parseFloat(fee.amount)) : (credit += parseFloat(fee.amount));
+  });
+
+  feeData && feeData.type === "invoice"
+    ? (invoice += parseFloat(feeData.amount))
+    : (credit += parseFloat(feeData.amount));
+  
+  const balance = (invoice - credit).toString()
+
+  console.log(invoice, "credit", credit, "balance", balance)
+  const data = { balance: balance, slug: feeData.stdt_slug };
+  
+  updateStudentFee(data)
+};
+
+export const updateStudentFee = async (data) => {
+  const query = gql`
+    mutation MyMutation($slug: String!, $balance: String!) {
+      updateStudent(data: { balance: $balance }, where: { slug: $slug })
+      {
+        balance
+        slug
+      }
+    }
+  `;
+   try {
+     const result = await graphQLClient.request(query, data)
+       .then((data) => console.log(data));
+
+     
+   } catch (error) {
+     console.log(error.message);
+   }
+}

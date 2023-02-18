@@ -1,12 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Loader } from "../components";
 
 function FeeData() {
+  const [fees, setFees] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get("https://lmsadmin.onrender.com/fees").then((res) => {
+      setFees(res.data);
+      setLoading(false);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log("fees", fees)
+
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">
         <h3 className="">Fee Details</h3>
       </div>
+      {loading && <Loader />}
       <div className="flex justify-between p-4">
         <div className="">
           <div className="">
@@ -67,53 +83,40 @@ function FeeData() {
             <tr>
               <th className="p-6">ID</th>
               <th className="p-6">Name</th>
-              <th className="p-6">Class</th>
-              <th className="p-6">Invoice</th>
-              <th className="p-6">Amount Paid</th>
+              <th className="p-6">Stream</th>
+              <th className="p-6">Invoiced</th>
+              <th className="p-6">Credited</th>
               <th className="p-6">Balance</th>
               <th className="p-6">Paid Date</th>
               <th className="text-end">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="p-6">PRE2209</td>
-              <td className="p-6">
-                <h2
-                  className="
-                "
-                >
-                  <span>Aaliyah prince</span>
-                </h2>
-              </td>
-              <td className="p-6">4 North</td>
-              <td className="p-6">34,000</td>
-              <td className="p-6">24,000</td>
-              <td className="p-6">10,000</td>
-              <td className="p-6">17 Aug 2020</td>
-              <td className="text-end">
-                <span className="">Arrears</span>
-              </td>
-            </tr>
-            <tr>
-              <td className="p-6">PRE2209</td>
-              <td className="p-6">
-                <h2
-                  className="
-                "
-                >
-                  <span>James furgerson</span>
-                </h2>
-              </td>
-              <td className="p-6">4 east</td>
-              <td className="p-6">34,000</td>
-              <td className="p-6">40,000</td>
-              <td className="p-6"> -4,000</td>
-              <td className="p-6">20 Sep 2020</td>
-              <td className="text-end">
-                <span className="">Paid</span>
-              </td>
-            </tr>
+            {fees?.map((fees, index) => {
+              const fee = fees.node
+              
+              return (
+              <tr>
+                <td className="p-6">{fee.slug}</td>
+                <td className="p-6">
+                  <h2 className=" ">
+                    <span>{fee.name}</span>
+                  </h2>
+                </td>
+                <td className="p-6">{fee.student.stream.name}</td>
+                <td className="p-6">
+                  {fee.type === "invoice" ?  fee.amount: "0.00"}
+                </td>
+                <td className="p-6">
+                  {fee.type === "credit" ? fee.amount: "0.00"}
+                </td>
+                <td className="p-6">10,000</td>
+                <td className="p-6">{fee.payday}</td>
+                <td className="text-end">
+                  <span className="">Arrears</span>
+                </td>
+              </tr>
+            )})}
           </tbody>
         </table>
       </div>

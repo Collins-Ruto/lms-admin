@@ -222,7 +222,7 @@ function AddTeacher() {
                         onChange={(e) => {
                           handleInput(e);
                         }}
-                        value={teacher.slug}
+                        value={teacher.slug?.toLowerCase()}
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         placeholder="Enter Username"

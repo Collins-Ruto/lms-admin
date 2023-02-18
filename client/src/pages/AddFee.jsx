@@ -2,14 +2,9 @@ import React, { useState } from "react";
 import { DateTime } from "../components";
 import axios from "axios";
 
-const date = DateTime()
-const timeInSec = Math.floor(Date.now() / 1000)
-
 function AddFee() {
-  const data = { pday: date };
   
-  const [fee, setFee] = useState(data);
-
+  const [fee, setFee] = useState({});
 
   const handleInput = (event) => {
     const target = event.target;
@@ -38,7 +33,11 @@ function AddFee() {
 
   const idGenerator = () => {
     const type = fee.type === "invoice" ? "INV" : "CRD"
-    setFee({ ...fee, slug: `${type}${timeInSec}` });
+    setFee({
+      ...fee,
+      slug: `${type}${Math.floor(Date.now() / 1000)}`,
+      pday: DateTime(),
+    });
     handleSubmit()
   }
 
