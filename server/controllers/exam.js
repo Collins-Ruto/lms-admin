@@ -20,6 +20,12 @@ export const getExams = async (req, res) => {
               results
               slug
               term
+              student {
+                ... on Student {
+                  name
+                  slug
+                }
+              }
             }
           }
         }

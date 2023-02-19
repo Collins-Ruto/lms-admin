@@ -5,8 +5,8 @@ import { DateTime, Loader } from "../components";
 const result = {
   examDate: "10-03-2020",
   name: "End Term 1",
-  results: JSON.stringify({ English: 80, Chemistry: 76 }),
-  slug: "endterm1",
+  results: JSON.stringify({}),
+  slug: "282021i",
   term: "2021 I",
 };
 
@@ -46,9 +46,6 @@ function AddExam() {
   };
 
   const handleSubmit = () => {
-      axios
-        .post("https://lmsadmin.onrender.com/exams", exam)
-        .then((res) => console.log(res.message));
     axios
       .post("https://lmsadmin.onrender.com/exams", { data: exam })
       .then((res) => console.log(res));

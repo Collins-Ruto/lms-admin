@@ -6,10 +6,15 @@ import { Loader } from "../components";
 function Exam() {
   const [exam, setExam] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/exams").then((res) => {
       setExam(res.data);
+    });
+
+    axios.get("https://lmsadmin.onrender.com/subjects").then((res) => {
+      setSubjects(res.data.subjects);
       setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,42 +87,36 @@ function Exam() {
             <div className="m-4 bg-[#F7F6FB] rounded-xl">
               <table className=" w-full">
                 <thead className="">
-                  <tr>
-                    <th className="p-4">ID</th>
-                    <th className="p-4">Name</th>
-                    <th className="p-4">Stream</th>
-                    <th className="p-4">DOB</th>
-                    <th className="p-4">Parent Name</th>
-                    <th className="p-4">Mobile Number</th>
-                    <th className="p-4">Gender</th>
-                    <th className="p-4">Action</th>
+                  <tr className="text-lg p-4">
+                    <th className="p-4">Exam</th>
+                    <th className="p-4">Student</th>
+                    <th className="p-4">Term</th>
+                    <th className="p-4">Date</th>
+                    {subjects.map((subject, index) => (
+                      <th className="p-4" key={index}>
+                        {subject.slug}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {exam?.map((exam, index) => (
-                    <tr className="border-3 border-red-700" key={index}>
-                      <td className="p-4">{exam.node.slug}</td>
-                      <td className="p-4">
-                        <h2 className="table-avatar">
-                          <a href="student-details.html">{exam.node.name}</a>
-                        </h2>
-                      </td>
-                      <td className="p-4">{exam?.node.stream?.name}</td>
-                      <td className="p-4">{exam.node.dateOfBirth}</td>
-                      <td className="p-4">{exam.node.parent}</td>
-                      <td className="p-4">{exam.node.phone}</td>
-                      <td className="p-4">{exam.node.gender}</td>
-                      <td className="p-4 flex gap-2">
-                        <Link to="/addexam">
-                          <img
-                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                            alt=""
-                            className="w-6 cursor-pointer"
-                          />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))} */}
+                  {exam.length &&
+                    exam.map((data, index) => {
+                      const exam = data.node;
+                      return (
+                        <tr className="border-3 border-red-700" key={index}>
+                          <td className="p-4">{exam.name}</td>
+                          <td className="p-4">{exam.student?.name}</td>
+                          <td className="p-4">{exam?.term}</td>
+                          <td className="p-4">{exam.examDate}</td>
+                          {subjects.map((subject) => (
+                            <td className="p-4">
+                              {exam.results[subject.slug] || "-"}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
