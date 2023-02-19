@@ -34,39 +34,35 @@ export const getExams = async (req, res) => {
   }
 };
 
-// TODO remove s in addExams
-export const addExams = async (req, res) => {
-  console.log(req.body);
-  const query = gql`
-    mutation CreateExam(
-      $name: String!
-      $examDate: String
-      $term: String
-      $slug: String!
-      $results: Json
-    ) {
-      createExam(
-        data: {
-          name: $name
-          examDate: $examDate
-          term: $term
-          slug: $slug
-          results: $results
-        }
-      ) {
-        id
-      }
-    }
-  `;
+export const getStudent = async (req, res) => {
+  console.log(req.query);
   try {
-    const result = await graphQLClient.request(query, req.body);
+    const query = gql`
+      query MyQuery($admissionId: String!) {
+        student(where: { admissionId: $admissionId }) {
+          name
+          slug
+          stream {
+            ... on Stream {
+              name
+            }
+          }
+        }
+      }
+    `;
 
-    return res.status(200).json(result);
+    const result = await request(graphqlAPI, query, req.query);
+
+    res.status(200).json(result);
   } catch (error) {
     console.log(error.message);
   }
 };
-export const addExam = async (req, res) => {
+
+
+
+
+export const addExams = async (req, res) => {
   console.log(req.body);
   const query = gql`
     mutation CreateExam($data: ExamCreateInput!) {

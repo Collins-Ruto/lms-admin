@@ -1,9 +1,10 @@
 import express from "express";
-import { addExams, getExams } from "../controllers/exam.js";
+import { addExams, getExams, getStudent } from "../controllers/exam.js";
 
 const router = express.Router();
 
-router.get("/", getExams);
 router.post("/", addExams);
+router.get("/", getExams);
+router.get("/student", getStudent);
 
 export default router;

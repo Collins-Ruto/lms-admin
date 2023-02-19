@@ -8,7 +8,7 @@ function Exam() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/exams").then((res) => {
+    axios.get("https://lmsadmin.onrender.com/exams").then((res) => {
       setExam(res.data);
       setLoading(false);
     });

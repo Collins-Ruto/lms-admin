@@ -90,7 +90,7 @@ function Students() {
                 </Link>
               </div>
             </div>
-            <div className="m-4 bg-[#F7F6FB] rounded-xl">
+            <div className="m-4 bg-[#F7F6FB] rounded-xl p-4">
               <table className=" w-full">
                 <thead className="">
                   <tr>
@@ -106,7 +106,10 @@ function Students() {
                 </thead>
                 <tbody>
                   {students?.map((student, index) => (
-                    <tr className="border-3 border-red-700" key={index}>
+                    <tr
+                      className={` p-4 ${index % 2 === 0 && "bg-white"}`}
+                      key={index}
+                    >
                       <td className="p-4">{student.node.slug}</td>
                       <td className="p-4">
                         <h2 className="table-avatar">

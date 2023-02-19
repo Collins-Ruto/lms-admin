@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  height: 100%;
+}
 .App {
   color: black;
 }
