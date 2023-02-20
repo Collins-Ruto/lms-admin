@@ -84,7 +84,7 @@ function Exam() {
                 </Link>
               </div>
             </div>
-            <div className="m-4 bg-[#F7F6FB] rounded-xl">
+            <div className="m-4 bg-[#F7F6FB] rounded-xl p-4">
               <table className=" w-full">
                 <thead className="">
                   <tr className="text-lg p-4">
@@ -104,7 +104,10 @@ function Exam() {
                     exam.map((data, index) => {
                       const exam = data.node;
                       return (
-                        <tr className="border-3 border-red-700" key={index}>
+                        <tr
+                          className={` p-4 ${index % 2 === 0 && "bg-white"}`}
+                          key={index}
+                        >
                           <td className="p-4">{exam.name}</td>
                           <td className="p-4">{exam.student?.name}</td>
                           <td className="p-4">{exam?.term}</td>

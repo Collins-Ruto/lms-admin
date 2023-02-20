@@ -36,16 +36,16 @@ function Teachers() {
 
   const ConfirmDel = () => {
     return (
-      <div className="w-full absolute ">
+      <div className="w-full absolute h-screen">
         <div
-          className="absolute right-0 w-[100%] lg:w-screen p-4 h-screen opacity-40 bg-blend-darken bg-[#979799]"
+          className="fixed right-0 w-[100%] lg:w-screen p-4 h-full opacity-40 bg-blend-darken bg-[#979799]"
           onClick={() => {
             setisDelete(!isDelete);
           }}
         ></div>
         <div
           className="
-                flex flex-col mx-auto absolute right-[40%] pt-[10%] h-screen opacity-100 bg-blend-darken "
+                flex flex-col mx-auto fixed left-[45%] pt-[10%] h-screen opacity-100 bg-blend-darken "
         >
           <div className="text-center bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative">
             <img
@@ -94,7 +94,7 @@ function Teachers() {
                     deleteTeacher();
                     setSubmit(true);
                   }}
-                  className=" w-full md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm "
+                  className="hover:bg-red-400 hover:text-white w-full md:w-auto px-4 py-3 md:py-2 bg-red-600 text-white rounded-lg font-semibold text-sm "
                 >
                   Yes, confirm delete
                 </button>
@@ -171,7 +171,7 @@ function Teachers() {
               </Link>
             </div>
           </div>
-          <div className="m-4 bg-[#F7F6FB] rounded-xl">
+          <div className="m-4 bg-[#F7F6FB] rounded-xl p-4">
             <table className=" w-full">
               <thead className="">
                 <tr>
@@ -187,7 +187,10 @@ function Teachers() {
               </thead>
               <tbody>
                 {teachers?.map((teacher, index) => (
-                  <tr className="border-3 border-red-700" key={index}>
+                  <tr
+                    className={` p-4 ${index % 2 === 0 && "bg-white"}`}
+                    key={index}
+                  >
                     <td className="p-4">{teacher.node.slug}</td>
                     <td className="p-4">
                       <h2 className="table-avatar">

@@ -35,16 +35,16 @@ function Students() {
 
   const ConfirmDel = () => {
     return (
-      <div className="w-full absolute ">
+      <div className="w-full absolute h-screen">
         <div
-          className="absolute right-0 w-[100%] lg:w-screen p-4 h-screen opacity-40 bg-blend-darken bg-[#979799]"
+          className="fixed right-0 w-[100%] lg:w-screen p-4 h-full opacity-40 bg-blend-darken bg-[#979799]"
           onClick={() => {
             setisDelete(!isDelete);
           }}
         ></div>
         <div
           className="
-                flex flex-col mx-auto absolute right-[40%] pt-[10%] h-screen opacity-100 bg-blend-darken "
+                flex flex-col fixed left-[45%] pt-[10%] h-screen opacity-100 bg-blend-darken "
         >
           <div className="text-center bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative">
             <img
@@ -93,7 +93,7 @@ function Students() {
                     deleteStudent();
                     setSubmit(true);
                   }}
-                  className=" w-full md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm "
+                  className="hover:bg-red-400 hover:text-white w-full md:w-auto px-4 py-3 md:py-2 bg-red-600 text-white rounded-lg font-semibold text-sm "
                 >
                   Yes, confirm delete
                 </button>
