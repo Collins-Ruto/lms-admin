@@ -7,8 +7,8 @@ function Students() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDelete, setisDelete] = useState(false);
-    const [submit, setSubmit] = useState(false);
-  const [delStudent, setDelStudent] = useState("")
+  const [submit, setSubmit] = useState(false);
+  const [delStudent, setDelStudent] = useState("");
 
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/students").then((res) => {
@@ -25,9 +25,11 @@ function Students() {
       })
       .then((res) => {
         console.log("res", res.data);
-    setisDelete(false)
+        setisDelete(false);
       });
-    const newStudent = students.filter((student) => student.node.slug !== delStudent);
+    const newStudent = students.filter(
+      (student) => student.node.slug !== delStudent
+    );
     setStudents(newStudent);
   };
 
@@ -44,7 +46,7 @@ function Students() {
           className="
                 flex flex-col mx-auto absolute right-[40%] pt-[10%] h-screen opacity-100 bg-blend-darken "
         >
-          <div class="text-center bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative">
+          <div className="text-center bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative">
             <img
               onClick={() => {
                 setisDelete(false);
@@ -53,10 +55,10 @@ function Students() {
               src="https://img.icons8.com/color/48/000000/delete-sign--v1.png"
               alt=""
             />
-            <div class="md:flex md:flex-col items-center">
-              <div class="mt-4 md:mt-0 md:ml-6 text-center ">
-                <p class="font-bold text-xl">Confirm Student Deletion</p>
-                <p class="text-base text-gray-600 my-2">
+            <div className="md:flex md:flex-col items-center">
+              <div className="mt-4 md:mt-0 md:ml-6 text-center ">
+                <p className="font-bold text-xl">Confirm student deletion</p>
+                <p className="text-base text-gray-600 my-2">
                   Are you sure you want to delete this student from the school
                   platform?
                 </p>
@@ -74,12 +76,12 @@ function Students() {
                 permanently deleted.
               </div>
             </div>
-            <div class="text-center text-white flex justify-around mt-4 md:flex md:px-8">
+            <div className="text-center text-white flex justify-around mt-4 md:flex md:px-8">
               <button
                 onClick={() => {
                   setisDelete(false);
                 }}
-                class="block hover:bg-gray-400 w-full md:w-auto px-4 py-2 bg-gray-500 rounded-lg font-semibold text-sm mt-4 md:mt-0"
+                className="block hover:bg-gray-400 w-full md:w-auto px-4 py-2 bg-gray-500 rounded-lg font-semibold text-sm mt-4 md:mt-0"
               >
                 Cancel
               </button>
@@ -88,10 +90,10 @@ function Students() {
               ) : (
                 <button
                   onClick={() => {
-                      deleteStudent();
-                      setSubmit(true);
+                    deleteStudent();
+                    setSubmit(true);
                   }}
-                  class=" w-full md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm "
+                  className=" w-full md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm "
                 >
                   Yes, confirm delete
                 </button>

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Loader } from "../components";
+import { Button, Loader } from "../components";
 
 function Teachers() {
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isDelete, setisDelete] = useState(false);
+  const [submit, setSubmit] = useState(false);
+  const [delTeacher, setDelTeacher] = useState("");
 
   console.log("data");
   useEffect(() => {
@@ -22,19 +25,92 @@ function Teachers() {
   const deleteTeacher = (slug, index) => {
     axios
       .delete("https://lmsadmin.onrender.com/teachers", {
-        data: { slug: slug },
+        data: { slug: delTeacher },
       })
       .then((res) => {
         console.log("res", res.data);
       });
-    const newTeachers = teachers.filter((teacher) => teacher.node.slug !== slug);
+    const newTeachers = teachers.filter((teacher) => teacher.node.slug !== delTeacher);
     setTeachers(newTeachers);
+  };
+
+  const ConfirmDel = () => {
+    return (
+      <div className="w-full absolute ">
+        <div
+          className="absolute right-0 w-[100%] lg:w-screen p-4 h-screen opacity-40 bg-blend-darken bg-[#979799]"
+          onClick={() => {
+            setisDelete(!isDelete);
+          }}
+        ></div>
+        <div
+          className="
+                flex flex-col mx-auto absolute right-[40%] pt-[10%] h-screen opacity-100 bg-blend-darken "
+        >
+          <div className="text-center bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative">
+            <img
+              onClick={() => {
+                setisDelete(false);
+              }}
+              className="w-8 cursor-pointer hover:bg-gray-200 p-1 rounded absolute right-2 top-2"
+              src="https://img.icons8.com/color/48/000000/delete-sign--v1.png"
+              alt=""
+            />
+            <div className="md:flex md:flex-col items-center">
+              <div className="mt-4 md:mt-0 md:ml-6 text-center ">
+                <p className="font-bold text-xl">Confirm teacher deletion</p>
+                <p className="text-base text-gray-600 my-2">
+                  Are you sure you want to delete this teacher from the school
+                  platform?
+                </p>
+              </div>
+              <div className="text-orange-500 text-start rounded-xl bg-[#F7F6FB] p-2">
+                <div className="flex text-orange-600">
+                  <img
+                    className="w-6 mr-1"
+                    src="https://img.icons8.com/ios-glyphs/30/EE640C/error--v2.png"
+                    alt=""
+                  />
+                  Warning
+                </div>
+                By deleting this teacher all associated data will also be
+                permanently deleted.
+              </div>
+            </div>
+            <div className="text-center text-white flex justify-around mt-4 md:flex md:px-8">
+              <button
+                onClick={() => {
+                  setisDelete(false);
+                }}
+                className="block hover:bg-gray-400 w-full md:w-auto px-4 py-2 bg-gray-500 rounded-lg font-semibold text-sm mt-4 md:mt-0"
+              >
+                Cancel
+              </button>
+              {submit ? (
+                <Button />
+              ) : (
+                <button
+                  onClick={() => {
+                    deleteTeacher();
+                    setSubmit(true);
+                  }}
+                  className=" w-full md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm "
+                >
+                  Yes, confirm delete
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   console.log(teachers);
 
   return (
     <div className="">
+      {isDelete && <ConfirmDel />}
       <div className="p-4 text-2xl font-semibold">
         <h3 className="">Teachers</h3>
       </div>
@@ -129,15 +205,16 @@ function Teachers() {
                     <td className="p-4">{teacher.node.phone}</td>
                     <td className="p-4 flex gap-2">
                       <Link to="/addteacher">
-                      <img
-                        src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                        alt=""
-                        className="w-6 cursor-pointer"
-                      />
+                        <img
+                          src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                          alt=""
+                          className="w-6 cursor-pointer"
+                        />
                       </Link>
                       <div
                         onClick={() => {
-                          deleteTeacher(teacher.node.slug, index);
+                          setisDelete(true);
+                          setDelTeacher(teacher.node.slug);
                         }}
                       >
                         <img
