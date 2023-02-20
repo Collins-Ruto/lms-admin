@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Button } from "../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -16,6 +17,7 @@ const dum2 = {
 
 function AddLesson() {
   const [lesson, setLesson] = useState({});
+  const [submit, setSubmit] = useState(false);
 
   const handleInput = (event) => {
     const target = event.target;
@@ -28,12 +30,14 @@ function AddLesson() {
   };
 
   const handleSubmit = () => {
+    setSubmit(true);
     // axios
     //   .post("https://lmsadmin.onrender.com/lessons", lesson)
     //   .then((res) => console.log(res.message));
-    axios
-      .post("https://lmsadmin.onrender.com/lessons", lesson)
-      .then((res) => console.log(res));
+    axios.post("https://lmsadmin.onrender.com/lessons", lesson).then((res) => {
+      console.log(res);
+      setSubmit(false);
+    });
   };
 
   console.log(lesson);
@@ -127,8 +131,7 @@ function AddLesson() {
                   <div className="">
                     <div className=" calendar-icon">
                       <label>
-                        Start Time {" "}
-                        <span className="text-red-500">*</span>
+                        Start Time <span className="text-red-500">*</span>
                       </label>
                       <input
                         onChange={(e) => {
@@ -145,7 +148,7 @@ function AddLesson() {
                   <div className="">
                     <div className=" calendar-icon">
                       <label>
-                        End Time {" "}<span className="text-red-500">*</span>
+                        End Time <span className="text-red-500">*</span>
                       </label>
                       <input
                         onChange={(e) => {
@@ -162,9 +165,7 @@ function AddLesson() {
 
                   <div className="">
                     <div className="">
-                      <label>
-                        Attendance List
-                      </label>
+                      <label>Attendance List</label>
                       <textarea
                         onChange={(e) => {
                           handleInput(e);
@@ -180,13 +181,17 @@ function AddLesson() {
                 </div>
                 <div className=" mt-4">
                   <div className="">
-                    <button
-                      onClick={() => handleSubmit()}
-                      type="submit"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
-                    >
-                      Submit
-                    </button>
+                    {submit ? (
+                      <Button />
+                    ) : (
+                      <button
+                        onClick={() => handleSubmit()}
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
+                      >
+                        Submit
+                      </button>
+                    )}
                   </div>
                 </div>
               </form>

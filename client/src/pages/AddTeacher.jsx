@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Button } from "../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -18,6 +19,7 @@ const dum2 = {
 function AddTeacher() {
   const [teacher, setTeacher] = useState(dum2);
   const [confPass, setConfPass] = useState("");
+  const [submit, setSubmit] = useState(false);
 
   const handleInput = (event) => {
     const target = event.target;
@@ -30,12 +32,15 @@ function AddTeacher() {
   };
 
   const handleSubmit = () => {
+    setSubmit(true);
     axios
       .post("https://lmsadmin.onrender.com/teachers", teacher)
-      .then((res) => console.log(res));
+      .then((res) => {console.log(res)
+      setSubmit(false)});
     // axios
     //   .post("http://localhost:8000/teachers", teacher)
-    //   .then((res) => console.log(res));
+    //   .then((res) => {console.log(res)
+  // setSubmit(false)});
   };
 
   const handleVerify = (e) => {
@@ -272,13 +277,17 @@ function AddTeacher() {
                 </div>
                 <div className=" mt-4">
                   <div className="">
-                    <button
-                      onClick={() => handleSubmit()}
-                      type="submit"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
-                    >
-                      Submit
-                    </button>
+                    {submit ? (
+                      <Button />
+                    ) : (
+                      <button
+                        onClick={() => handleSubmit()}
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
+                      >
+                        Submit
+                      </button>
+                    )}
                   </div>
                 </div>
               </form>

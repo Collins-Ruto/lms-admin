@@ -1,21 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { DateTime, Loader } from "../components";
+import { Button, DateTime, Loader } from "../components";
 
-const result = {
+const data = {
   examDate: "10-03-2020",
-  name: "End Term 1",
   results: JSON.stringify({}),
-  slug: "282021i",
-  term: "2021 I",
 };
 
 function AddExam() {
-  const [exam, setExam] = useState(result);
+  const [exam, setExam] = useState(data);
   const [admid, setAdmid] = useState("");
   const [student, setStudent] = useState({});
   const [subjects, setSubjects] = useState([]);
-  const [loading, setLoading] = useState(true);  
+  const [loading, setLoading] = useState(true);
+  const [submit, setSubmit] = useState(false)
   
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/subjects").then((res) => {
@@ -36,6 +34,7 @@ function AddExam() {
   };
 
   const handleResult = (event) => {
+    
     const target = event.target;
     // const value = target.type === "checkbox" ? target.checked : target.value;
     const value =
@@ -46,20 +45,28 @@ function AddExam() {
   };
 
   const handleSubmit = () => {
+    setSubmit(true)
     axios
       .post("https://lmsadmin.onrender.com/exams", { data: exam })
-      .then((res) => console.log(res));
+      .then((res) => {
+        res.status === 200 && setExam(data);
+        console.log(res);
+        setSubmit(false);
+      });
   };
 
   const getStudent = () => {
+    setSubmit(true)
     axios
       .get(`https://lmsadmin.onrender.com/exams/student?admissionId=${admid}`)
       .then((res) => {
         setStudent(res.data.student);
+        console.log("student", student)
         setExam({
           ...exam,
           student: { connect: { Student: { slug: res.data.student.slug } } },
         });
+        setSubmit(false)
       });
     
   };
@@ -86,13 +93,17 @@ function AddExam() {
           </div>
           <div className="">
             <div className="">
-              <button
-                onClick={() => getStudent()}
-                type="btn"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Search
-              </button>
+              {submit ? (
+                <Button />
+              ) : (
+                <button
+                  onClick={() => getStudent()}
+                  type="btn"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Search
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -124,7 +135,7 @@ function AddExam() {
               value={exam.name}
               className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder="Enter Name"
+              placeholder="eg: End Term 1"
               name="name"
             />
           </div>
@@ -154,7 +165,7 @@ function AddExam() {
               value={exam.slug}
               className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder="eg: 2021I26"
+              placeholder="eg: 282021i"
               name="slug"
             />
           </div>
@@ -194,17 +205,21 @@ function AddExam() {
             })}
           </tbody>
         </table>
-      <div className=" mt-8">
-        <div className="">
-          <button
-            onClick={() => handleSubmit()}
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
-          >
-            Submit
-          </button>
+        <div className=" mt-8">
+          <div className="">
+            {submit ? (
+              <Button />
+            ) : (
+              <button
+                onClick={() => handleSubmit()}
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
+              >
+                Submit
+              </button>
+            )}
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );

@@ -1,8 +1,20 @@
-import React from "react";
-import { Calender } from "../components";
+import React, { useEffect, useState } from "react";
+import { Calender, Loader } from "../components";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Dashboard() {
+
+  const [data, setData] = useState({})
+  const [loading, setLoading] = useState(true);
+  
+  //localhost:8000
+  useEffect(() => {
+    axios.get("https://lmsadmin.onrender.com/data").then((res) => {
+      setData(res.data);
+      setLoading(false);
+    });
+  }, []);
   const termVvalue = "II";
 
   const datas = [
@@ -12,18 +24,18 @@ function Dashboard() {
       url: "https://preschool.dreamguystech.com/template/assets/img/icons/teacher-icon-03.svg",
     },
     {
-      title: "Fee Arreas",
-      value: "200,000",
+      title: "Subjects offered",
+      value: data.subjects || "...",
       url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
     },
     {
       title: "Students",
-      value: "890",
+      value: data.students || "...",
       url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
     },
     {
       title: "Teachers",
-      value: "42",
+      value: data.teachers || "...",
       url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
     },
   ];
@@ -51,11 +63,14 @@ function Dashboard() {
     },
   ];
 
+  console.log(data);
+
   return (
     <div className="p-6">
       <div className=" text-2xl font-semibold text-gray-300">
         <h3 className="">Admin Dashboard</h3>
       </div>
+      {loading && <Loader />}
       <div className="flex justify-between py-6">
         {datas.map((data) => (
           <div

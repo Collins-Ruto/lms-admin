@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Button } from "../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -16,6 +17,7 @@ const dum2 = {
 
 function AddStudent() {
   const [student, setStudent] = useState({});
+  const [submit, setSubmit] = useState(false);
 
   const handleInput = (event) => {
     const target = event.target;
@@ -28,9 +30,13 @@ function AddStudent() {
   };
 
   const handleSubmit = () => {
+    setSubmit(true);
     axios
       .post("https://lmsadmin.onrender.com/students", student)
-      .then((res) => console.log(res.message));
+      .then((res) => {
+        console.log(res.message);
+        setSubmit(false);
+      });
     // axios
     //   .post("http://localhost:8000/students", student)
     //   .then((res) => console.log(res));
@@ -231,13 +237,17 @@ function AddStudent() {
                 </div>
                 <div className=" mt-4">
                   <div className="">
-                    <button
-                      onClick={() => handleSubmit()}
-                      type="submit"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
-                    >
-                      Submit
-                    </button>
+                    {submit ? (
+                      <Button />
+                    ) : (
+                      <button
+                        onClick={() => handleSubmit()}
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
+                      >
+                        Submit
+                      </button>
+                    )}
                   </div>
                 </div>
               </form>

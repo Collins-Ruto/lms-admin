@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { DateTime } from "../components";
+import { Button, DateTime } from "../components";
 import axios from "axios";
 
 function AddFee() {
-  
   const [fee, setFee] = useState({ pday: DateTime() });
+  const [submit, setSubmit] = useState(false);
 
   const handleInput = (event) => {
     const target = event.target;
@@ -17,31 +17,30 @@ function AddFee() {
         : target.value;
     const name = target.name;
 
-    setFee({...fee, [name]: value})
-
+    setFee({ ...fee, [name]: value });
   };
 
   const handleSubmit = () => {
-
-    axios
-      .post("https://lmsadmin.onrender.com/fees", fee)
-      .then((res) => console.log(res.message));
+    setSubmit(true);
+    axios.post("https://lmsadmin.onrender.com/fees", fee).then((res) => {
+      console.log(res.message);
+      setSubmit(false);
+    });
     // axios
     //   .post("http://localhost:8000/fees", fee)
     //   .then((res) => console.log(res));
   };
 
   const idGenerator = () => {
-    const type = fee.type === "invoice" ? "INV" : "CRD"
+    const type = fee.type === "invoice" ? "INV" : "CRD";
     setFee({
       ...fee,
       slug: `${type}${Math.floor(Date.now() / 1000)}`,
-      
     });
-    handleSubmit()
-  }
+    handleSubmit();
+  };
 
-  console.log(fee)
+  console.log(fee);
 
   return (
     <div>
@@ -178,13 +177,17 @@ function AddFee() {
                   </div>
                   <div className=" mt-4">
                     <div className="">
-                      <div
-                        onClick={() => idGenerator()}
-                        // type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-32 py-2 px-10 rounded"
-                      >
-                        Submit
-                      </div>
+                      {submit ? (
+                        <Button />
+                      ) : (
+                        <div
+                          onClick={() => idGenerator()}
+                          // type="submit"
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-32 py-2 px-10 rounded"
+                        >
+                          Submit
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
