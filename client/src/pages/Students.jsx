@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Loader } from "../components";
+import { Button, Loader } from "../components";
 
 function Students() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isDelete, setisDelete] = useState(false);
+    const [submit, setSubmit] = useState(false);
+  const [delStudent, setDelStudent] = useState("")
 
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/students").then((res) => {
@@ -15,21 +18,96 @@ function Students() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deleteStudent = (slug, index) => {
+  const deleteStudent = () => {
     axios
       .delete("https://lmsadmin.onrender.com/students", {
-        data: { slug: slug },
+        data: { slug: delStudent },
       })
       .then((res) => {
         console.log("res", res.data);
+    setisDelete(false)
       });
-    const newStudent = students.filter((student) => student.node.slug !== slug);
+    const newStudent = students.filter((student) => student.node.slug !== delStudent);
     setStudents(newStudent);
   };
+
+  const ConfirmDel = () => {
+    return (
+      <div className="w-full absolute ">
+        <div
+          className="absolute right-0 w-[100%] lg:w-screen p-4 h-screen opacity-40 bg-blend-darken bg-[#979799]"
+          onClick={() => {
+            setisDelete(!isDelete);
+          }}
+        ></div>
+        <div
+          className="
+                flex flex-col mx-auto absolute right-[40%] pt-[10%] h-screen opacity-100 bg-blend-darken "
+        >
+          <div class="text-center bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative">
+            <img
+              onClick={() => {
+                setisDelete(false);
+              }}
+              className="w-8 cursor-pointer hover:bg-gray-200 p-1 rounded absolute right-2 top-2"
+              src="https://img.icons8.com/color/48/000000/delete-sign--v1.png"
+              alt=""
+            />
+            <div class="md:flex md:flex-col items-center">
+              <div class="mt-4 md:mt-0 md:ml-6 text-center ">
+                <p class="font-bold text-xl">Confirm Student Deletion</p>
+                <p class="text-base text-gray-600 my-2">
+                  Are you sure you want to delete this student from the school
+                  platform?
+                </p>
+              </div>
+              <div className="text-orange-500 text-start rounded-xl bg-[#F7F6FB] p-2">
+                <div className="flex text-orange-600">
+                  <img
+                    className="w-6 mr-1"
+                    src="https://img.icons8.com/ios-glyphs/30/EE640C/error--v2.png"
+                    alt=""
+                  />
+                  Warning
+                </div>
+                By deleting this student all associated data will also be
+                permanently deleted.
+              </div>
+            </div>
+            <div class="text-center text-white flex justify-around mt-4 md:flex md:px-8">
+              <button
+                onClick={() => {
+                  setisDelete(false);
+                }}
+                class="block hover:bg-gray-400 w-full md:w-auto px-4 py-2 bg-gray-500 rounded-lg font-semibold text-sm mt-4 md:mt-0"
+              >
+                Cancel
+              </button>
+              {submit ? (
+                <Button />
+              ) : (
+                <button
+                  onClick={() => {
+                      deleteStudent();
+                      setSubmit(true);
+                  }}
+                  class=" w-full md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm "
+                >
+                  Yes, confirm delete
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   console.log("students", students);
   return (
     <div>
       <div className="">
+        {isDelete && <ConfirmDel />}
         <div className="p-4 text-2xl font-semibold">
           <h3 className="">Students</h3>
         </div>
@@ -131,7 +209,8 @@ function Students() {
                         </Link>
                         <div
                           onClick={() => {
-                            deleteStudent(student.node.slug, index);
+                            setisDelete(true);
+                            setDelStudent(student.node.slug);
                           }}
                         >
                           <img
