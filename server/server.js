@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { examRoutes, feeRoutes, lessonRoutes, studentsRoutes, subjectRoutes, teachersRoutes } from "./routes/index.js";
+import { dataRoutes, examRoutes, feeRoutes, lessonRoutes, studentsRoutes, subjectRoutes, teachersRoutes } from "./routes/index.js";
 
 const app = express();
 
@@ -25,6 +25,7 @@ app.use('/exams', examRoutes)
 app.use('/fees', feeRoutes)
 app.use('/subjects', subjectRoutes)
 app.use('/teachers', teachersRoutes)
+app.use('/data', dataRoutes)
 
 app.listen(port, () => console.log(`🚀 Running on port ${port}`));
 

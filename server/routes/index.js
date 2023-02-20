@@ -4,3 +4,4 @@ export { default as lessonRoutes } from "./lesson.js";
 export { default as examRoutes } from "./exam.js";
 export { default as subjectRoutes } from "./subjects.js";
 export { default as feeRoutes } from "./fee.js";
+export { default as dataRoutes } from "./data.js";
