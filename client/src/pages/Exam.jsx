@@ -93,7 +93,7 @@ function Exam() {
                     <th className="p-4">Term</th>
                     <th className="p-4">Date</th>
                     {subjects.map((subject, index) => (
-                      <th className="p-4" key={index}>
+                      <th className="p-4 border-x-2" key={index}>
                         {subject.slug}
                       </th>
                     ))}
@@ -113,7 +113,7 @@ function Exam() {
                           <td className="p-4">{exam?.term}</td>
                           <td className="p-4">{exam.examDate}</td>
                           {subjects.map((subject) => (
-                            <td className="p-4">
+                            <td className="p-4 border-x-2">
                               {exam.results[subject.slug] || "-"}
                             </td>
                           ))}

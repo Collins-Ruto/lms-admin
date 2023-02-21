@@ -36,7 +36,7 @@ function Teachers() {
 
   const ConfirmDel = () => {
     return (
-      <div className="w-full absolute h-screen">
+      <div className="w-full absolute h-screen z-20">
         <div
           className="fixed right-0 w-[100%] lg:w-screen p-4 h-full opacity-40 bg-blend-darken bg-[#979799]"
           onClick={() => {

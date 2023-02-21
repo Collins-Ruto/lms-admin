@@ -1,6 +1,39 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { Button } from "../components";
 
-function Login() {
+function Login({ setLogin }) {
+  const [user, setUser] = useState({});
+  const [submit, setSubmit] = useState(false);
+   const [isChecked, setIsChecked] = useState(false);
+
+  const handleInput = (event) => {
+    const target = event.target;
+    // const value = target.type === "checkbox" ? target.checked : target.value;
+    const value =
+      target.type === "number" ? parseInt(target.value) : target.value;
+    const name = target.name;
+
+    target.type === "checkbox" && setIsChecked(!isChecked);
+
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    setSubmit(true);
+
+    axios
+      .get(`http://localhost:8000/user/${user.group}?userName=${user.userName}`)
+      .then((res) => {
+        setLogin(res.data);
+        console.log("user", res.data);
+        setSubmit(false);
+      });
+  };
+
+  console.log(user);
+  console.log(isChecked);
+
   return (
     <div className="h-screen flex justify-center w-full">
       <div className="flex border m-auto items-center rounded-lg bg-slate-800 w-[50rem] ">
@@ -11,19 +44,53 @@ function Login() {
             alt="Logo"
           />
         </div>
-        <div className="mx-0">
-          <h1 className="text-2xl font-semibold mb-2">Welcome to</h1>
-          <h2 className="text-xl">Sign in</h2>
+        <div className="mx-0 p-4">
+          <h1 className="text-2xl font-semibold mb-4">Welcome to Ace Accademy</h1>
 
           <form action="index.html" className="mt-4">
+            <div className="relative items-center">
+              <label>
+                Log in as <span className="text-red-500">*</span>
+              </label>
+              <div className="flex items-center cursor-pointer">
+                <select
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
+                  name="group"
+                  value={user.group}
+                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                >
+                  <option>Select group</option>
+                  <option value="students">student</option>
+                  <option value="teachers">teacher</option>
+                  <option value="admins">adminstrator</option>
+                </select>
+                <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
             <div className="mb-4">
               <label>
-                Username <span className="text-red-500">*</span>
+                userName <span className="text-red-500">*</span>
               </label>
               <div className="flex relative items-center cursor-pointer">
                 <input
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
+                  name="userName"
+                  value={user.userName}
                   className="block shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
+                  placeholder="eg: 01john"
                 />
                 <div className="cursor-pointer right-0 absolute px-2 text-gray-700">
                   <img
@@ -39,6 +106,12 @@ function Login() {
                 Password <span className="text-red-500">*</span>
               </label>
               <input
+                onChange={(e) => {
+                  handleInput(e);
+                }}
+                checked={isChecked}
+                name="password"
+                value={user.password}
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pass-input"
                 type="password"
               />
@@ -48,6 +121,10 @@ function Login() {
                 <label>
                   {" "}
                   <input
+                    onChange={(e) => {
+                      handleInput(e);
+                    }}
+                    value={user.radio}
                     className="mr-2 w-4 h-4"
                     type="checkbox"
                     name="radio"
@@ -57,12 +134,17 @@ function Login() {
               </div>
             </div>
             <div className="my-4">
-              <button
-                className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded"
-                type="submit"
-              >
-                Login
-              </button>
+              {submit ? (
+                <Button />
+              ) : (
+                <button
+                  onClick={() => handleSubmit()}
+                  className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded"
+                  type="submit"
+                >
+                  Login
+                </button>
+              )}
             </div>
           </form>
         </div>
