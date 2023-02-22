@@ -32,6 +32,12 @@ export const getStudent = async (req, res) => {
 
     console.log(validPass);
 
+    const token = jwt.sign({ user_id: result.student.slug }, TOKEN_KEY, {
+      expiresIn: "2h",
+    });
+
+    result.student.token = token;
+
     res.status(200).json(validPass ? result : false);
   } catch (error) {
     console.log(error.message);
@@ -92,6 +98,12 @@ export const getAdmin = async (req, res) => {
     result.admin && delete result.admin.password;
 
     console.log(validPass);
+
+    const token = jwt.sign({ user_id: result.admin.slug }, TOKEN_KEY, {
+      expiresIn: "2h",
+    });
+
+    result.admin.token = token;
 
     res.status(200).json(validPass ? result : false);
   } catch (error) {

@@ -37,14 +37,14 @@ function Header({ user }) {
             <div className="w-8 h-1 bg-blue-600"></div>
           </div>
           <div>
-            <div class="relative inline-block text-left">
+            <div className="relative inline-block text-left">
               <div>
                 <div
                   onClick={() => {
                     setDropdown(!dropdown);
                   }}
                   type="button"
-                  class="inline-flex cursor-pointer py-1 items-center w-full justify-center bg-[#F7F6FB] px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:border-2 focus:border-gray-500"
+                  className="inline-flex cursor-pointer py-1 items-center w-full justify-center bg-[#F7F6FB] px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:border-2 focus:border-gray-500"
                   aria-expanded="true"
                   aria-haspopup="true"
                 >
@@ -56,7 +56,7 @@ function Header({ user }) {
                     </span>
                   </div>
                   <svg
-                    class="-mr-1 ml-2 h-5 w-5"
+                    className="-mr-1 ml-2 h-5 w-5"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     aria-hidden="true"
@@ -72,19 +72,19 @@ function Header({ user }) {
 
               {dropdown && (
                 <div
-                  class="absolute right-0 px-1 z-10 -mt-1 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute right-0 px-1 z-10 -mt-1 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="menu-button"
                   tabindex="-1"
                 >
-                  <div class="py-1" role="none">
+                  <div className="py-1" role="none">
                     <Link
                       onClick={() => {
                         setDropdown(false);
                       }}
                       to="/account"
-                      class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
+                      className="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                       tabindex="-1"
                     >
                       Account
@@ -94,7 +94,7 @@ function Header({ user }) {
                         logOut();
                         setDropdown(false);
                       }}
-                      class="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
+                      className="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                       tabindex="-1"
                     >
                       Log Out
