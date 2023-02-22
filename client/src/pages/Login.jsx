@@ -25,10 +25,16 @@ function Login({ setLogin }) {
     setSubmit(true);
 
     axios
-      .get(`http://localhost:8000/user/${user.group}?userName=${user.userName}`)
+      .get(
+        `https://lmsadmin.onrender.com/user/${user.group}?userName=${user.userName}`
+      )
       .then((res) => {
         setLogin({ ...res.data[user.group], type: user.group });
-        isChecked && localStorage.setItem("user", JSON.stringify({...res.data[user.group], type: user.group}));
+        isChecked &&
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ ...res.data[user.group], type: user.group })
+          );
         localStorage.setItem("saved", JSON.stringify(isChecked));
         console.log("user", res.data[user.group]);
         setSubmit(false);
