@@ -33,14 +33,14 @@ function AddTeacher() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    // axios
-    //   .post("https://lmsadmin.onrender.com/teachers", teacher)
-    //   .then((res) => {console.log(res)
-    //   setSubmit(false)});
     axios
-      .post("http://localhost:8000/teachers", teacher)
+      .post("https://lmsadmin.onrender.com/teachers", teacher)
       .then((res) => {console.log(res)
-  setSubmit(false)});
+      setSubmit(false)});
+  //   axios
+  //     .post("https://lmsadmin.onrender.com/teachers", teacher)
+  //     .then((res) => {console.log(res)
+  // setSubmit(false)});
   };
 
   const handleVerify = (e) => {

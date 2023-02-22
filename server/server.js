@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import auth from "./middleware/auth.js";
+// import auth from "./middleware/auth.js";
 import { dataRoutes, examRoutes, feeRoutes, lessonRoutes, studentsRoutes, subjectRoutes, teachersRoutes, userRoutes } from "./routes/index.js";
 
 const app = express();
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/user', userRoutes)
-app.use(auth)
+// app.use(auth)
 app.use('/students', studentsRoutes)
 app.use('/lessons', lessonRoutes)
 app.use('/exams', examRoutes)

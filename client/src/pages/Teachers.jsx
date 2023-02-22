@@ -13,7 +13,7 @@ function Teachers() {
   useEffect(() => {
     // axios.get("http://localhost:8000/teachers").then((res) => {
     //   setTeachers(res.data);
-    //   console.log(res)
+    //   console.log(res.status)
     //   setLoading(false);
     // });
     axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
@@ -29,6 +29,7 @@ function Teachers() {
       })
       .then((res) => {
         console.log("res", res.data);
+        setisDelete(false);
       });
     const newTeachers = teachers.filter((teacher) => teacher.node.slug !== delTeacher);
     setTeachers(newTeachers);

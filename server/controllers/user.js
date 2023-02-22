@@ -1,14 +1,8 @@
-import { GraphQLClient, request, gql } from "graphql-request";
-import { graphqlAPI, GRAPHCMS_TOKEN } from "../config.js";
+import { request, gql } from "graphql-request";
+import { graphqlAPI } from "../config.js";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { TOKEN_KEY } from "../config.js";
-
-const graphQLClient = new GraphQLClient(graphqlAPI, {
-  headers: {
-    authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
-  },
-});
 
 export const getStudent = async (req, res) => {
   console.log(req.body);
@@ -65,10 +59,7 @@ export const getTeacher = async (req, res) => {
 
     const token = jwt.sign(
       { user_id: result.teacher.slug },
-      TOKEN_KEY,
-      {
-        expiresIn: "2h",
-      }
+      TOKEN_KEY
     );
 
     result.teacher.token = token
