@@ -20,7 +20,6 @@ function Exam() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("exam", exam);
   return (
     <div>
       <div className="">
@@ -112,13 +111,13 @@ function Exam() {
                           <td className="p-4">{exam.student?.name}</td>
                           <td className="p-4">{exam?.term}</td>
                           <td className="p-4">{exam.examDate}</td>
-                          {subjects.map((subject) => (
-                            <td className="p-4 border-x-2">
+                          {subjects.map((subject, index) => (
+                            <td className="p-4 border-x-2" key={index}>
                               {exam.results[subject.slug] || "-"}
                             </td>
                           ))}
                         </tr>
-                      );
+                      )
                     })}
                 </tbody>
               </table>

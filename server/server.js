@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import auth from "./middleware/auth.js";
 import { dataRoutes, examRoutes, feeRoutes, lessonRoutes, studentsRoutes, subjectRoutes, teachersRoutes, userRoutes } from "./routes/index.js";
 
 const app = express();
@@ -19,6 +20,8 @@ app.use((req, res, next) => {
   next();
 })
 
+app.use('/user', userRoutes)
+app.use(auth)
 app.use('/students', studentsRoutes)
 app.use('/lessons', lessonRoutes)
 app.use('/exams', examRoutes)
@@ -26,7 +29,6 @@ app.use('/fees', feeRoutes)
 app.use('/subjects', subjectRoutes)
 app.use('/teachers', teachersRoutes)
 app.use('/data', dataRoutes)
-app.use('/user', userRoutes)
 
 app.listen(port, () => console.log(`🚀 Running on port ${port}`));
 

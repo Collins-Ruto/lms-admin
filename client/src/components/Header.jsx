@@ -1,24 +1,26 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import userImg from "../res/user3.png";
 import home from "../res/home.png";
 import finance from "../res/finance.png";
 import calender from "../res/calender.png";
 import exam from "../res/exam.png";
 import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
 
-function Header({user}) {
+function Header({ user }) {
   const [opened, setOpened] = useState(true);
   const [dropdown, setDropdown] = useState(false);
   // const [user, setUser] = useState(user);
 
-  const logOut = () => { 
+  const logOut = () => {
     localStorage.setItem("saved", JSON.stringify(false));
-    localStorage.removeItem('user')
+    localStorage.removeItem("user");
+    delete axios.defaults.headers.common["Authorization"];
     window.location.reload(true);
   };
-  
-  console.log("header user", user)
-  console.log("header user", Object.keys(user))
+
+  console.log("header user", user);
+  console.log("header user", Object.keys(user));
 
   return (
     <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-[#F7F6FB]">
@@ -49,7 +51,9 @@ function Header({user}) {
                   <img src={userImg} alt="" className="text-xl w-10 mr-2" />
                   <div className="flex flex-col ">
                     <span className="text-lg m-0">{user.name}</span>
-                    <span className="text-sm text-center text-blue-600">{user.type}</span>  
+                    <span className="text-sm text-center text-blue-600">
+                      {user.type}
+                    </span>
                   </div>
                   <svg
                     class="-mr-1 ml-2 h-5 w-5"
@@ -58,9 +62,9 @@ function Header({user}) {
                     aria-hidden="true"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
                 </div>

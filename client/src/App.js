@@ -23,13 +23,11 @@ function App() {
   const [user, setUser] = useState();
 
   useEffect(() => {
+    
     const saved = JSON?.parse(localStorage?.getItem("saved"));
-    console.log("saved", saved)
      const user = saved &&JSON?.parse(localStorage?.getItem("user"));
     user && setUser(user);
   }, []);
-
-  console.log("app user", user);
 
   return (
     <div className="App bg-[#FEFEFF] min-h-[110vh]">

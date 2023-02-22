@@ -1,5 +1,6 @@
 import { GraphQLClient, request, gql } from "graphql-request";
 import { graphqlAPI, GRAPHCMS_TOKEN } from "../config.js";
+import bcrypt from "bcryptjs";
 
 const graphQLClient = new GraphQLClient(graphqlAPI, {
   headers: {
@@ -41,6 +42,9 @@ export const getStudents = async (req, res) => {
 };
 
 export const addStudent = async (req, res) => {
+  const encryptedPass = await bcrypt.hash(req.body.slug, 10);
+  req.body.password = encryptedPass; 
+
   console.log(req.body)
   const query = gql`
     mutation CreateStudent(
@@ -52,6 +56,7 @@ export const addStudent = async (req, res) => {
       $dob: String
       $admid: String
       $slug: String!
+      $password: String!
       $stream_slug: String!
     ) {
       createStudent(
@@ -61,7 +66,7 @@ export const addStudent = async (req, res) => {
           gender: $gender
           parent: $parent
           phone: $phone
-          password: $slug
+          password: $password
           dateOfBirth: $dob
           admissionId: $admid
           slug: $slug

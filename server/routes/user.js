@@ -3,8 +3,8 @@ import { getAdmin, getStudent, getTeacher } from "../controllers/user.js";
 
 const router = express.Router();
 
-router.get("/student", getStudent);
+router.post("/student", getStudent);
 router.post("/teacher", getTeacher);
-router.delete("/admin", getAdmin);
+router.post("/admin", getAdmin);
 
 export default router;

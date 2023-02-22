@@ -1,5 +1,6 @@
 import { GraphQLClient, request, gql } from "graphql-request";
 import { graphqlAPI, GRAPHCMS_TOKEN } from "../config.js";
+import bcrypt from "bcryptjs";
 
 const graphQLClient = new GraphQLClient(graphqlAPI, {
   headers: {
@@ -40,6 +41,9 @@ export const getTeachers = async (req, res) => {
 };
 
 export const addTeacher = async (req, res) => {
+  const encryptedPass = await bcrypt.hash(req.body.password, 10);
+  req.body.password = encryptedPass;  
+
   console.log(req.body);
   const query = gql`
     mutation CreateTeacher(

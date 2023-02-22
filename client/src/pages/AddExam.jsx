@@ -50,7 +50,6 @@ function AddExam() {
       .post("https://lmsadmin.onrender.com/exams", { data: exam })
       .then((res) => {
         res.status === 200 && setExam(data);
-        console.log(res);
         setSubmit(false);
       });
   };
@@ -61,7 +60,6 @@ function AddExam() {
       .get(`https://lmsadmin.onrender.com/exams/student?admissionId=${admid}`)
       .then((res) => {
         setStudent(res.data.student);
-        console.log("student", student)
         setExam({
           ...exam,
           student: { connect: { Student: { slug: res.data.student.slug } } },
@@ -70,7 +68,6 @@ function AddExam() {
       });
     
   };
-  console.log(exam);
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">

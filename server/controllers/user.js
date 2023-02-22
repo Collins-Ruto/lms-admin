@@ -1,5 +1,8 @@
 import { GraphQLClient, request, gql } from "graphql-request";
 import { graphqlAPI, GRAPHCMS_TOKEN } from "../config.js";
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
+import { TOKEN_KEY } from "../config.js";
 
 const graphQLClient = new GraphQLClient(graphqlAPI, {
   headers: {
@@ -8,7 +11,7 @@ const graphQLClient = new GraphQLClient(graphqlAPI, {
 });
 
 export const getStudent = async (req, res) => {
-  console.log(req.query);
+  console.log(req.body);
   try {
     const query = gql`
       query MyQuery($userName: String!) {
@@ -20,15 +23,22 @@ export const getStudent = async (req, res) => {
       }
     `;
 
-    const result = await request(graphqlAPI, query, req.query);
+    const result = await request(graphqlAPI, query, req.body);
 
-    res.status(200).json(result);
+    const validPass =
+      result.student &&
+      (await bcrypt.compare(req.body.password, result.student.password));
+    result.student && delete result.student.password;
+
+    console.log(validPass);
+
+    res.status(200).json(validPass ? result : false);
   } catch (error) {
     console.log(error.message);
   }
 };
 export const getTeacher = async (req, res) => {
-  console.log(req.query);
+  console.log(req.body);
   try {
     const query = gql`
       query MyQuery($userName: String!) {
@@ -40,15 +50,30 @@ export const getTeacher = async (req, res) => {
       }
     `;
 
-    const result = await request(graphqlAPI, query, req.query);
+    const result = await request(graphqlAPI, query, req.body);
+    console.log(result)
+    const validPass = result.teacher && await bcrypt.compare(req.body.password, result.teacher.password)
+    result.teacher && delete result.teacher.password;
 
-    res.status(200).json(result);
+    console.log(validPass)
+
+    const token = jwt.sign(
+      { user_id: result.teacher.slug },
+      TOKEN_KEY,
+      {
+        expiresIn: "2h",
+      }
+    );
+
+    result.teacher.token = token
+    
+    res.status(200).json(validPass ? result : false);
   } catch (error) {
     console.log(error.message);
   }
 };
 export const getAdmin = async (req, res) => {
-  console.log(req.query);
+  console.log(req.body);
   try {
     const query = gql`
       query MyQuery($userName: String!) {
@@ -60,9 +85,15 @@ export const getAdmin = async (req, res) => {
       }
     `;
 
-    const result = await request(graphqlAPI, query, req.query);
+    const result = await request(graphqlAPI, query, req.body);
+    const validPass =
+      result.admin &&
+      (await bcrypt.compare(req.body.password, result.admin.password));
+    result.admin && delete result.admin.password;
 
-    res.status(200).json(result);
+    console.log(validPass);
+
+    res.status(200).json(validPass ? result : false);
   } catch (error) {
     console.log(error.message);
   }
