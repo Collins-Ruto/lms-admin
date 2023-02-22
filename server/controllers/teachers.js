@@ -34,7 +34,7 @@ export const getTeachers = async (req, res) => {
 
     const result = await request(graphqlAPI, query);
 
-    res.status(200).json(result.teachersConnection.edges);
+    res.status(200).json({message: "success", result: result.teachersConnection.edges});
   } catch (error) {
     console.log(error.message);
   }

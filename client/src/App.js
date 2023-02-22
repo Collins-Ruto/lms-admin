@@ -20,7 +20,7 @@ import { Footer } from "./components";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     

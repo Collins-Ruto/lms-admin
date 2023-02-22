@@ -10,10 +10,10 @@ function Teachers() {
   const [submit, setSubmit] = useState(false);
   const [delTeacher, setDelTeacher] = useState("");
 
-  console.log("data");
   useEffect(() => {
     // axios.get("http://localhost:8000/teachers").then((res) => {
     //   setTeachers(res.data);
+    //   console.log(res)
     //   setLoading(false);
     // });
     axios.get("https://lmsadmin.onrender.com/teachers").then((res) => {
