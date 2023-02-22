@@ -67,7 +67,7 @@ function Dashboard() {
 
   return (
     <div className="p-6">
-      <div className=" text-2xl font-semibold text-gray-300">
+      <div className=" text-2xl font-semibold">
         <h3 className="">Admin Dashboard</h3>
       </div>
       {loading && <Loader />}

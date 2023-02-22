@@ -5,8 +5,8 @@ import { Button } from "../components";
 function Login({ setLogin }) {
   const [user, setUser] = useState({});
   const [submit, setSubmit] = useState(false);
-   const [isChecked, setIsChecked] = useState(false);
-
+  const [isChecked, setIsChecked] = useState(false);
+  
   const handleInput = (event) => {
     const target = event.target;
     // const value = target.type === "checkbox" ? target.checked : target.value;
@@ -17,16 +17,20 @@ function Login({ setLogin }) {
     target.type === "checkbox" && setIsChecked(!isChecked);
 
     setUser({ ...user, [name]: value });
+   
   };
 
   const handleSubmit = () => {
+    if (!window.navigator.onLine) {return}
     setSubmit(true);
 
     axios
       .get(`http://localhost:8000/user/${user.group}?userName=${user.userName}`)
       .then((res) => {
-        setLogin(res.data);
-        console.log("user", res.data);
+        setLogin({ ...res.data[user.group], type: user.group });
+        isChecked && localStorage.setItem("user", JSON.stringify({...res.data[user.group], type: user.group}));
+        localStorage.setItem("saved", JSON.stringify(isChecked));
+        console.log("user", res.data[user.group]);
         setSubmit(false);
       });
   };
@@ -45,7 +49,9 @@ function Login({ setLogin }) {
           />
         </div>
         <div className="mx-0 p-4">
-          <h1 className="text-2xl font-semibold mb-4">Welcome to Ace Accademy</h1>
+          <h1 className="text-2xl font-semibold mb-4">
+            Welcome to Ace Accademy
+          </h1>
 
           <form action="index.html" className="mt-4">
             <div className="relative items-center">
@@ -62,9 +68,9 @@ function Login({ setLogin }) {
                   className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
                   <option>Select group</option>
-                  <option value="students">student</option>
-                  <option value="teachers">teacher</option>
-                  <option value="admins">adminstrator</option>
+                  <option value="student">student</option>
+                  <option value="teacher">teacher</option>
+                  <option value="admin">adminstrator</option>
                 </select>
                 <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
                   <svg
@@ -137,13 +143,21 @@ function Login({ setLogin }) {
               {submit ? (
                 <Button />
               ) : (
-                <button
-                  onClick={() => handleSubmit()}
-                  className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded"
-                  type="submit"
-                >
-                  Login
-                </button>
+                <div className="">
+                  <button
+                    onClick={() => handleSubmit()}
+                    className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded"
+                    type="submit"
+                  >
+                    Login
+                  </button>
+                  {!window.navigator.onLine && (
+                    <span className="text-sm mt-2 flex flex-col">
+                      <span className="text-red-600">Error!</span> Please check
+                      your network connection
+                    </span>
+                  )}
+                </div>
               )}
             </div>
           </form>

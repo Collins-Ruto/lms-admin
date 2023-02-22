@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/App.css";
 import { Routes, Route } from "react-router-dom";
 import {
@@ -21,9 +21,19 @@ import { Footer } from "./components";
 function App() {
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState();
+
+  useEffect(() => {
+    const saved = JSON?.parse(localStorage?.getItem("saved"));
+    console.log("saved", saved)
+     const user = saved &&JSON?.parse(localStorage?.getItem("user"));
+    user && setUser(user);
+  }, []);
+
+  console.log("app user", user);
+
   return (
     <div className="App bg-[#FEFEFF] min-h-[110vh]">
-      {user ? <Header /> : ""}
+      {user ? <Header user={ user} /> : ""}
       {user ? (
         <div className="flex ml-60">
           <div className="grow">
