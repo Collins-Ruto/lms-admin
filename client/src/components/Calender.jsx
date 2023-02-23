@@ -6,7 +6,6 @@ import {
   getDay,
   isEqual,
   isSameDay,
-  isSameMinute,
   isSameMonth,
   isToday,
   parse,
@@ -97,15 +96,10 @@ export default function Calender({ full }) {
     isSameDay(parseISO(meeting.startDatetime), selectedDay)
   );
 
-  const currentTime = new Date();
-
   const selectedDayLessons = lessons.filter(
     (lesson) => format(selectedDay, "EEE") === lesson.node.day
   );
 
-  lessons.length &&
-    console.log(format(currentTime, "EEE") === "Sat");
-    
   return (
     <div className={` rounded-lg ${full ? "w-full p-4" : ""}`}>
       <div className="max-w-md mx-auto sm:px-7 md:max-w-4xl">
@@ -243,15 +237,7 @@ function Lesson({ lesson }) {
   const inputTime = "05:59";
   inputDate.setHours(inputTime.split(":")[0]);
   inputDate.setMinutes(inputTime.split(":")[1]);
-  const currentTime = new Date();
-  if (
-    isSameDay(currentTime, inputDate) &&
-    isSameMinute(currentTime, inputDate)
-  ) {
-    console.log("The current time is the same as the input time");
-  } else {
-    console.log("The current time is different from the input time");
-  }
+  
 
   return (
     <div className="flex gap-4 pb-4 divide-x-4 text-gray-700 divide-blue-600 ">

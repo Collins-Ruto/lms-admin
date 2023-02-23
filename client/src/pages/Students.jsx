@@ -24,7 +24,6 @@ function Students() {
         data: { slug: delStudent },
       })
       .then((res) => {
-        console.log("res", res.data);
         setisDelete(false);
       });
     const newStudent = students.filter(

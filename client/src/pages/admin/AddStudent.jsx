@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button } from "../components";
+import { Button } from "../../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -34,7 +34,6 @@ function AddStudent() {
     axios
       .post("https://lmsadmin.onrender.com/students", student)
       .then((res) => {
-        console.log(res.message);
         setSubmit(false);
       });
     // axios
@@ -42,7 +41,6 @@ function AddStudent() {
     //   .then((res) => console.log(res));
   };
 
-  console.log(student);
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">

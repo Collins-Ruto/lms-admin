@@ -35,12 +35,10 @@ function AddLesson() {
     //   .post("https://lmsadmin.onrender.com/lessons", lesson)
     //   .then((res) => console.log(res.message));
     axios.post("https://lmsadmin.onrender.com/lessons", lesson).then((res) => {
-      console.log(res);
       setSubmit(false);
     });
   };
 
-  console.log(lesson);
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">

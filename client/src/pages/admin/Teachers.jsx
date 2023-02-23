@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Loader } from "../components";
+import { Button, Loader } from "../../components";
 
 function Teachers() {
   const [teachers, setTeachers] = useState([]);
@@ -28,7 +28,6 @@ function Teachers() {
         data: { slug: delTeacher },
       })
       .then((res) => {
-        console.log("res", res.data);
         setisDelete(false);
       });
     const newTeachers = teachers.filter((teacher) => teacher.node.slug !== delTeacher);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, DateTime } from "../components";
+import { Button, DateTime } from "../../components";
 import axios from "axios";
 
 function AddFee() {
@@ -23,7 +23,6 @@ function AddFee() {
   const handleSubmit = () => {
     setSubmit(true);
     axios.post("https://lmsadmin.onrender.com/fees", fee).then((res) => {
-      console.log(res.message);
       setSubmit(false);
     });
     // axios
@@ -40,7 +39,6 @@ function AddFee() {
     handleSubmit();
   };
 
-  console.log(fee);
 
   return (
     <div>

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Calender, Loader } from "../components";
+import { Calender, Loader } from "../../components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Dashboard() {
-
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
-  
+
   //localhost:8000
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/data").then((res) => {
@@ -62,8 +61,6 @@ function Dashboard() {
       path: "/addexam",
     },
   ];
-
-  console.log(data);
 
   return (
     <div className="p-6">

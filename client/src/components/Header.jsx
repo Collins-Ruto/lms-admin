@@ -10,7 +10,6 @@ import axios from "axios";
 function Header({ user }) {
   const [opened, setOpened] = useState(true);
   const [dropdown, setDropdown] = useState(false);
-  // const [user, setUser] = useState(user);
 
   const logOut = () => {
     localStorage.setItem("saved", JSON.stringify(false));
@@ -18,9 +17,6 @@ function Header({ user }) {
     delete axios.defaults.headers.common["Authorization"];
     window.location.reload(true);
   };
-
-  console.log("header user", user);
-  console.log("header user", Object.keys(user));
 
   return (
     <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-[#F7F6FB]">

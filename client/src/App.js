@@ -3,12 +3,7 @@ import "./styles/App.css";
 import { Routes, Route } from "react-router-dom";
 import {
   Students,
-  AddStudent,
-  AddTeacher,
   FeeData,
-  AddFee,
-  Dashboard,
-  Teachers,
   Login,
   CalenderPage,
   AddLesson,
@@ -17,6 +12,9 @@ import {
 } from "./pages";
 import Header from "./components/Header";
 import { Footer } from "./components";
+import { AddFee, AddStudent, AddTeacher, Dashboard, Teachers } from "./pages/admin";
+import { Student } from "./pages/student";
+import { Teacher } from "./pages/teacher";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -31,23 +29,41 @@ function App() {
 
   return (
     <div className="App bg-[#FEFEFF] min-h-[110vh]">
-      {user ? <Header user={ user} /> : ""}
+      {user ? <Header user={user} /> : ""}
       {user ? (
         <div className="flex ml-60">
           <div className="grow">
-            <Routes>
-              <Route exact path="/" element={<Dashboard />} />
-              <Route path="/students" element={<Students />} />
-              <Route path="/teachers" element={<Teachers />} />
-              <Route path="/addstudent" element={<AddStudent />} />
-              <Route path="/addteacher" element={<AddTeacher />} />
-              <Route path="/fee" element={<FeeData />} />
-              <Route path="/addfee" element={<AddFee />} />
-              <Route path="/calender" element={<CalenderPage />} />
-              <Route path="/addlesson" element={<AddLesson />} />
-              <Route path="/exams" element={<Exam />} />
-              <Route path="/addExam" element={<AddExam />} />
-            </Routes>
+            {/* Admin Routes */}
+            {user.type === "admin" && (
+              <Routes>
+                <Route exact path="/" element={<Dashboard />} />
+                <Route path="/calender" element={<CalenderPage />} />
+                <Route path="/fee" element={<FeeData />} />
+                <Route path="/exams" element={<Exam />} />
+                <Route path="/students" element={<Students />} />
+                <Route path="/addlesson" element={<AddLesson />} />
+                <Route path="/addExam" element={<AddExam />} />
+                {<Route path="/teachers" element={<Teachers />} />}
+                <Route path="/addstudent" element={<AddStudent />} />
+                <Route path="/addteacher" element={<AddTeacher />} />
+                <Route path="/addfee" element={<AddFee />} />
+                <Route path="*" element={<Dashboard />} />
+              </Routes>
+            )}
+            {/* Teacher Routes */}
+            {user.type === "teacher" && (
+              <Routes>
+                <Route exact path="/" element={<Student />} />
+                <Route path="*" element={<Student />} />
+              </Routes>
+            )}
+            {/* Student Routes */}
+            {user.type === "student" && (
+              <Routes>
+                <Route exact path="/" element={<Teacher />} />
+                <Route path="*" element={<Teacher />} />
+              </Routes>
+            )}
           </div>
         </div>
       ) : (

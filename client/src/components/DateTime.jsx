@@ -9,6 +9,4 @@ const Datetime = () => {
   return `${year}-${month}-${day}T${hour}:${minute}`;
 }
 
-console.log(Datetime());
-
 export default Datetime

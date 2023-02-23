@@ -15,8 +15,6 @@ function FeeData() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("fees", fees)
-
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">

@@ -39,7 +39,6 @@ function Login({ setLogin }) {
           axios.defaults.headers.common["Authorization"] = `${
             res.data[user.group].token
           }`;
-          console.log("token", res.data[user.group].token);
         } else {
           setInvalid(true);
         }
@@ -47,11 +46,8 @@ function Login({ setLogin }) {
       });
   };
 
-  console.log(user);
-  console.log(isChecked);
-
   return (
-    <div className="h-screen flex justify-center w-full">
+    <div className="h-screen flex justify-center w-full text-white">
       <div className="flex border m-auto items-center rounded-lg bg-slate-800 w-[50rem] ">
         <div className="login-left">
           <img
@@ -60,7 +56,7 @@ function Login({ setLogin }) {
             alt="Logo"
           />
         </div>
-        <div className="mx-0 p-4">
+        <div className="mx-0 p-4 ">
           <h1 className="text-2xl font-semibold mb-4">
             Welcome to Ace Accademy
           </h1>
@@ -77,7 +73,7 @@ function Login({ setLogin }) {
                   }}
                   name="group"
                   value={user.group}
-                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                  className="block appearance-none w-full text-black bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
                   <option>Select group</option>
                   <option value="student">student</option>

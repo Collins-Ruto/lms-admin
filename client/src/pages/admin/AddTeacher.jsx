@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button } from "../components";
+import { Button } from "../../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -35,19 +35,17 @@ function AddTeacher() {
     setSubmit(true);
     axios
       .post("https://lmsadmin.onrender.com/teachers", teacher)
-      .then((res) => {console.log(res)
+      .then((res) => {
       setSubmit(false)});
   //   axios
   //     .post("https://lmsadmin.onrender.com/teachers", teacher)
-  //     .then((res) => {console.log(res)
+  //     .then((res) => {
   // setSubmit(false)});
   };
 
   const handleVerify = (e) => {
     setConfPass(e.target.value);
   };
-
-  console.log(teacher);
 
   return (
     <div>
