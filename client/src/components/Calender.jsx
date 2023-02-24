@@ -63,7 +63,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Calender({ full }) {
+export default function Calender({ full, user }) {
   const today = startOfToday();
   const [selectedDay, setSelectedDay] = useState(today);
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -96,9 +96,38 @@ export default function Calender({ full }) {
     isSameDay(parseISO(meeting.startDatetime), selectedDay)
   );
 
-  const selectedDayLessons = lessons.filter(
-    (lesson) => format(selectedDay, "EEE") === lesson.node.day
-  );
+  // we want to only show the classes for a specific user
+  const selectedDayLessonsFun = () => {
+    if (!user) {
+      return lessons.filter(
+        (lesson) =>
+          format(selectedDay, "EEE") === lesson.node.day
+      );
+    }
+    if (user.type === "teacher") {
+      return lessons.filter(
+        (lesson) =>
+          format(selectedDay, "EEE") === lesson.node.day &&
+          lesson.node.teacher.slug === user.slug
+      );
+    }
+    if (user.type === "student") {
+      return lessons.filter(
+        (lesson) =>
+          format(selectedDay, "EEE") === lesson.node.day &&
+          lesson.node.stream.slug === user.stream.slug
+      );
+    }
+    if (user.type === "admin") {
+      return lessons.filter(
+        (lesson) => format(selectedDay, "EEE") === lesson.node.day
+      );
+    }
+  };
+  const selectedDayLessons = selectedDayLessonsFun();
+
+  console.log("user", user);
+  console.log("select", selectedDayLessons);
 
   return (
     <div className={` rounded-lg ${full ? "w-full p-4" : ""}`}>
@@ -189,8 +218,8 @@ export default function Calender({ full }) {
                     {meetings.some((meeting) =>
                       isSameDay(parseISO(meeting.startDatetime), day)
                     ) ||
-                      (lessons.some((lesson) =>
-                        (lesson.node.day) === format(day, "EEE")
+                      (lessons.some(
+                        (lesson) => lesson.node.day === format(day, "EEE")
                       ) && (
                         <div className="w-1 h-1 rounded-full bg-sky-500"></div>
                       ))}
@@ -208,7 +237,7 @@ export default function Calender({ full }) {
             </h2>
 
             <ol className="mt-4 space-y-1 text-sm border-b-2 border-gray-600 leading-6 text-gray-500">
-              {selectedDayLessons.length > 0 ? (
+              {selectedDayLessons?.length > 0 ? (
                 selectedDayLessons.map((lesson, index) => (
                   <Lesson lesson={lesson.node} key={index} />
                 ))
@@ -217,7 +246,7 @@ export default function Calender({ full }) {
               )}
             </ol>
             <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
-              {selectedDayMeetings.length > 0 ? (
+              {selectedDayMeetings?.length > 0 ? (
                 selectedDayMeetings.map((meeting) => (
                   <Meeting meeting={meeting} key={meeting.id} />
                 ))
@@ -237,7 +266,6 @@ function Lesson({ lesson }) {
   const inputTime = "05:59";
   inputDate.setHours(inputTime.split(":")[0]);
   inputDate.setMinutes(inputTime.split(":")[1]);
-  
 
   return (
     <div className="flex gap-4 pb-4 divide-x-4 text-gray-700 divide-blue-600 ">
@@ -245,7 +273,7 @@ function Lesson({ lesson }) {
         <span className="font-semibold">{lesson.day}</span>
         <span className="">{lesson.stream?.name}</span>
       </div>
-      <div className="flex pl-2 justify-between grow " >
+      <div className="flex pl-2 justify-between grow ">
         <div className="">
           <h2 className="text-gray-700 font-semibold text-base">
             {lesson.subject.name}

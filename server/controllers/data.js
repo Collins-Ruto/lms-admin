@@ -8,9 +8,9 @@ const graphQLClient = new GraphQLClient(graphqlAPI, {
 });
 
 export const getCounts = async (req, res) => {
-    const results = {}
+  const results = {};
   const query = gql`
-    query MyQuery {
+    query MyQuery($slug: String!) {
       subjectCount: subjectsConnection {
         aggregate {
           count
@@ -26,15 +26,26 @@ export const getCounts = async (req, res) => {
           count
         }
       }
+      lessonsToday: teacher(where: { slug: $slug }) {
+        lessons {
+          day
+        }
+      }
+      streamLessonsToday: stream(where: { slug: $slug }) {
+        lessons {
+          day
+        }
+      }
     }
   `;
   try {
-      const result = await request(graphqlAPI, query);
-      
-      results.subjects = result.subjectCount.aggregate.count;
-      results.students = result.studentsCount.aggregate.count;
-      results.teachers = result.teachersCount.aggregate.count;
-      console.log(results);
+    const result = await request(graphqlAPI, query, req.body);
+
+    results.subjects = result.subjectCount.aggregate.count;
+    results.students = result.studentsCount.aggregate.count;
+    results.teachers = result.teachersCount.aggregate.count;
+    results.lessonsToday = result.lessonsToday || result.streamLessonsToday;
+    console.log(results);
 
     return res.status(200).json(results);
   } catch (error) {

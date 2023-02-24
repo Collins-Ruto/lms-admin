@@ -9,6 +9,7 @@ import {
   AddLesson,
   AddExam,
   Exam,
+  Account,
 } from "./pages";
 import Header from "./components/Header";
 import { Footer } from "./components";
@@ -27,6 +28,8 @@ function App() {
     user && setUser(user);
   }, []);
 
+  console.log(user)
+
   return (
     <div className="App bg-[#FEFEFF] min-h-[110vh]">
       {user ? <Header user={user} /> : ""}
@@ -43,7 +46,7 @@ function App() {
                 <Route path="/students" element={<Students />} />
                 <Route path="/addlesson" element={<AddLesson />} />
                 <Route path="/addExam" element={<AddExam />} />
-                {<Route path="/teachers" element={<Teachers />} />}
+                <Route path="/teachers" element={<Teachers />} />
                 <Route path="/addstudent" element={<AddStudent />} />
                 <Route path="/addteacher" element={<AddTeacher />} />
                 <Route path="/addfee" element={<AddFee />} />
@@ -53,15 +56,25 @@ function App() {
             {/* Teacher Routes */}
             {user.type === "teacher" && (
               <Routes>
-                <Route exact path="/" element={<Student />} />
-                <Route path="*" element={<Student />} />
+                <Route exact path="/" element={<Teacher />} />
+                <Route path="/calender" element={<CalenderPage />} />
+                <Route path="/fee" element={<FeeData />} />
+                <Route path="/exams" element={<Exam />} />
+                <Route path="/students" element={<Students />} />
+                <Route path="/addlesson" element={<AddLesson />} />
+                <Route path="/addExam" element={<AddExam />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="*" element={<Teacher />} />
               </Routes>
             )}
             {/* Student Routes */}
             {user.type === "student" && (
               <Routes>
-                <Route exact path="/" element={<Teacher />} />
-                <Route path="*" element={<Teacher />} />
+                <Route exact path="/" element={<Student />} />
+                <Route path="/calender" element={<CalenderPage />} />
+                <Route path="/fee" element={<FeeData />} />
+                <Route path="/exams" element={<Exam />} />
+                <Route path="*" element={<Student />} />
               </Routes>
             )}
           </div>

@@ -2,21 +2,42 @@ import React, { useEffect, useState } from "react";
 import { Calender, Loader } from "../../components";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { format } from "date-fns";
 
 function Dashboard() {
   const [data, setData] = useState({});
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
-  //localhost:8000
+  
+  //https://lmsadmin.onrender.com
   useEffect(() => {
-    axios.get("https://lmsadmin.onrender.com/data").then((res) => {
-      setData(res.data);
-      setLoading(false);
-    });
+    const user = JSON?.parse(localStorage.getItem("user"));
+    setUser(user)
+    console.log(user)
+    axios
+      .post("http://localhost:8000/data", { slug: user.slug })
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      });
   }, []);
   const termVvalue = "II";
 
+  const currentTime = new Date()
+
+  const todayLessons = data.lessonsToday?.lessons.filter((lesson) => (
+    format(currentTime, "EEE") === lesson.day
+  ))
+
+  console.log('data',data)
+
   const datas = [
+    {
+      title: "Lessons Today",
+      value: todayLessons?.length || "...",
+      url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
+    },
     {
       title: "Current Term",
       value: termVvalue,
@@ -32,26 +53,9 @@ function Dashboard() {
       value: data.students || "...",
       url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
     },
-    {
-      title: "Teachers",
-      value: data.teachers || "...",
-      url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
-    },
   ];
 
   const editInfo = [
-    {
-      title: "Students",
-      path: "/addstudent",
-    },
-    {
-      title: "Teachers",
-      path: "/addteacher",
-    },
-    {
-      title: "Fees",
-      path: "/addfee",
-    },
     {
       title: "Lessons",
       path: "/addlesson",
@@ -65,7 +69,7 @@ function Dashboard() {
   return (
     <div className="p-6">
       <div className=" text-2xl font-semibold">
-        <h3 className="">Admin Dashboard</h3>
+        <h3 className="">Teacher Dashboard</h3>
       </div>
       {loading && <Loader />}
       <div className="flex justify-between py-6">
@@ -107,7 +111,7 @@ function Dashboard() {
           ))}
         </div>
         <div className="col-start-2 col-span-2">
-          <Calender full={false} />
+          <Calender full={false} user={ user} />
         </div>
       </div>
     </div>

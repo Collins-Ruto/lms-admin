@@ -9,8 +9,12 @@ function Students() {
   const [isDelete, setisDelete] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [delStudent, setDelStudent] = useState("");
+  const [userType, setUserType] = useState('')
 
   useEffect(() => {
+    const user = localStorage.getItem("user")
+    setUserType(user.type)
+
     axios.get("https://lmsadmin.onrender.com/students").then((res) => {
       setStudents(res.data);
       setLoading(false);
@@ -153,21 +157,23 @@ function Students() {
                   </button>
                 </div>
               </div>
-              <div className="">
-                <Link
-                  to="/addstudent"
-                  type="btn"
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                >
-                  {" "}
-                  <img
-                    src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
-                    className="w-5 mr-1 text-white"
-                    alt=""
-                  />
-                  Add
-                </Link>
-              </div>
+              {userType === "admin" && (
+                <div className="">
+                  <Link
+                    to="/addstudent"
+                    type="btn"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                  >
+                    {" "}
+                    <img
+                      src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
+                      className="w-5 mr-1 text-white"
+                      alt=""
+                    />
+                    Add
+                  </Link>
+                </div>
+              )}
             </div>
             <div className="m-4 bg-[#F7F6FB] rounded-xl p-4">
               <table className=" w-full">
@@ -180,7 +186,7 @@ function Students() {
                     <th className="p-4">Parent Name</th>
                     <th className="p-4">Mobile Number</th>
                     <th className="p-4">Gender</th>
-                    <th className="p-4">Action</th>
+                    {userType === "admin" && <th className="p-4">Action</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -200,27 +206,29 @@ function Students() {
                       <td className="p-4">{student.node.parent}</td>
                       <td className="p-4">{student.node.phone}</td>
                       <td className="p-4">{student.node.gender}</td>
-                      <td className="p-4 flex gap-2">
-                        <Link to="/addstudent">
-                          <img
-                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                            alt=""
-                            className="w-6 cursor-pointer"
-                          />
-                        </Link>
-                        <div
-                          onClick={() => {
-                            setisDelete(true);
-                            setDelStudent(student.node.slug);
-                          }}
-                        >
-                          <img
-                            src="https://img.icons8.com/ios-filled/50/000000/waste.png"
-                            alt=""
-                            className="w-6 cursor-pointer"
-                          />
-                        </div>
-                      </td>
+                      {userType === "admin" && (
+                        <td className="p-4 flex gap-2">
+                          <Link to="/addstudent">
+                            <img
+                              src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                              alt=""
+                              className="w-6 cursor-pointer"
+                            />
+                          </Link>
+                          <div
+                            onClick={() => {
+                              setisDelete(true);
+                              setDelStudent(student.node.slug);
+                            }}
+                          >
+                            <img
+                              src="https://img.icons8.com/ios-filled/50/000000/waste.png"
+                              alt=""
+                              className="w-6 cursor-pointer"
+                            />
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>

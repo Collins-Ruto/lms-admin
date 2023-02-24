@@ -3,6 +3,6 @@ import { getCounts } from "../controllers/data.js";
 
 const router = express.Router();
 
-router.get("/", getCounts);
+router.post("/", getCounts);
 
 export default router;

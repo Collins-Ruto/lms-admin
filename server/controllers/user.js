@@ -13,6 +13,12 @@ export const getStudent = async (req, res) => {
           name
           slug
           password
+          stream {
+            ... on Stream {
+              name
+              slug
+            }
+          }
         }
       }
     `;
