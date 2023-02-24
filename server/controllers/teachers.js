@@ -83,6 +83,49 @@ export const addTeacher = async (req, res) => {
   }
 };
 
+export const editTeacher = async (req, res) => {
+  console.log(req.body);
+
+  const query = `
+  mutation updateModel($slug: String!, $data: TeacherUpdateInput!) {
+    updateTeacher(where: {slug: $slug}, data: $data) {
+      email
+      phone
+    }
+  }
+`;
+  try {
+    const result = await graphQLClient.request(query, req.body);
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error.message);
+    res.json(false)
+  }
+};
+
+export const editPassword = async (req, res) => {
+  const encryptedPass = await bcrypt.hash(req.body.data.password, 10);
+  req.body.data.password = encryptedPass;
+
+  console.log(req.body);
+
+  const query = `
+  mutation updateModel($slug: String!, $data: TeacherUpdateInput!) {
+    updateTeacher(where: {slug: $slug}, data: $data) {
+      password
+    }
+  }
+`;
+  try {
+    const result = await graphQLClient.request(query, req.body);
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const deleteTeacher = async (req, res) => {
   console.log(req.body);
   const query = gql`

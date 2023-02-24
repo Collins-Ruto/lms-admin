@@ -31,7 +31,7 @@ function App() {
   console.log(user)
 
   return (
-    <div className="App bg-[#FEFEFF] min-h-[110vh]">
+    <div className="App bg-[#FEFEFF] relative min-h-[110vh]">
       {user ? <Header user={user} /> : ""}
       {user ? (
         <div className="flex ml-60">
@@ -82,7 +82,7 @@ function App() {
       ) : (
         <Login setLogin={setUser} />
       )}
-      <div className="sticky top-[100vh z-10">{user ? <Footer /> : ""}</div>
+      <div className="absolute bottom-10 z-10">{user ? <Footer /> : ""}</div>
     </div>
   );
 }

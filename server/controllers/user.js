@@ -12,6 +12,8 @@ export const getStudent = async (req, res) => {
         student(where: { slug: $userName }) {
           name
           slug
+          phone
+          email
           password
           stream {
             ... on Stream {
@@ -51,6 +53,8 @@ export const getTeacher = async (req, res) => {
         teacher(where: { slug: $userName }) {
           name
           slug
+          phone
+          email
           password
         }
       }
@@ -83,6 +87,8 @@ export const getAdmin = async (req, res) => {
         admin(where: { userName: $userName }) {
           name
           slug
+          phone
+          email
           password
         }
       }

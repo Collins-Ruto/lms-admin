@@ -16,7 +16,7 @@ function Dashboard() {
     setUser(user)
     console.log(user)
     axios
-      .post("http://localhost:8000/data", { slug: user.slug })
+      .post("http://localhost:8000/data", { slug: user?.slug })
       .then((res) => {
         setData(res.data);
         setLoading(false);

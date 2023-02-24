@@ -4,10 +4,13 @@ import { Button } from "../components";
 
 function Account() {
   const [user, setUser] = useState();
-  const [editUser, setEditUser] = useState({});
+  const [editUser, setEditUser] = useState({
+    email: user?.email,
+    phone: user?.phone
+  });
   const [passManager, setPassManager] = useState(false);
-   const [confPass, setConfPass] = useState("");
-   const [submit, setSubmit] = useState(false);
+  const [confPass, setConfPass] = useState("");
+  const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
     const user = JSON?.parse(localStorage?.getItem("user"));
@@ -24,12 +27,16 @@ function Account() {
     setEditUser({ ...editUser, [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (type) => {
     setSubmit(true);
     axios
-      .post("http://localhost:8000/teachers", editUser)
+      .post(`http://localhost:8000/teachers/${type}`, {
+        slug: user.slug,
+        data: editUser,
+      })
       .then((res) => {
         setSubmit(false);
+        res.status === 200 && setEditUser({});
       });
     //   axios
     //     .post("https://lmsadmin.onrender.com/teachers", editUser)
@@ -48,119 +55,182 @@ function Account() {
     setConfPass(e.target.value);
   };
 
+  console.log(editUser);
 
   return (
     <div>
-      <div className="grid grid-cols-4 p-4 gap-4 h-[100vh_-_4rem]">
-        <div className="col-start-1 p-4 flex flex-col items-center align-middle justify-center">
-          <img
-            className="w-28 rounded-full bg-gray-300 p-2"
-            src="https://img.icons8.com/ios-glyphs/120/000000/user--v1.png"
-            alt=""
-          />
-          <div className="text-blue-600 pb-4 pt-2">{user.type}</div>
-          <div className="p-2 text-justify text-xl text-slate-800 flex flex-col gap-2">
-            <div className="">Name: {user?.name} </div>
-            <div className="">Phone: {user?.phone} </div>
-            <div className="">Email: {user?.email} </div>
-          </div>
-          <div
-            onClick={() => {
-              logOut();
-            }}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
-          >
-            Log Out
+      <div className="flex flex-col gap-4 h-[100vh_-_4rem]">
+        <div class="w-full h-60 bg-[url('https://b1311116.smushcdn.com/1311116/wp-content/uploads/2021/12/great-school-website-01.png?size=912x479&lossy=1&strip=1&webp=1')] bg-cover bg-center">
+          <div class="min-w-full text-2xl font-semibold h-full flex text-white justify-center items-center backdrop-brightness-50">
+            Welcome to your account page
           </div>
         </div>
-        <div className="col-start-2 col-span-3">
-          <div className=" flex justify-around border-b-4 text-lg">
-            <div
-              className={`${!passManager && "border-b-4 border-blue-600"}`}
-              onClick={() => {
-                setPassManager(false);
-              }}
-            >
-              Account settings
+        <div className="flex relative">
+          <div className="bg-[#F7F6FB] absolute -top-16 rounded-lg ml-10 w-[25%] h-[max-content] py-6 flex flex-col items-center justify-center">
+            <img
+              className="w-28  rounded-full bg-gray-300 p-2"
+              src="https://img.icons8.com/ios-glyphs/120/000000/user--v1.png"
+              alt=""
+            />
+            <div className="text-blue-600 pb-4 pt-2">{user?.type}</div>
+            <div className="p-2 text-start text-slate-800 flex flex-col gap-2">
+              <div className="p-1">Name: {user?.name} </div>
+              <div className="p-1">Phone: {user?.phone} </div>
+              <div className="p-1">Email: {user?.email} </div>
             </div>
             <div
-              className={`${passManager && "border-b-4 border-blue-600"}`}
               onClick={() => {
-                setPassManager(true);
+                logOut();
               }}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
             >
-              Password Manager
-            </div>
-            <div
-              className={`${passManager && "border-b-4 border-blue-600"}`}
-              onClick={() => {
-                setPassManager(true);
-              }}
-            >
-              Edit Details
+              Log Out
             </div>
           </div>
-          {!passManager ? (
-            <div className=""></div>
-          ) : (
-            <div className="p-4">
-              <h1 className="text-xl py-4 text-center mx-auto">Change your Password</h1>
-              <div className="">
-                <div className="mx-auto flex flex-col w-80 gap-4 gap-y-8 pb-4">
-                  <div className="col-12 col-sm-4">
-                    <div className="">
-                      <label>
-                        Old Password <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        onChange={(e) => {
-                          handleInput(e);
-                        }}
-                        value={editUser.oldPassword}
-                        name="oldPassword"
-                        type="oldPassword"
-                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter Old Password"
-                      />
+          <div className="grow ml-[30%] w-[68%] bg-[#F7F6FB] absolute -top-16 rounded-lg">
+            <div className=" flex justify-around border-b-2 text-lg p-2">
+              <div
+                className={` cursor-pointer ${
+                  !passManager && " border-b-4 border-blue-600"
+                }`}
+                onClick={() => {
+                  setPassManager(false);
+                }}
+              >
+                Edit Details
+              </div>
+              <div
+                className={` cursor-pointer ${
+                  passManager && " border-b-4 border-blue-600"
+                }`}
+                onClick={() => {
+                  setPassManager(true);
+                }}
+              >
+                Password Manager
+              </div>
+              
+            </div>
+            {passManager && (
+              <div className="p-4">
+                <h1 className="text-xl py-4 text-center mx-auto">
+                  Change your Password
+                </h1>
+                <div className="">
+                  <div className="mx-auto flex flex-col w-80 gap-4 gap-y-8 pb-4">
+                    <div className="col-12 col-sm-4">
+                      <div className="">
+                        <label>
+                          Old Password <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          onChange={(e) => {
+                            handleInput(e);
+                          }}
+                          value={editUser.oldPassword}
+                          name="oldPassword"
+                          type="oldPassword"
+                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Enter Old Password"
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-12 col-sm-4">
-                    <div className="">
-                      <label>
-                        New Password <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        onChange={(e) => {
-                          handleInput(e);
-                        }}
-                        value={editUser.password}
-                        name="password"
-                        type="password"
-                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter New Password"
-                      />
+                    <div className="col-12 col-sm-4">
+                      <div className="">
+                        <label>
+                          New Password <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          onChange={(e) => {
+                            handleInput(e);
+                          }}
+                          value={editUser.password}
+                          name="password"
+                          type="password"
+                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Enter New Password"
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-12 col-sm-4">
-                    <div className="form-group local-forms">
-                      <label>
-                        Repeat Password <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        onChange={(e) => {
-                          handleVerify(e);
-                        }}
-                        value={confPass}
-                        name="password"
-                        type="password"
-                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Confirm Password"
-                      />
-                      {confPass && confPass !== editUser.password && (
-                        <div className="text-xs text-red-500">
-                          passwords do not match
-                        </div>
+                    <div className="col-12 col-sm-4">
+                      <div className="form-group local-forms">
+                        <label>
+                          Repeat Password{" "}
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          onChange={(e) => {
+                            handleVerify(e);
+                          }}
+                          value={confPass}
+                          name="password"
+                          type="password"
+                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Confirm Password"
+                          required
+                        />
+                        {confPass && confPass !== editUser.password && (
+                          <div className="text-xs text-red-500">
+                            passwords do not match
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="">
+                      {submit ? (
+                        <Button />
+                      ) : (
+                        <button
+                          onClick={() => handleSubmit("password")}
+                          type="submit"
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
+                        >
+                          Submit
+                        </button>
                       )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {!passManager && (
+              <div className="p-4">
+                <h1 className="text-xl py-4 text-center mx-auto">
+                  Update your Details
+                </h1>
+                <div className="flex mx-auto flex-col w-80 gap-4 gap-y-8 pb-4">
+                  <div className="">
+                    <div className="">
+                      <label>
+                        E-Mail <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={editUser.email}
+                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="Enter Email Address"
+                        name="email"
+                      />
+                    </div>
+                  </div>
+                  <div className="">
+                    <div className="">
+                      <label>Phone </label>
+                      <input
+                        onInput={(e) => {
+                          handleInput(e);
+                        }}
+                        value={editUser.phone}
+                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="number"
+                        placeholder="Enter Phone Number"
+                        name="phone"
+                      />
                     </div>
                   </div>
                   <div className="">
@@ -168,7 +238,7 @@ function Account() {
                       <Button />
                     ) : (
                       <button
-                        onClick={() => handleSubmit()}
+                        onClick={() => handleSubmit("edit")}
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
                       >
@@ -178,8 +248,8 @@ function Account() {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
