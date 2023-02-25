@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 // import auth from "./middleware/auth.js";
-import { dataRoutes, examRoutes, feeRoutes, lessonRoutes, studentsRoutes, subjectRoutes, teachersRoutes, userRoutes } from "./routes/index.js";
+import { adminRoutes, dataRoutes, examRoutes, feeRoutes, lessonRoutes, studentsRoutes, subjectRoutes, teachersRoutes, userRoutes } from "./routes/index.js";
 
 const app = express();
 
@@ -29,6 +29,7 @@ app.use('/fees', feeRoutes)
 app.use('/subjects', subjectRoutes)
 app.use('/teachers', teachersRoutes)
 app.use('/data', dataRoutes)
+app.use("/admin", adminRoutes);
 
 app.listen(port, () => console.log(`🚀 Running on port ${port}`));
 

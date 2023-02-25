@@ -26,22 +26,24 @@ function Login({ setLogin }) {
     }
     setSubmit(true);
 
-    axios.post(`http://localhost:8000/user/${user.group}`, user).then((res) => {
-      if (res.data[user.group]) {
-        setLogin({ ...res.data[user.group], type: user.group });
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...res.data[user.group], type: user.group })
-        );
-        localStorage.setItem("saved", JSON.stringify(isChecked));
-        axios.defaults.headers.common["Authorization"] = `${
-          res.data[user.group].token
-        }`;
-      } else {
-        setInvalid(true);
-      }
-      setSubmit(false);
-    });
+    axios
+      .post(`https://lmsadmin.onrender.com/user/${user.group}`, user)
+      .then((res) => {
+        if (res.data[user.group]) {
+          setLogin({ ...res.data[user.group], type: user.group });
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ ...res.data[user.group], type: user.group })
+          );
+          localStorage.setItem("saved", JSON.stringify(isChecked));
+          axios.defaults.headers.common["Authorization"] = `${
+            res.data[user.group].token
+          }`;
+        } else {
+          setInvalid(true);
+        }
+        setSubmit(false);
+      });
   };
 
   return (

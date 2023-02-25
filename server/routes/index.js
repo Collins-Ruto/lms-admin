@@ -6,3 +6,4 @@ export { default as subjectRoutes } from "./subjects.js";
 export { default as feeRoutes } from "./fee.js";
 export { default as dataRoutes } from "./data.js";
 export { default as userRoutes } from "./user.js";
+export { default as adminRoutes } from "./admin.js";

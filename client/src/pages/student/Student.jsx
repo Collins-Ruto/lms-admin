@@ -5,14 +5,19 @@ import axios from "axios";
 
 function Dashboard() {
   const [data, setData] = useState({});
+    const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
   //localhost:8000
   useEffect(() => {
-    axios.get("https://lmsadmin.onrender.com/data").then((res) => {
-      setData(res.data);
-      setLoading(false);
-    });
+    const user = JSON?.parse(localStorage.getItem("user"));
+    setUser(user);
+    axios
+      .post("https://lmsadmin.onrender.com/data", { slug: user?.slug })
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      });
   }, []);
   const termVvalue = "II";
 
@@ -107,7 +112,7 @@ function Dashboard() {
           ))}
         </div>
         <div className="col-start-2 col-span-2">
-          <Calender full={false} />
+          <Calender full={false} user={user} />
         </div>
       </div>
     </div>

@@ -22,6 +22,7 @@ import {
 } from "./pages/admin";
 import { Student } from "./pages/student";
 import { Teacher } from "./pages/teacher";
+import axios from "axios";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -31,6 +32,9 @@ function App() {
     const saved = JSON?.parse(localStorage?.getItem("saved"));
     const user = saved && JSON?.parse(localStorage?.getItem("user"));
     user && setUser(user);
+    axios.defaults.headers.common["Authorization"] = `${
+      user?.token
+    }`;
   }, []);
 
   console.log(user);
