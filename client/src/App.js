@@ -13,7 +13,13 @@ import {
 } from "./pages";
 import Header from "./components/Header";
 import { Footer } from "./components";
-import { AddFee, AddStudent, AddTeacher, Dashboard, Teachers } from "./pages/admin";
+import {
+  AddFee,
+  AddStudent,
+  AddTeacher,
+  Dashboard,
+  Teachers,
+} from "./pages/admin";
 import { Student } from "./pages/student";
 import { Teacher } from "./pages/teacher";
 
@@ -22,13 +28,12 @@ function App() {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    
     const saved = JSON?.parse(localStorage?.getItem("saved"));
-     const user = saved &&JSON?.parse(localStorage?.getItem("user"));
+    const user = saved && JSON?.parse(localStorage?.getItem("user"));
     user && setUser(user);
   }, []);
 
-  console.log(user)
+  console.log(user);
 
   return (
     <div className="App bg-[#FEFEFF] relative min-h-[110vh]">
@@ -50,6 +55,7 @@ function App() {
                 <Route path="/addstudent" element={<AddStudent />} />
                 <Route path="/addteacher" element={<AddTeacher />} />
                 <Route path="/addfee" element={<AddFee />} />
+                <Route path="/account" element={<Account />} />
                 <Route path="*" element={<Dashboard />} />
               </Routes>
             )}
@@ -74,6 +80,7 @@ function App() {
                 <Route path="/calender" element={<CalenderPage />} />
                 <Route path="/fee" element={<FeeData />} />
                 <Route path="/exams" element={<Exam />} />
+                <Route path="/account" element={<Account />} />
                 <Route path="*" element={<Student />} />
               </Routes>
             )}

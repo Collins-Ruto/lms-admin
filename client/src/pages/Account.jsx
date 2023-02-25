@@ -27,16 +27,21 @@ function Account() {
     setEditUser({ ...editUser, [name]: value });
   };
 
-  const handleSubmit = (type) => {
+  const handleSubmit = (inputType) => {
     setSubmit(true);
     axios
-      .post(`http://localhost:8000/teachers/${type}`, {
+      .post(`http://localhost:8000/${user.type}s/${inputType}`, {
         slug: user.slug,
         data: editUser,
       })
       .then((res) => {
         setSubmit(false);
-        res.status === 200 && setEditUser({});
+        console.log("res", res.data.message);
+        res.data.message === "success" && setEditUser({
+          password: '',
+          oldPassword: '',
+          email: '',
+        });
       });
     //   axios
     //     .post("https://lmsadmin.onrender.com/teachers", editUser)

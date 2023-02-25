@@ -128,7 +128,7 @@ function Header({ user }) {
                 <img src={home} alt="" className="w-7 mr-2" />
                 <span className="text-lg">Dashboard</span>
               </NavLink>
-              <NavLink
+              {!(user.type === 'student') && <NavLink
                 to="/students"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
@@ -140,8 +140,8 @@ function Header({ user }) {
               >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-lg">Students</span>
-              </NavLink>
-              <NavLink
+              </NavLink>}
+              {user.type === 'admin' && <NavLink
                 to="/teachers"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
@@ -153,7 +153,7 @@ function Header({ user }) {
               >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-lg">Teachers</span>
-              </NavLink>
+              </NavLink>}
               <NavLink
                 to="/exams"
                 className={({ isActive }) =>
@@ -180,7 +180,7 @@ function Header({ user }) {
                 <img src={calender} alt="" className="w-7 mr-2" />
                 <span className="text-lg">calender</span>
               </NavLink>
-              <NavLink
+              {!(user.type === 'student') && <NavLink
                 to="/fee"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
@@ -192,7 +192,7 @@ function Header({ user }) {
               >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-lg">Finance</span>
-              </NavLink>
+              </NavLink>}
               <NavLink
                 to="/class"
                 className={({ isActive }) =>

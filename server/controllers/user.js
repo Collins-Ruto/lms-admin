@@ -45,6 +45,7 @@ export const getStudent = async (req, res) => {
     console.log(error.message);
   }
 };
+
 export const getTeacher = async (req, res) => {
   console.log(req.body);
   try {
@@ -79,6 +80,7 @@ export const getTeacher = async (req, res) => {
     console.log(error.message);
   }
 };
+
 export const getAdmin = async (req, res) => {
   console.log(req.body);
   try {

@@ -4,9 +4,9 @@ import { addTeacher, deleteTeacher, editPassword, editTeacher, getTeachers } fro
 const router = express.Router();
 
 router.get("/", getTeachers);
+router.post("/", addTeacher);
 router.post("/edit", editTeacher);
 router.post("/password", editPassword);
-router.post("/", addTeacher);
 router.delete("/", deleteTeacher);
 
 export default router;
