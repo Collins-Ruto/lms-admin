@@ -86,6 +86,27 @@ export const addStudent = async (req, res) => {
   }
 };
 
+export const getStudent = async (slug, oldPassword) => {
+  try {
+    const query = gql`
+      query MyQuery($slug: String!) {
+        student(where: { slug: $slug }) {
+          password
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, { slug: slug });
+    const validPass =
+      result.student &&
+      (await bcrypt.compare(oldPassword, result.student.password));
+
+    return validPass ? true : false;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const editStudent = async (req, res) => {
   console.log(req.body);
 
@@ -108,10 +129,11 @@ export const editStudent = async (req, res) => {
 };
 
 export const editPassword = async (req, res) => {
-  const encryptedPass = await bcrypt.hash(req.body.data.password, 10);
-  req.body.data.password = encryptedPass;
-
-  console.log(req.body);
+  const validPassword = await getStudent(
+    req.body.slug,
+    req.body.data.oldPassword
+  );
+  delete req.body.data.oldPassword;
 
   const query = `
   mutation updateModel($slug: String!, $data: StudentUpdateInput!) {
@@ -119,11 +141,18 @@ export const editPassword = async (req, res) => {
       password
     }
   }
-`;
+  `;
   try {
-    const result = await graphQLClient.request(query, req.body);
+    const encryptedPass = await bcrypt.hash(req.body.data.password, 10);
+    req.body.data.password = encryptedPass;
 
-    res.status(200).json(result);
+    if (validPassword) {
+      const result = await graphQLClient.request(query, req.body);
+      console.log(result);
+      res.status(200).json({ message: "success" });
+    } else {
+      res.json({ message: "Invalid Password" });
+    }
   } catch (error) {
     console.log(error.message);
   }

@@ -8,7 +8,6 @@ function Dashboard() {
   const [data, setData] = useState({});
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-
   
   //https://lmsadmin.onrender.com
   useEffect(() => {
@@ -16,7 +15,7 @@ function Dashboard() {
     setUser(user)
     console.log(user)
     axios
-      .post("http://localhost:8000/data", { slug: user?.slug })
+      .post("https://lmsadmin.onrender.com/data", { slug: user?.slug })
       .then((res) => {
         setData(res.data);
         setLoading(false);

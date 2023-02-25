@@ -193,7 +193,7 @@ function Header({ user }) {
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-lg">Finance</span>
               </NavLink>}
-              <NavLink
+              {/* <NavLink
                 to="/class"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
@@ -205,7 +205,7 @@ function Header({ user }) {
               >
                 <img src={finance} alt="" className="w-7 mr-2" />
                 <span className="text-lg">Assignments</span>
-              </NavLink>
+              </NavLink> */}
               <NavLink
                 to="/account"
                 className={({ isActive }) =>
