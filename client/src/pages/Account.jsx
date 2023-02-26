@@ -45,7 +45,7 @@ function Account() {
         });
       });
     //   axios
-    //     .post("https://lmsadmin.onrender.com/teachers", editUser)
+    //     .post("http://localhost:8000/teachers", editUser)
     //     .then((res) => {
     // setSubmit(false)});
   };
