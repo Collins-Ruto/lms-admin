@@ -39,160 +39,137 @@ function AddFee() {
     handleSubmit();
   };
 
-
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">
-        <h3 className="">Add Fees</h3>
+        <h3>Add Fees</h3>
       </div>
-      <div className="row">
-        <div className="col-sm-12">
-          <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 md:p-6">
-            <div className="card-body">
-              <form>
-                <div className="row">
-                  <div
-                    className="
-                  "
+      <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 md:p-6">
+        <form>
+          <div>
+            <h5 className="text-xl pb-4">
+              <span>Fees Information</span>
+            </h5>
+          </div>
+          <div className="flex flex-col md:grid grid-cols-3 gap-4 md:gap-y-8">
+            <div>
+              <label>
+                Student Username <span className="text-red-500">*</span>
+              </label>
+              <input
+                onChange={(e) => {
+                  handleInput(e);
+                }}
+                value={fee.stdt_slug}
+                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                placeholder="Enter Username"
+                name="stdt_slug"
+              />
+            </div>
+            <div>
+              <label>
+                Student Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                onChange={(e) => {
+                  handleInput(e);
+                }}
+                value={fee.name}
+                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                placeholder="Enter Name"
+                name="name"
+              />
+            </div>
+            <div className="inline-block relative items-center">
+              <label>
+                Term<span className="text-red-500">*</span>
+              </label>
+              <input
+                onChange={(e) => {
+                  handleInput(e);
+                }}
+                value={fee.term}
+                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                placeholder="Associated Term"
+                name="term"
+              />
+            </div>
+            <div>
+              <label>
+                Fee Amount <span className="text-red-500">*</span>
+              </label>
+              <input
+                onInput={(e) => {
+                  handleInput(e);
+                }}
+                value={fee.amount}
+                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="number"
+                placeholder="Enter amount"
+                name="amount"
+              />
+            </div>
+            <div className="inline-block relative items-center">
+              <label>
+                Fee Type <span className="text-red-500">*</span>
+              </label>
+              <div className="flex items-center cursor-pointer">
+                <select
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
+                  name="type"
+                  value={fee.type}
+                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                >
+                  <option>Select type</option>
+                  <option value="invoice">invoice</option>
+                  <option value="credit">credit</option>
+                </select>
+                <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
                   >
-                    <h5 className="text-xl pb-4">
-                      <span>Fees Information</span>
-                    </h5>
-                  </div>
-                  <div className="flex flex-col md:grid grid-cols-3 gap-4 md:gap-y-8">
-                    <div className="">
-                      <div className="">
-                        <label>
-                          Student Username{" "}
-                          <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          onChange={(e) => {
-                            handleInput(e);
-                          }}
-                          value={fee.stdt_slug}
-                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          type="text"
-                          placeholder="Enter Username"
-                          name="stdt_slug"
-                        />
-                      </div>
-                    </div>
-                    <div className="">
-                      <div className="">
-                        <label>
-                          Student Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          onChange={(e) => {
-                            handleInput(e);
-                          }}
-                          value={fee.name}
-                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          type="text"
-                          placeholder="Enter Name"
-                          name="name"
-                        />
-                      </div>
-                    </div>
-                    <div className="inline-block relative items-center">
-                      <label>
-                        Term<span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        onChange={(e) => {
-                          handleInput(e);
-                        }}
-                        value={fee.term}
-                        className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
-                        placeholder="Associated Term"
-                        name="term"
-                      />
-                    </div>
-                    <div className="">
-                      <div className="">
-                        <label>
-                          Fee Amount <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          onInput={(e) => {
-                            handleInput(e);
-                          }}
-                          value={fee.amount}
-                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          type="number"
-                          placeholder="Enter amount"
-                          name="amount"
-                        />
-                      </div>
-                    </div>
-                    <div className="inline-block relative items-center">
-                      <label>
-                        Fee Type <span className="text-red-500">*</span>
-                      </label>
-                      <div className="flex items-center cursor-pointer">
-                        <select
-                          onChange={(e) => {
-                            handleInput(e);
-                          }}
-                          name="type"
-                          value={fee.type}
-                          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                        >
-                          <option>Select type</option>
-                          <option value="invoice">invoice</option>
-                          <option value="credit">credit</option>
-                        </select>
-                        <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
-                          <svg
-                            className="fill-current h-4 w-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="">
-                      <div className="form-group local-forms calendar-icon">
-                        <label>
-                          Paid Date <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          onChange={(e) => {
-                            handleInput(e);
-                          }}
-                          value={fee.pday}
-                          className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline datetimepicker"
-                          type="text"
-                          placeholder="DD-MM-YYYY"
-                          name="pday"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className=" mt-4">
-                    <div className="">
-                      {submit ? (
-                        <Button />
-                      ) : (
-                        <div
-                          onClick={() => idGenerator()}
-                          // type="submit"
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-32 py-2 px-10 rounded"
-                        >
-                          Submit
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
                 </div>
-              </form>
+              </div>
+            </div>
+            <div className="form-group local-forms calendar-icon">
+              <label>
+                Paid Date <span className="text-red-500">*</span>
+              </label>
+              <input
+                onChange={(e) => {
+                  handleInput(e);
+                }}
+                value={fee.pday}
+                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline datetimepicker"
+                type="text"
+                placeholder="DD-MM-YYYY"
+                name="pday"
+              />
             </div>
           </div>
-        </div>
+          <div className=" mt-4">
+            {submit ? (
+              <Button />
+            ) : (
+              <div
+                onClick={() => idGenerator()}
+                // type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-32 py-2 px-10 rounded"
+              >
+                Submit
+              </div>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );

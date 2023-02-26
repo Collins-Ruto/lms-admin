@@ -8,6 +8,14 @@ const graphQLClient = new GraphQLClient(graphqlAPI, {
   },
 });
 
+const publish = gql`
+  mutation MyMutation($id: ID) {
+    publishTeacher(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
+  }
+`;
+
 export const getTeachers = async (req, res) => {
   try {
     const query = gql`
@@ -40,9 +48,42 @@ export const getTeachers = async (req, res) => {
   }
 };
 
+export const getSearch = async (req, res) => {
+  console.log(req.query);
+  try {
+    const query = gql`
+      query MyQuery($name: String!) {
+        teachersConnection(where: { name_contains: $name }) {
+          edges {
+            node {
+              name
+              email
+              phone
+              password
+              slug
+              dateOfBirth
+              joiningDate
+              streams {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, req.query);
+
+    res.status(200).json(result.teachersConnection.edges);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const addTeacher = async (req, res) => {
   const encryptedPass = await bcrypt.hash(req.body.password, 10);
-  req.body.password = encryptedPass;  
+  req.body.password = encryptedPass;
 
   console.log(req.body);
   const query = gql`
@@ -75,26 +116,20 @@ export const addTeacher = async (req, res) => {
     }
   `;
 
-  const publish = `
-  mutation MyMutation($id: ID) {
-  publishTeacher(where: {id: $id}  to: PUBLISHED){
-    id
-  }
-}`;
   try {
     const result = await graphQLClient.request(query, req.body);
 
     res.status(200).json(result);
-    console.log(result)
+    console.log(result);
 
-    const published = await graphQLClient.request(query, {id: result.id});
-
+    const published = await graphQLClient.request(publish, {
+      id: result.createTeacher.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }
 };
-
-
 
 export const editTeacher = async (req, res) => {
   console.log(req.body);
@@ -104,6 +139,7 @@ export const editTeacher = async (req, res) => {
     updateTeacher(where: {slug: $slug}, data: $data) {
       email
       phone
+      id
     }
   }
 `;
@@ -111,13 +147,18 @@ export const editTeacher = async (req, res) => {
     const result = await graphQLClient.request(query, req.body);
 
     res.status(200).json(result);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.updateTeacher.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
-    res.json(false)
+    res.json(false);
   }
 };
 
-export const getTeacher = async ( slug, oldPassword ) => {
+export const getTeacher = async (slug, oldPassword) => {
   try {
     const query = gql`
       query MyQuery($slug: String!) {
@@ -139,28 +180,36 @@ export const getTeacher = async ( slug, oldPassword ) => {
 };
 
 export const editPassword = async (req, res) => {
-  const validPassword = await getTeacher(req.body.slug, req.body.data.oldPassword);
+  const validPassword = await getTeacher(
+    req.body.slug,
+    req.body.data.oldPassword
+  );
   delete req.body.data.oldPassword;
-  
+
   const query = `
   mutation updateModel($slug: String!, $data: TeacherUpdateInput!) {
     updateTeacher(where: {slug: $slug}, data: $data) {
       password
+      id
     }
   }
   `;
   try {
-
     const encryptedPass = await bcrypt.hash(req.body.data.password, 10);
     req.body.data.password = encryptedPass;
-  
+
     if (validPassword) {
       const result = await graphQLClient.request(query, req.body);
       console.log(result);
       res.status(200).json({ message: "success" });
     } else {
-      res.json({message: "Invalid Password"})
+      res.json({ message: "Invalid Password" });
     }
+
+    const published = await graphQLClient.request(publish, {
+      id: result.updateTeacher.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }

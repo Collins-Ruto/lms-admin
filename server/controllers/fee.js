@@ -7,6 +7,14 @@ const graphQLClient = new GraphQLClient(graphqlAPI, {
   },
 });
 
+const publish = gql`
+  mutation MyMutation($id: ID) {
+    publishFee(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
+  }
+`;
+
 export const getFees = async (req, res) => {
   try {
     const query = gql`
@@ -48,6 +56,81 @@ export const getFees = async (req, res) => {
   }
 };
 
+export const getFeeSearch = async (req, res) => {
+  console.log(req.query);
+  const results = {};
+
+  const query = gql`
+    query MyQuery($id: String!, $name: String!) {
+      feeSearch: feesConnection(where: { slug_contains: $id }) {
+        edges {
+          node {
+            name
+            type
+            slug
+            term
+            payday
+            amount
+            student {
+              ... on Student {
+                name
+                slug
+                balance
+                stream {
+                  ... on Stream {
+                    id
+                    name
+                    slug
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      studentSearch: studentsConnection(where: { name_contains: $name }) {
+        edges {
+          node {
+            fees {
+              name
+              type
+              slug
+              term
+              payday
+              amount
+              student {
+                ... on Student {
+                  name
+                  slug
+                  balance
+                  stream {
+                    ... on Stream {
+                      id
+                      name
+                      slug
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  try {
+    const result = await request(graphqlAPI, query, req.query);
+
+    results.feeSearch = result.feeSearch.edges;
+    results.studentSearch = result.studentSearch.edges;
+
+    console.log(results);
+    res.status(200).json(results);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const addFee = async (req, res) => {
   console.log(req.body);
   const query = gql`
@@ -75,11 +158,17 @@ export const addFee = async (req, res) => {
       }
     }
   `;
+
   try {
     const result = await graphQLClient.request(query, req.body);
     computeFee(req.body);
 
     res.status(200).json(result);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.createFee.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }
@@ -115,6 +204,7 @@ export const getStudentFees = async (req, res) => {
     console.log(error.message);
   }
 };
+
 export const StudentFees = async (slug) => {
   console.log(slug);
   try {
@@ -176,13 +266,20 @@ export const updateStudentFee = async (data) => {
       updateStudent(data: { balance: $balance }, where: { slug: $slug }) {
         balance
         slug
+        id
       }
     }
   `;
+
   try {
     const result = await graphQLClient
       .request(query, data)
       .then((data) => console.log(data));
+    
+    const published = await graphQLClient.request(publish, {
+      id: result.updateStudent.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }

@@ -9,12 +9,13 @@ function Students() {
   const [isDelete, setisDelete] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [delStudent, setDelStudent] = useState("");
-  const [userType, setUserType] = useState('')
+  const [userType, setUserType] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"))
-    setUserType(user.type)
-    console.log("user",user)
+    const user = JSON.parse(localStorage.getItem("user"));
+    setUserType(user.type);
+    console.log("user", user);
 
     axios.get("https://lmsadmin.onrender.com/students").then((res) => {
       setStudents(res.data);
@@ -22,6 +23,14 @@ function Students() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const searchSubmit = async () => {
+    const data = await axios.get(
+      `http://localhost:8000/students/search?name=${search}`
+    );
+    setStudents(data.data);
+    setSubmit(false);
+  };
 
   const deleteStudent = () => {
     axios
@@ -115,70 +124,65 @@ function Students() {
       <div className="w-screen md:w-full">
         {isDelete && <ConfirmDel />}
         <div className="p-4 text-2xl font-semibold">
-          <h3 className="">Students</h3>
+          <h3>Students</h3>
         </div>
         {loading && <Loader />}
-        <div className="">
-          <div className="">
+        <div>
+          <div>
             <div className="flex flex-col md:flex-row gap-4 justify-between p-4">
-              <div className="">
-                <div className="">
+              <div>
+                <div>
                   <input
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                    }}
+                    value={search}
+                    name="name"
                     type="text"
                     className="shadow bg-[#F7F6FB] appearance-none border-[1px] rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="Search by ID ..."
                   />
                 </div>
               </div>
-              <div className="">
-                <div className="">
-                  <input
-                    type="text"
-                    className="shadow appearance-none border bg-[#F7F6FB] rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Search by Name ..."
-                  />
-                </div>
-              </div>
-              <div className="">
-                <div className="">
-                  <input
-                    type="text"
-                    className="shadow appearance-none border bg-[#F7F6FB] rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Search by Phone ..."
-                  />
-                </div>
-              </div>
               <div className="flex justify-between gap-4">
-                <div className="">
-                  <button
-                    type="btn"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Search
-                  </button>
+                <div>
+                  {submit ? (
+                    <Button />
+                  ) : (
+                    <button
+                      onClick={() => {
+                        searchSubmit();
+                        setSubmit(true);
+                      }}
+                      type="btn"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      Search
+                    </button>
+                  )}
                 </div>
-              {userType === "admin" && (
-                <div className="">
-                  <Link
-                    to="/addstudent"
-                    type="btn"
-                    className="bg-blue-500 w-fit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                  >
-                    {" "}
-                    <img
-                      src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
-                      className="w-5 mr-1 text-white"
-                      alt=""
-                    />
-                    Add
-                  </Link>
-                </div>
-              )}
+                {userType === "admin" && (
+                  <div>
+                    <Link
+                      to="/addstudent"
+                      type="btn"
+                      className="bg-blue-500 w-fit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    >
+                      {" "}
+                      <img
+                        src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
+                        className="w-5 mr-1 text-white"
+                        alt=""
+                      />
+                      Add
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
             <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 overflow-auto">
               <table className=" w-full overflow-scroll">
-                <thead className="">
+                <thead>
                   <tr>
                     <th className="p-4">ID</th>
                     <th className="p-4">Name</th>

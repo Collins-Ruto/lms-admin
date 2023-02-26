@@ -40,6 +40,66 @@ export const getExams = async (req, res) => {
   }
 };
 
+export const getExamSearch = async (req, res) => {
+  console.log(req.query);
+  const results = {};
+
+  const query = gql`
+    query MyQuery($id: String!, $name: String!) {
+      examSearch: examsConnection(where: { slug_contains: $id }) {
+        edges {
+          node {
+            examDate
+              id
+              name
+              results
+              slug
+              term
+              student {
+                ... on Student {
+                  name
+                  slug
+                }
+              }
+          }
+        }
+      }
+      studentSearch: studentsConnection(where: { name_contains: $name }) {
+        edges {
+          node {
+            exams {
+             examDate
+              id
+              name
+              results
+              slug
+              term
+              student {
+                ... on Student {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  try {
+    const result = await request(graphqlAPI, query, req.query);
+
+    results.examSearch = result.examSearch.edges;
+    results.studentSearch = result.studentSearch.edges;
+
+    console.log(results);
+    res.status(200).json(results);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
 export const getStudent = async (req, res) => {
   console.log(req.query);
   try {
@@ -100,10 +160,22 @@ export const addExams = async (req, res) => {
       }
     }
   `;
+  const publish = gql`
+    mutation MyMutation($id: ID) {
+      publishExam(where: { id: $id }, to: PUBLISHED) {
+        id
+      }
+    }
+  `;
   try {
     const result = await graphQLClient.request(query, req.body);
 
-    return res.status(200).json(result);
+    res.status(200).json(result);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.createExam.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }

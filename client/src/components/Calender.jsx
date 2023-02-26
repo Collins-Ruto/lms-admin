@@ -100,8 +100,7 @@ export default function Calender({ full, user }) {
   const selectedDayLessonsFun = () => {
     if (!user) {
       return lessons.filter(
-        (lesson) =>
-          format(selectedDay, "EEE") === lesson.node.day
+        (lesson) => format(selectedDay, "EEE") === lesson.node.day
       );
     }
     if (user.type === "teacher") {
@@ -139,7 +138,7 @@ export default function Calender({ full, user }) {
               <button
                 type="button"
                 onClick={previousMonth}
-                className="-my-1.5 md:w-10 items-center p-1.5 text-gray-400 hover:text-gray-500"
+                className="-my-1.5 w-10 items-center p-1.5 text-gray-400 hover:text-gray-500"
               >
                 <img
                   src="https://img.icons8.com/ios-filled/50/000000/less-than.png"
@@ -268,18 +267,18 @@ function Lesson({ lesson }) {
     <div className="flex gap-4 pb-4 divide-x-4 text-gray-700 divide-blue-600 ">
       <div className="flex flex-col border-r-3">
         <span className="font-semibold">{lesson.day}</span>
-        <span className="">{lesson.stream?.name}</span>
+        <span>{lesson.stream?.name}</span>
       </div>
       <div className="flex pl-2 justify-between grow ">
-        <div className="">
+        <div>
           <h2 className="text-gray-700 font-semibold text-base">
             {lesson.subject.name}
           </h2>
-          <h2 className="">{lesson.teacher?.name}</h2>
+          <h2>{lesson.teacher?.name}</h2>
         </div>
         <div className="flex flex-col justify-end">
-          <div className="">{lesson.startTime}</div>
-          <div className="">{lesson.endTime}</div>
+          <div>{lesson.startTime}</div>
+          <div>{lesson.endTime}</div>
         </div>
       </div>
     </div>

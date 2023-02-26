@@ -41,7 +41,7 @@ function AddStudent() {
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">
-        <h3 className="">Add Students</h3>
+        <h3>Add Students</h3>
       </div>
       <div className="row">
         <div className="col-sm-12">
@@ -59,8 +59,8 @@ function AddStudent() {
                   </h5>
                 </div>
                 <div className="flex flex-col md:grid grid-cols-3 gap-4 md:gap-y-8">
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>
                         Full Names <span className="text-red-500">*</span>
                       </label>
@@ -76,8 +76,8 @@ function AddStudent() {
                       />
                     </div>
                   </div>
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>Admission ID </label>
                       <input
                         onChange={(e) => {
@@ -91,8 +91,8 @@ function AddStudent() {
                       />
                     </div>
                   </div>
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>
                         Parent Name <span className="text-red-500">*</span>
                       </label>
@@ -137,7 +137,7 @@ function AddStudent() {
                       </div>
                     </div>
                   </div>
-                  <div className="">
+                  <div>
                     <div className=" calendar-icon">
                       <label>
                         Date Of Birth <span className="text-red-500">*</span>
@@ -154,8 +154,8 @@ function AddStudent() {
                       />
                     </div>
                   </div>
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>Username </label>
                       <input
                         onChange={(e) => {
@@ -170,8 +170,8 @@ function AddStudent() {
                     </div>
                   </div>
 
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>
                         E-Mail <span className="text-red-500">*</span>
                       </label>
@@ -203,8 +203,8 @@ function AddStudent() {
                     />
                   </div>
 
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>Phone </label>
                       <input
                         onInput={(e) => {
@@ -218,7 +218,7 @@ function AddStudent() {
                       />
                     </div>
                   </div>
-                  <div className="">
+                  <div>
                     <div className="form-group students-up-files">
                       <label>Upload Student Photo (150px X 150px)</label>
                       <div className="mt-2">
@@ -231,7 +231,7 @@ function AddStudent() {
                   </div>
                 </div>
                 <div className=" mt-4">
-                  <div className="">
+                  <div>
                     {submit ? (
                       <Button />
                     ) : (

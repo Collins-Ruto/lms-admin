@@ -8,6 +8,14 @@ const graphQLClient = new GraphQLClient(graphqlAPI, {
   },
 });
 
+const publish = gql`
+  mutation MyMutation($id: ID) {
+    publishAdmin(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
+  }
+`;
+
 export const addAdmin = async (req, res) => {
   const encryptedPass = await bcrypt.hash(req.body.password, 10);
   req.body.password = encryptedPass;
@@ -38,6 +46,11 @@ export const addAdmin = async (req, res) => {
     const result = await graphQLClient.request(query, req.body);
 
     res.status(200).json(result);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.createAdmin.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }
@@ -51,6 +64,7 @@ export const editAdmin = async (req, res) => {
     updateAdmin(where: {slug: $slug}, data: $data) {
       email
       phone
+      id
     }
   }
 `;
@@ -58,6 +72,12 @@ export const editAdmin = async (req, res) => {
     const result = await graphQLClient.request(query, req.body);
 
     res.status(200).json(result);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.updateAdmin.id,
+    });
+    console.log("published", published);
+
   } catch (error) {
     console.log(error.message);
     res.json(false);
@@ -96,6 +116,7 @@ export const editPassword = async (req, res) => {
   mutation updateModel($slug: String!, $data: AdminUpdateInput!) {
     updateAdmin(where: {slug: $slug}, data: $data) {
       password
+      id
     }
   }
   `;
@@ -110,6 +131,14 @@ export const editPassword = async (req, res) => {
     } else {
       res.json({ message: "Invalid Password" });
     }
+
+    res.status(200).json(result);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.updateAdmin.id,
+    });
+     console.log("published", published);
+
   } catch (error) {
     console.log(error.message);
   }

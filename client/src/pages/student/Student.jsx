@@ -55,12 +55,12 @@ function Dashboard() {
   ];
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="p-4 pb-6 sm:p-6">
       <div className=" text-2xl font-semibold">
-        <h3 className="">Your Dashboard</h3>
+        <h3>Your Dashboard</h3>
       </div>
       {loading && <Loader />}
-      <div className="flex justify-between py-6">
+      <div className="flex justify-between py-6 gap-4 flex-wrap">
         {datas.map((data) => (
           <div
             className="flex grow min-w-[16rem] sm:max-w-[20rem] py-4 px-6 min-w- justify-between rounded-lg bg-[#F7F6FB]"
@@ -68,7 +68,7 @@ function Dashboard() {
           >
             <div className="flex flex-col rounded-lg">
               <span className="text-gray-500 font-light ">{data?.title}</span>
-              <span className="mx-auto text-2xl font-semibold">
+              <span className="lg:mx-auto text-2xl font-semibold">
                 {data?.value}
               </span>
             </div>
@@ -80,14 +80,14 @@ function Dashboard() {
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-3">
-        <div className="bg-[#F7F6FB] p-4">
+      <div className="lg:grid lg:grid-cols-3">
+        <div className="bg-[#F7F6FB] p-4 mb-4 lg:m-0">
           <h2 className="font-semibold text-gray-800 text-lg">Your Tasks</h2>
           <ol className="mt-4 space-y-1 text-sm border-b-2 border-gray-600 leading-6 text-gray-500">
             <p>No Tasks currently</p>
           </ol>
         </div>
-        <div className="col-start-2 col-span-2">
+        <div className="lg:col-start-2 lg:col-span-2">
           <Calender full={false} user={user} />
         </div>
       </div>

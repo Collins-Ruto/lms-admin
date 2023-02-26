@@ -42,10 +42,10 @@ function AddLesson() {
   return (
     <div>
       <div className="p-2 md:p-4 text-2xl font-semibold">
-        <h3 className="">Add lessons</h3>
+        <h3>Add lessons</h3>
       </div>
-      <div className="">
-        <div className="">
+      <div>
+        <div>
           <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 md:p-6">
             <div className="card-body">
               <form>
@@ -60,8 +60,8 @@ function AddLesson() {
                   </h5>
                 </div>
                 <div className="flex flex-col md:grid grid-cols-3 gap-2 gap-y-4 md:gap-y-8">
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>
                         Subject ID <span className="text-red-500">*</span>
                       </label>
@@ -77,8 +77,8 @@ function AddLesson() {
                       />
                     </div>
                   </div>
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>Stream ID </label>
                       <input
                         onChange={(e) => {
@@ -92,8 +92,8 @@ function AddLesson() {
                       />
                     </div>
                   </div>
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>
                         Teacher Username <span className="text-red-500">*</span>
                       </label>
@@ -109,7 +109,7 @@ function AddLesson() {
                       />
                     </div>
                   </div>
-                  <div className="">
+                  <div>
                     <div className=" calendar-icon">
                       <label>
                         Day of Week<span className="text-red-500">*</span>
@@ -126,7 +126,7 @@ function AddLesson() {
                       />
                     </div>
                   </div>
-                  <div className="">
+                  <div>
                     <div className=" calendar-icon">
                       <label>
                         Start Time <span className="text-red-500">*</span>
@@ -143,7 +143,7 @@ function AddLesson() {
                       />
                     </div>
                   </div>
-                  <div className="">
+                  <div>
                     <div className=" calendar-icon">
                       <label>
                         End Time <span className="text-red-500">*</span>
@@ -161,8 +161,8 @@ function AddLesson() {
                     </div>
                   </div>
 
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>Attendance List</label>
                       <textarea
                         onChange={(e) => {
@@ -178,7 +178,7 @@ function AddLesson() {
                   </div>
                 </div>
                 <div className=" mt-4">
-                  <div className="">
+                  <div>
                     {submit ? (
                       <Button />
                     ) : (

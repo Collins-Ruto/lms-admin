@@ -68,7 +68,7 @@ function Dashboard() {
   return (
     <div className="p-4 pb-6 sm:p-6 ">
       <div className=" text-2xl font-semibold">
-        <h3 className="">Admin Dashboard</h3>
+        <h3>Admin Dashboard</h3>
       </div>
       {loading && <Loader />}
       <div className="flex justify-between py-6 gap-4  flex-wrap ">
@@ -79,11 +79,15 @@ function Dashboard() {
           >
             <div className="flex flex-col rounded-lg">
               <span className="text-gray-500 font-light ">{data?.title}</span>
-              <span className="md:mx-auto text-2xl font-semibold">
+              <span className="lg:mx-auto text-2xl font-semibold">
                 {data?.value}
               </span>
             </div>
-            <img src={data?.url} alt={data?.title} className="w-16 rounded-full bg-slate-700 p-0" />
+            <img
+              src={data?.url}
+              alt={data?.title}
+              className="w-16 rounded-full bg-slate-700 p-0"
+            />
           </div>
         ))}
       </div>

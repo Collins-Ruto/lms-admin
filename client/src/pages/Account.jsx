@@ -121,10 +121,10 @@ function Account() {
                 <h1 className="text-xl py-4 text-center mx-auto">
                   Change your Password
                 </h1>
-                <div className="">
+                <div>
                   <div className="mx-auto flex flex-col w-80 gap-4 gap-y-8 pb-4">
                     <div className="col-12 col-sm-4">
-                      <div className="">
+                      <div>
                         <label>
                           Old Password <span className="text-red-500">*</span>
                         </label>
@@ -142,7 +142,7 @@ function Account() {
                       </div>
                     </div>
                     <div className="col-12 col-sm-4">
-                      <div className="">
+                      <div>
                         <label>
                           New Password <span className="text-red-500">*</span>
                         </label>
@@ -183,7 +183,7 @@ function Account() {
                         )}
                       </div>
                     </div>
-                    <div className="">
+                    <div>
                       {submit ? (
                         <Button />
                       ) : (
@@ -206,8 +206,8 @@ function Account() {
                   Update your Details
                 </h1>
                 <div className="flex mx-auto flex-col w-80 gap-4 gap-y-8 pb-4">
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>
                         E-Mail <span className="text-red-500">*</span>
                       </label>
@@ -223,8 +223,8 @@ function Account() {
                       />
                     </div>
                   </div>
-                  <div className="">
-                    <div className="">
+                  <div>
+                    <div>
                       <label>Phone </label>
                       <input
                         onInput={(e) => {
@@ -238,7 +238,7 @@ function Account() {
                       />
                     </div>
                   </div>
-                  <div className="">
+                  <div>
                     {submit ? (
                       <Button />
                     ) : (

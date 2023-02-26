@@ -77,10 +77,24 @@ export const addLesson = async (req, res) => {
       }
     }
   `;
+
+  const publish = gql`
+    mutation MyMutation($id: ID) {
+      publishLesson(where: { id: $id }, to: PUBLISHED) {
+        id
+      }
+    }
+  `;
+
   try {
     const result = await graphQLClient.request(query, req.body);
 
     res.status(200).json(result);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.createLesson.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }

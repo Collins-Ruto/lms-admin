@@ -13,8 +13,8 @@ function AddExam() {
   const [student, setStudent] = useState({});
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [submit, setSubmit] = useState(false)
-  
+  const [submit, setSubmit] = useState(false);
+
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/subjects").then((res) => {
       setSubjects(res.data.subjects);
@@ -34,18 +34,17 @@ function AddExam() {
   };
 
   const handleResult = (event) => {
-    
     const target = event.target;
     // const value = target.type === "checkbox" ? target.checked : target.value;
     const value =
       target.type === "number" ? parseInt(target.value) : target.value;
     const name = target.name.toString();
 
-    setExam({...exam, results:{ ...exam.results, [name]: value }});
+    setExam({ ...exam, results: { ...exam.results, [name]: value } });
   };
 
   const handleSubmit = () => {
-    setSubmit(true)
+    setSubmit(true);
     axios
       .post("https://lmsadmin.onrender.com/exams", { data: exam })
       .then((res) => {
@@ -55,7 +54,7 @@ function AddExam() {
   };
 
   const getStudent = () => {
-    setSubmit(true)
+    setSubmit(true);
     axios
       .get(`https://lmsadmin.onrender.com/exams/student?admissionId=${admid}`)
       .then((res) => {
@@ -64,21 +63,20 @@ function AddExam() {
           ...exam,
           student: { connect: { Student: { slug: res.data.student.slug } } },
         });
-        setSubmit(false)
+        setSubmit(false);
       });
-    
   };
   return (
     <div>
       <div className="p-4 text-2xl font-semibold">
-        <h3 className="">Add Exam Results</h3>
+        <h3>Add Exam Results</h3>
       </div>
       {loading && <Loader />}
-      <div className="">
+      <div>
         <h2 className="px-4 text-sm">Search for student in the system first</h2>
         <div className="flex px-4 justify-between md:justify-start">
           <div className="md:mr-8">
-            <div className="">
+            <div>
               <input
                 onChange={(e) => setAdmid(e.target.value)}
                 value={admid}
@@ -88,8 +86,8 @@ function AddExam() {
               />
             </div>
           </div>
-          <div className="">
-            <div className="">
+          <div>
+            <div>
               {submit ? (
                 <Button />
               ) : (
@@ -121,7 +119,7 @@ function AddExam() {
         </div>
 
         <div className="m-4 flex-col bg-[#F7F6FB] flex md:flex-row gap-4 rounded-xl p-4 md:p-6">
-          <div className="">
+          <div>
             <label>
               Exam Name <span className="text-red-500">*</span>
             </label>
@@ -136,7 +134,7 @@ function AddExam() {
               name="name"
             />
           </div>
-          <div className="">
+          <div>
             <label>
               Current Term <span className="text-red-500">*</span>
             </label>
@@ -151,7 +149,7 @@ function AddExam() {
               name="term"
             />
           </div>
-          <div className="">
+          <div>
             <label>
               Unique Identifier <span className="text-red-500">*</span>
             </label>
@@ -203,7 +201,7 @@ function AddExam() {
           </tbody>
         </table>
         <div className=" mt-8">
-          <div className="">
+          <div>
             {submit ? (
               <Button />
             ) : (

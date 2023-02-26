@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import homepic from "../res/homepic1.webp";
 import { Button } from "../components";
 
 function Login({ setLogin }) {
@@ -48,11 +49,12 @@ function Login({ setLogin }) {
 
   return (
     <div className="h-screen p-2 flex justify-center w-full text-black">
-      <div className="sm:flex m-auto items-center rounded-lg bg-[#F7F6FB] w-[50rem] ">
-        <div className="login-left">
+      <div className="sm:flex m-auto items-center rounded-lg bg-[#F7F6FB] ">
+        <div className="p-4">
           <img
-            className="w-96 cover mx-4"
-            src="https://preschool.dreamguystech.com/template/assets/img/login.png"
+            className="h-96 mx-auto cover"
+            // src="https://preschool.dreamguystech.com/template/assets/img/login.png"
+            src={homepic}
             alt="Logo"
           />
         </div>
@@ -159,7 +161,7 @@ function Login({ setLogin }) {
               {submit ? (
                 <Button />
               ) : (
-                <div className="">
+                <div>
                   <button
                     onClick={() => handleSubmit()}
                     className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded"

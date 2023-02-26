@@ -8,6 +8,14 @@ const graphQLClient = new GraphQLClient(graphqlAPI, {
   },
 });
 
+const publish = gql`
+  mutation MyMutation($id: ID) {
+    publishStudent(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
+  }
+`;
+
 export const getStudents = async (req, res) => {
   try {
     const query = gql`
@@ -41,11 +49,45 @@ export const getStudents = async (req, res) => {
   }
 };
 
+export const getSearchStudent = async (req, res) => {
+  console.log(req.query);
+  try {
+    const query = gql`
+      query MyQuery($name: String!) {
+        studentsConnection(where: { name_contains: $name }) {
+          edges {
+            node {
+              dateOfBirth
+              name
+              parent
+              phone
+              gender
+              slug
+              stream {
+                ... on Stream {
+                  slug
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, req.query);
+
+    res.status(200).json(result.studentsConnection.edges);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const addStudent = async (req, res) => {
   const encryptedPass = await bcrypt.hash(req.body.slug, 10);
-  req.body.password = encryptedPass; 
+  req.body.password = encryptedPass;
 
-  console.log(req.body)
+  console.log(req.body);
   const query = gql`
     mutation CreateStudent(
       $name: String!
@@ -80,7 +122,12 @@ export const addStudent = async (req, res) => {
   try {
     const result = await graphQLClient.request(query, req.body);
 
-    return res.status(200).json(result);
+    res.status(200).json(result);
+    
+     const published = await graphQLClient.request(publish, {
+       id: result.createStudent.id,
+     });
+     console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }
@@ -115,13 +162,19 @@ export const editStudent = async (req, res) => {
     updateStudent(where: {slug: $slug}, data: $data) {
       email
       phone
+      id
     }
   }
 `;
+  
   try {
     const result = await graphQLClient.request(query, req.body);
 
     res.status(200).json(result);
+    const published = await graphQLClient.request(publish, {
+      id: result.updateStudent.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
     res.json(false);
@@ -139,6 +192,7 @@ export const editPassword = async (req, res) => {
   mutation updateModel($slug: String!, $data: StudentUpdateInput!) {
     updateStudent(where: {slug: $slug}, data: $data) {
       password
+      id
     }
   }
   `;
@@ -153,28 +207,31 @@ export const editPassword = async (req, res) => {
     } else {
       res.json({ message: "Invalid Password" });
     }
+
+    const published = await graphQLClient.request(publish, {
+      id: result.updateStudent.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }
 };
 
 export const deleteStudent = async (req, res) => {
-   console.log(req.body);
-   const query = gql`
-     mutation MyMutation(
-      $slug: String!
-      ){
-       deleteStudent(where: { slug: $slug }) {
+  console.log(req.body);
+  const query = gql`
+    mutation MyMutation($slug: String!) {
+      deleteStudent(where: { slug: $slug }) {
         id
         name
-       }
-     }
-   `;
-   try {
-     const result = await graphQLClient.request(query, req.body);
+      }
+    }
+  `;
+  try {
+    const result = await graphQLClient.request(query, req.body);
 
-     res.status(200).json(result);
-   } catch (error) {
-     console.log(error.message);
-   }
- }
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
