@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Calender, Loader } from "../../components";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 
@@ -54,21 +54,10 @@ function Dashboard() {
     },
   ];
 
-  const editInfo = [
-    {
-      title: "Lessons",
-      path: "/addlesson",
-    },
-    {
-      title: "Exams",
-      path: "/addexam",
-    },
-  ];
-
   return (
     <div className="p-6">
       <div className=" text-2xl font-semibold">
-        <h3 className="">Teacher Dashboard</h3>
+        <h3 className="">Your Dashboard</h3>
       </div>
       {loading && <Loader />}
       <div className="flex justify-between py-6">
@@ -89,25 +78,10 @@ function Dashboard() {
       </div>
       <div className="grid grid-cols-3">
         <div className="bg-[#F7F6FB] p-4">
-          <span className="text-xl">Manage Data</span>
-          {editInfo.map((data) => (
-            <div className="flex justify-between mt-4 p-1" key={data.title}>
-              <span className="text-lg">{data.title}</span>
-              <Link
-                to={data.path}
-                type="btn"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-              >
-                {" "}
-                <img
-                  src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
-                  className="w-5 mr-1"
-                  alt=""
-                />
-                Add
-              </Link>
-            </div>
-          ))}
+          <h2 className="font-semibold text-gray-800 text-lg">Your Tasks</h2>
+          <ol className="mt-4 space-y-1 text-sm border-b-2 border-gray-600 leading-6 text-gray-500">
+            <p>No Tasks currently</p>
+          </ol>
         </div>
         <div className="col-start-2 col-span-2">
           <Calender full={false} user={user} />

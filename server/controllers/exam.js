@@ -65,8 +65,31 @@ export const getStudent = async (req, res) => {
   }
 };
 
+export const getStudentExams = async (req, res) => {
+  console.log(req.query);
+  try {
+    const query = gql`
+      query MyQuery($slug: String!) {
+        student(where: { slug: $slug }) {
+          exams {
+            examDate
+            id
+            name
+            results
+            slug
+            term
+          }
+        }
+      }
+    `;
 
+    const result = await request(graphqlAPI, query, req.query);
 
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const addExams = async (req, res) => {
   console.log(req.body);

@@ -20,7 +20,7 @@ import {
   Dashboard,
   Teachers,
 } from "./pages/admin";
-import { Student } from "./pages/student";
+import { Student, StudentExam, StudentFee } from "./pages/student";
 import { Teacher } from "./pages/teacher";
 import axios from "axios";
 
@@ -82,8 +82,8 @@ function App() {
               <Routes>
                 <Route exact path="/" element={<Student />} />
                 <Route path="/calender" element={<CalenderPage />} />
-                <Route path="/fee" element={<FeeData />} />
-                <Route path="/exams" element={<Exam />} />
+                <Route path="/fee" element={<StudentFee />} />
+                <Route path="/exams" element={<StudentExam />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="*" element={<Student />} />
               </Routes>
