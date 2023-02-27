@@ -63,6 +63,10 @@ function Dashboard() {
       title: "Exams",
       path: "/addexam",
     },
+    {
+      title: "Admins",
+      path: "/addadmin",
+    },
   ];
 
   return (

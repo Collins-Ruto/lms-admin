@@ -72,7 +72,7 @@ function AddAdmin() {
               </span>
             </h5>
           </div>
-          <div className="flex flex-col md:grid grid-cols-3 gap-4 md:gap-y-8 pb-4">
+          <div className="flex flex-col md:grid grid-cols-2 max-w-[52rem] gap-4 md:gap-y-8 pb-4">
             <div>
               <label>
                 Full Names <span className="text-red-500">*</span>
@@ -99,50 +99,6 @@ function AddAdmin() {
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="Enter admin ID"
-              />
-            </div>
-            <div className="inline-block relative items-center">
-              <label>
-                Gender <span className="text-red-500">*</span>
-              </label>
-              <div className="flex items-center cursor-pointer">
-                <select
-                  onChange={(e) => {
-                    handleInput(e);
-                  }}
-                  name="gender"
-                  value={admin.gender}
-                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                >
-                  <option>Select Gender</option>
-                  <option value="Female">Female</option>
-                  <option value="Male">Male</option>
-                  <option value="Others">Others</option>
-                </select>
-                <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className=" calendar-icon">
-              <label>
-                Date Of Birth <span className="text-red-500">*</span>
-              </label>
-              <input
-                onChange={(e) => {
-                  handleInput(e);
-                }}
-                value={admin.dob}
-                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline datetimepicker"
-                type="text"
-                placeholder="DD-MM-YYYY"
-                name="dob"
               />
             </div>
 
@@ -174,39 +130,11 @@ function AddAdmin() {
                 name="phone"
               />
             </div>
-            <div className=" calendar-icon">
-              <label>
-                Joining Date <span className="text-red-500">*</span>
-              </label>
-              <input
-                onChange={(e) => {
-                  handleInput(e);
-                }}
-                value={admin.jod}
-                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline datetimepicker"
-                type="text"
-                placeholder="DD-MM-YYYY"
-                name="jod"
-              />
-            </div>
-            <div>
-              <label>Qualification </label>
-              <textarea
-                onChange={(e) => {
-                  handleInput(e);
-                }}
-                value={admin.quali}
-                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="Enter Qualifications"
-                name="quali"
-              />
-            </div>
           </div>
         </div>
         <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 md:p-6">
           <div className="col-12">
-            <h5 className="text-xl py-4">
+            <h5 className="text-xl pb-4">
               <span>Login Details</span>
             </h5>
           </div>

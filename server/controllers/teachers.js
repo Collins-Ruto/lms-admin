@@ -137,9 +137,9 @@ export const addTeacher = async (req, res) => {
     mutation CreateTeacher(
       $name: String!
       $email: String!
-      $gender: String
       $jod: String
       $phone: Int
+      $gender: String
       $dob: String
       $slug: String!
       $password: String

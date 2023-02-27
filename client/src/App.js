@@ -14,6 +14,7 @@ import {
 import Header from "./components/Header";
 import { Footer } from "./components";
 import {
+  AddAdmin,
   AddFee,
   AddStudent,
   AddTeacher,
@@ -58,6 +59,7 @@ function App() {
                 <Route path="/teachers" element={<Teachers />} />
                 <Route path="/addstudent" element={<AddStudent />} />
                 <Route path="/addteacher" element={<AddTeacher />} />
+                <Route path="/addadmin" element={<AddAdmin />} />
                 <Route path="/addfee" element={<AddFee />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="*" element={<Dashboard />} />
