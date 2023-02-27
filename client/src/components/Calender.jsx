@@ -130,8 +130,8 @@ export default function Calender({ full, user }) {
   console.log("select", selectedDayLessons);
 
   return (
-    <div className={` rounded-lg ${full ? "w-full p-4" : ""}`}>
-      <div className="max-w-md mx-auto sm:px-7 md:max-w-4xl">
+    <div className={` rounded-lg ${full ? "w-full p-4" : "sm:w-full"}`}>
+      <div className="md:max-w-m mx-auto lg:px-4 lg:max-w-4xl">
         <div
           className={` divide-x md:grid md:grid-cols-2 divide-gray-200 p-4 bg-[#F7F6FB] mx-auto ${
             full ? "" : ""
@@ -142,7 +142,7 @@ export default function Calender({ full, user }) {
               <button
                 type="button"
                 onClick={previousMonth}
-                className="-my-1.5 w-10 items-center p-1.5 text-gray-400 hover:text-gray-500"
+                className="-my-1.5 md:w-10 items-center p-1.5 text-gray-400 hover:text-gray-500"
               >
                 <img
                   src="https://img.icons8.com/ios-filled/50/000000/less-than.png"

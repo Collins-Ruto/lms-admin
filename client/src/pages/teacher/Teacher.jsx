@@ -35,17 +35,17 @@ function Dashboard() {
     {
       title: "Lessons Today",
       value: todayLessons?.length || "...",
-      url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
+      url: "https://icons-for-free.com/iconfiles/png/512/reading-131964753179295908.png",
     },
     {
       title: "Current Term",
       value: termVvalue,
-      url: "https://preschool.dreamguystech.com/template/assets/img/icons/teacher-icon-03.svg",
+      url: "https://cdn-icons-png.flaticon.com/512/4850/4850682.png",
     },
     {
       title: "Subjects offered",
       value: data.subjects || "...",
-      url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
+      url: "https://cdn-icons-png.flaticon.com/512/3426/3426653.png",
     },
     {
       title: "Students",
@@ -66,7 +66,7 @@ function Dashboard() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <div className=" text-2xl font-semibold">
         <h3 className="">Teacher Dashboard</h3>
       </div>
@@ -74,7 +74,7 @@ function Dashboard() {
       <div className="flex justify-between py-6">
         {datas.map((data) => (
           <div
-            className="flex  py-4 px-6 gap- w-60 justify-between rounded-lg bg-[#F7F6FB]"
+            className="flex grow min-w-[16rem] sm:max-w-[20rem] py-4 px-6 min-w- justify-between rounded-lg bg-[#F7F6FB]"
             key={data.title}
           >
             <div className="flex flex-col rounded-lg">
@@ -83,7 +83,11 @@ function Dashboard() {
                 {data?.value}
               </span>
             </div>
-            <img src={data?.url} alt={data?.title} className="" />
+            <img
+              src={data?.url}
+              alt={data?.title}
+              className="w-16 rounded-full bg-slate-700 p-0"
+            />
           </div>
         ))}
       </div>
@@ -110,7 +114,7 @@ function Dashboard() {
           ))}
         </div>
         <div className="col-start-2 col-span-2">
-          <Calender full={false} user={ user} />
+          <Calender full={false} user={user} />
         </div>
       </div>
     </div>

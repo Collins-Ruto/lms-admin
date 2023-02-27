@@ -104,9 +104,7 @@ export const getAdmin = async (req, res) => {
 
     console.log(validPass);
 
-    const token = jwt.sign({ user_id: result.admin.slug }, TOKEN_KEY, {
-      expiresIn: "2h",
-    });
+    const token = jwt.sign({ user_id: result.admin.slug }, TOKEN_KEY);
 
     result.admin.token = token;
 

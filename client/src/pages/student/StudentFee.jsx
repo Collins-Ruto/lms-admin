@@ -10,7 +10,7 @@ function FeeData() {
     const user = JSON?.parse(localStorage.getItem("user"));
     console.log(user);
     axios
-      .get(`http://localhost:8000/fees/student?slug=${user.slug}`)
+      .get(`https://lmsadmin.onrender.com/fees/student?slug=${user.slug}`)
       .then((res) => {
         setStudent(res.data[0].node);
         setLoading(false);

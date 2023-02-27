@@ -40,10 +40,10 @@ function App() {
   console.log(user);
 
   return (
-    <div className="App bg-[#FEFEFF] relative min-h-[110vh]">
+    <div className="App bg-[#FEFEFF] relative min-h-[110vh] w-screen">
       {user ? <Header user={user} /> : ""}
       {user ? (
-        <div className="flex ml-60">
+        <div className="flex md:ml-60 pb-10">
           <div className="grow">
             {/* Admin Routes */}
             {user.type === "admin" && (
@@ -93,7 +93,7 @@ function App() {
       ) : (
         <Login setLogin={setUser} />
       )}
-      <div className="absolute bottom-10 z-10">{user ? <Footer /> : ""}</div>
+      <div className="absolute left-[33%] md:left-[50%] bottom-10 z-10">{user ? <Footer /> : ""}</div>
     </div>
   );
 }

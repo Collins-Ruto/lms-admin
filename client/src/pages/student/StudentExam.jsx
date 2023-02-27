@@ -11,7 +11,7 @@ function Exam() {
     const user = JSON?.parse(localStorage.getItem("user"));
     console.log(user);
     axios
-      .get(`http://localhost:8000/exams/studentexams?slug=${user.slug}`)
+      .get(`https://lmsadmin.onrender.com/exams/studentexams?slug=${user.slug}`)
       .then((res) => {
         setExam(res.data.student.exams);
       });

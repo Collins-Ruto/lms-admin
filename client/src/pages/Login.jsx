@@ -47,8 +47,8 @@ function Login({ setLogin }) {
   };
 
   return (
-    <div className="h-screen flex justify-center w-full text-white">
-      <div className="flex border m-auto items-center rounded-lg bg-slate-800 w-[50rem] ">
+    <div className="h-screen p-2 flex justify-center w-full text-black">
+      <div className="sm:flex m-auto items-center rounded-lg bg-[#F7F6FB] w-[50rem] ">
         <div className="login-left">
           <img
             className="w-96 cover mx-4"
@@ -57,7 +57,7 @@ function Login({ setLogin }) {
           />
         </div>
         <div className="mx-0 p-4 ">
-          <h1 className="text-2xl font-semibold mb-4">
+          <h1 className="text-2xl text-center font-semibold mb-4">
             Welcome to Ace Accademy
           </h1>
           {invalid && (

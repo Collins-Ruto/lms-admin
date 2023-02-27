@@ -21,12 +21,12 @@ function FeeData() {
   }, []);
 
   return (
-    <div>
+    <div className="w-screen md:w-full">
       <div className="p-4 text-2xl font-semibold">
         <h3 className="">Fee Details</h3>
       </div>
       {loading && <Loader />}
-      <div className="flex justify-between p-4">
+      <div className="flex flex-col md:flex-row gap-4 justify-between p-4">
         <div className="">
           <div className="">
             <input
@@ -54,7 +54,7 @@ function FeeData() {
             />
           </div>
         </div>
-        <div className="">
+        <div className="flex justify-between gap-4">
           <div className="">
             <button
               type="btn"
@@ -63,7 +63,6 @@ function FeeData() {
               Search
             </button>
           </div>
-        </div>
         {userType === "admin" && (
           <div className="">
             <Link
@@ -81,6 +80,7 @@ function FeeData() {
             </Link>
           </div>
         )}
+        </div>
       </div>
       <div className="m-4 bg-[#F7F6FB] rounded-xl p-6">
         <table className="w-full">

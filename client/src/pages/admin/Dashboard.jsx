@@ -4,16 +4,18 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Dashboard() {
-
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
-  
+
   //localhost:8000
   useEffect(() => {
-    axios.get("https://lmsadmin.onrender.com/data").then((res) => {
-      setData(res.data);
-      setLoading(false);
-    });
+    const user = JSON?.parse(localStorage.getItem("user"));
+    axios
+      .post("https://lmsadmin.onrender.com/data", { slug: user?.slug })
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      });
   }, []);
   const termVvalue = "II";
 
@@ -21,12 +23,12 @@ function Dashboard() {
     {
       title: "Current Term",
       value: termVvalue,
-      url: "https://preschool.dreamguystech.com/template/assets/img/icons/teacher-icon-03.svg",
+      url: "https://cdn-icons-png.flaticon.com/512/4850/4850682.png",
     },
     {
       title: "Subjects offered",
       value: data.subjects || "...",
-      url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
+      url: "https://cdn-icons-png.flaticon.com/512/3426/3426653.png",
     },
     {
       title: "Students",
@@ -36,7 +38,7 @@ function Dashboard() {
     {
       title: "Teachers",
       value: data.teachers || "...",
-      url: "https://preschool.dreamguystech.com/template/assets/img/icons/dash-icon-01.svg",
+      url: "https://cdn-icons-png.flaticon.com/512/194/194936.png",
     },
   ];
 
@@ -64,29 +66,29 @@ function Dashboard() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-4 pb-6 sm:p-6 ">
       <div className=" text-2xl font-semibold">
         <h3 className="">Admin Dashboard</h3>
       </div>
       {loading && <Loader />}
-      <div className="flex justify-between py-6">
+      <div className="flex justify-between py-6 gap-4  flex-wrap ">
         {datas.map((data) => (
           <div
-            className="flex  py-4 px-6 gap- w-60 justify-between rounded-lg bg-[#F7F6FB]"
+            className="flex grow min-w-[16rem] sm:max-w-[20rem] py-4 px-6 min-w- justify-between rounded-lg bg-[#F7F6FB]"
             key={data.title}
           >
             <div className="flex flex-col rounded-lg">
               <span className="text-gray-500 font-light ">{data?.title}</span>
-              <span className="mx-auto text-2xl font-semibold">
+              <span className="md:mx-auto text-2xl font-semibold">
                 {data?.value}
               </span>
             </div>
-            <img src={data?.url} alt={data?.title} className="" />
+            <img src={data?.url} alt={data?.title} className="w-16 rounded-full bg-slate-700 p-0" />
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-3">
-        <div className="bg-[#F7F6FB] p-4">
+      <div className="lg:grid lg:grid-cols-3 ">
+        <div className="bg-[#F7F6FB] p-4 mb-4 lg:m-0">
           <span className="text-xl">Manage Data</span>
           {editInfo.map((data) => (
             <div className="flex justify-between mt-4 p-1" key={data.title}>
@@ -107,7 +109,7 @@ function Dashboard() {
             </div>
           ))}
         </div>
-        <div className="col-start-2 col-span-2">
+        <div className=" lg:col-start-2 lg:col-span-2">
           <Calender full={false} />
         </div>
       </div>

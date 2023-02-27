@@ -12,8 +12,9 @@ function Students() {
   const [userType, setUserType] = useState('')
 
   useEffect(() => {
-    const user = localStorage.getItem("user")
+    const user = JSON.parse(localStorage.getItem("user"))
     setUserType(user.type)
+    console.log("user",user)
 
     axios.get("https://lmsadmin.onrender.com/students").then((res) => {
       setStudents(res.data);
@@ -38,7 +39,7 @@ function Students() {
 
   const ConfirmDel = () => {
     return (
-      <div className="w-full absolute h-screen">
+      <div className="absolute w-full">
         <div
           className="fixed right-0 w-[100%] lg:w-screen p-4 h-full opacity-40 bg-blend-darken bg-[#979799]"
           onClick={() => {
@@ -111,7 +112,7 @@ function Students() {
   console.log("students", students);
   return (
     <div>
-      <div className="">
+      <div className="w-screen md:w-full">
         {isDelete && <ConfirmDel />}
         <div className="p-4 text-2xl font-semibold">
           <h3 className="">Students</h3>
@@ -119,7 +120,7 @@ function Students() {
         {loading && <Loader />}
         <div className="">
           <div className="">
-            <div className="flex justify-between p-4">
+            <div className="flex flex-col md:flex-row gap-4 justify-between p-4">
               <div className="">
                 <div className="">
                   <input
@@ -147,7 +148,7 @@ function Students() {
                   />
                 </div>
               </div>
-              <div className="">
+              <div className="flex justify-between gap-4">
                 <div className="">
                   <button
                     type="btn"
@@ -156,13 +157,12 @@ function Students() {
                     Search
                   </button>
                 </div>
-              </div>
               {userType === "admin" && (
                 <div className="">
                   <Link
                     to="/addstudent"
                     type="btn"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    className="bg-blue-500 w-fit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
                   >
                     {" "}
                     <img
@@ -174,9 +174,10 @@ function Students() {
                   </Link>
                 </div>
               )}
+              </div>
             </div>
-            <div className="m-4 bg-[#F7F6FB] rounded-xl p-4">
-              <table className=" w-full">
+            <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 overflow-auto">
+              <table className=" w-full overflow-scroll">
                 <thead className="">
                   <tr>
                     <th className="p-4">ID</th>

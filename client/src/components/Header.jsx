@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 
 function Header({ user }) {
-  const [opened, setOpened] = useState(true);
+  const [opened, setOpened] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   // const [bgColor, setbgColor] = useState("000000");
 
@@ -16,10 +16,10 @@ function Header({ user }) {
 
   return (
     <div className="mx-auto sticky top-0 z-40 bg-blend-darken bg-[#F7F6FB]">
-      <div className="px-4">
+      <div className="pl-4">
         <nav className="flex items-center justify-between">
           <div
-            className="space-y-2 cursor-pointer"
+            className="space-y-2 cursor-pointer p-2"
             onClick={() => {
               setOpened(!opened);
             }}
@@ -35,7 +35,6 @@ function Header({ user }) {
                   onClick={() => {
                     setDropdown(!dropdown);
                   }}
-                  type="button"
                   className="inline-flex cursor-pointer py-1 items-center w-full justify-center bg-[#F7F6FB] px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:border-2 focus:border-gray-500"
                   aria-expanded="true"
                   aria-haspopup="true"
@@ -52,7 +51,7 @@ function Header({ user }) {
                     </span>
                   </div>
                   <svg
-                    className="-mr-1 ml-2 h-5 w-5"
+                    className="ml-2 h-5 w-5"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     aria-hidden="true"
@@ -103,20 +102,40 @@ function Header({ user }) {
         </nav>
       </div>
       <div>
-        {opened && (
-          <div className="">
-            {/* <div
-              className="absolute right-0 w-[100%] lg:w-screen md:w-80 p-4 h-screen opacity-40 bg-blend-darken bg-[#F7F6FB]"
-              onClick={() => {
-                setOpened(!opened);
-              }}
-            ></div> */}
-            <div
-              className="
+        <div className={`${opened ? "block " : "hidden md:block"}`}>
+          <div
+            className="md:hidden absolute right-0 w-screen h-screen opacity-20 bg-blend-darken bg-black"
+            onClick={() => {
+              setOpened(!opened);
+            }}
+          ></div>
+          <div
+            onClick={() => {
+              setOpened(!opened);
+            }}
+            className="
                 flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-[#F7F6FB] "
+          >
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                  isActive
+                    ? "bg-blue-700 text-white hover:text hover:text-white"
+                    : ""
+                }`
+              }
             >
+              <img
+                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                src="https://img.icons8.com/material-rounded/24/000000/dashboard-layout.png"
+                alt=""
+              />
+              <span className="text-lg">Dashboard</span>
+            </NavLink>
+            {!(user.type === "student") && (
               <NavLink
-                to="/"
+                to="/students"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
                     isActive
@@ -127,51 +146,15 @@ function Header({ user }) {
               >
                 <img
                   className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                  src="https://img.icons8.com/material-rounded/24/000000/dashboard-layout.png"
+                  src="https://img.icons8.com/material-rounded/24/000000/student-center.png"
                   alt=""
                 />
-                <span className="text-lg">Dashboard</span>
+                <span className="text-lg">Students</span>
               </NavLink>
-              {!(user.type === "student") && (
-                <NavLink
-                  to="/students"
-                  className={({ isActive }) =>
-                    `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
-                      isActive
-                        ? "bg-blue-700 text-white hover:text hover:text-white"
-                        : ""
-                    }`
-                  }
-                >
-                  <img
-                    className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                    src="https://img.icons8.com/material-rounded/24/000000/student-center.png"
-                    alt=""
-                  />
-                  <span className="text-lg">Students</span>
-                </NavLink>
-              )}
-              {user.type === "admin" && (
-                <NavLink
-                  to="/teachers"
-                  className={({ isActive }) =>
-                    `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
-                      isActive
-                        ? "bg-blue-700 text-white hover:text hover:text-white"
-                        : ""
-                    }`
-                  }
-                >
-                  <img
-                    className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                    src="https://img.icons8.com/material-rounded/24/000000/teacher.png"
-                    alt=""
-                  />
-                  <span className="text-lg">Teachers</span>
-                </NavLink>
-              )}
+            )}
+            {user.type === "admin" && (
               <NavLink
-                to="/exams"
+                to="/teachers"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
                     isActive
@@ -182,46 +165,64 @@ function Header({ user }) {
               >
                 <img
                   className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                  src="https://img.icons8.com/material-rounded/24/000000/test-partial-passed.png"
+                  src="https://img.icons8.com/material-rounded/24/000000/teacher.png"
                   alt=""
                 />
-                <span className="text-lg">Exam Results</span>
+                <span className="text-lg">Teachers</span>
               </NavLink>
-              <NavLink
-                to="/calender"
-                className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
-                    isActive
-                      ? "bg-blue-700 text-white hover:text hover:text-white"
-                      : ""
-                  }`
-                }
-              >
-                <img
-                  className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                  src="https://img.icons8.com/material-rounded/24/000000/2012.png"
-                  alt=""
-                />
-                <span className="text-lg">calender</span>
-              </NavLink>
-              <NavLink
-                to="/fee"
-                className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
-                    isActive
-                      ? "bg-blue-700 text-white hover:text hover:text-white"
-                      : ""
-                  }`
-                }
-              >
-                <img
-                  className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                  src="https://img.icons8.com/material-rounded/24/000000/currency-exchange.png"
-                  alt=""
-                />
-                <span className="text-lg">Finance</span>
-              </NavLink>
-              {/* <NavLink
+            )}
+            <NavLink
+              to="/exams"
+              className={({ isActive }) =>
+                `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                  isActive
+                    ? "bg-blue-700 text-white hover:text hover:text-white"
+                    : ""
+                }`
+              }
+            >
+              <img
+                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                src="https://img.icons8.com/material-rounded/24/000000/test-partial-passed.png"
+                alt=""
+              />
+              <span className="text-lg">Exam Results</span>
+            </NavLink>
+            <NavLink
+              to="/calender"
+              className={({ isActive }) =>
+                `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                  isActive
+                    ? "bg-blue-700 text-white hover:text hover:text-white"
+                    : ""
+                }`
+              }
+            >
+              <img
+                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                src="https://img.icons8.com/material-rounded/24/000000/2012.png"
+                alt=""
+              />
+              <span className="text-lg">calender</span>
+            </NavLink>
+            <NavLink
+              to="/fee"
+              className={({ isActive }) =>
+                `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                  isActive
+                    ? "bg-blue-700 text-white hover:text hover:text-white"
+                    : ""
+                }`
+              }
+            >
+              <img
+                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                src="https://img.icons8.com/material-rounded/24/000000/currency-exchange.png"
+                alt=""
+              />
+              <span className="text-lg">Finance</span>
+            </NavLink>
+            {/* <NavLink
                 to="/class"
                 className={({ isActive }) =>
                   `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
@@ -234,26 +235,25 @@ function Header({ user }) {
                 <img className="w-8 mr-2 bg-[#F7F6FB] rounded-sm" src="https://img.icons8.com/material-rounded/24/000000/user.png" alt="" />
                 <span className="text-lg">Assignments</span>
               </NavLink> */}
-              <NavLink
-                to="/account"
-                className={({ isActive }) =>
-                  `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
-                    isActive
-                      ? "bg-blue-700 text-white hover:text hover:text-white"
-                      : ""
-                  }`
-                }
-              >
-                <img
-                  className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                  src="https://img.icons8.com/material-rounded/24/000000/user.png"
-                  alt=""
-                />
-                <span className="text-lg">Account</span>
-              </NavLink>
-            </div>
+            <NavLink
+              to="/account"
+              className={({ isActive }) =>
+                `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                  isActive
+                    ? "bg-blue-700 text-white hover:text hover:text-white"
+                    : ""
+                }`
+              }
+            >
+              <img
+                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                src="https://img.icons8.com/material-rounded/24/000000/user.png"
+                alt=""
+              />
+              <span className="text-lg">Account</span>
+            </NavLink>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

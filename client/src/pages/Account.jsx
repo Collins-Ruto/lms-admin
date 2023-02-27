@@ -6,7 +6,7 @@ function Account() {
   const [user, setUser] = useState();
   const [editUser, setEditUser] = useState({
     email: user?.email,
-    phone: user?.phone
+    phone: user?.phone,
   });
   const [passManager, setPassManager] = useState(false);
   const [confPass, setConfPass] = useState("");
@@ -66,13 +66,13 @@ function Account() {
   return (
     <div>
       <div className="flex flex-col gap-4 h-[100vh_-_4rem]">
-        <div class="w-full h-60 bg-[url('https://b1311116.smushcdn.com/1311116/wp-content/uploads/2021/12/great-school-website-01.png?size=912x479&lossy=1&strip=1&webp=1')] bg-cover bg-center">
-          <div class="min-w-full text-2xl font-semibold h-full flex text-white justify-center items-center backdrop-brightness-50">
+        <div className="w-full h-60 bg-[url('https://b1311116.smushcdn.com/1311116/wp-content/uploads/2021/12/great-school-website-01.png?size=912x479&lossy=1&strip=1&webp=1')] bg-cover bg-center">
+          <div className="min-w-full text-2xl font-semibold h-full flex text-white justify-center items-center backdrop-brightness-50">
             Welcome to your account page
           </div>
         </div>
-        <div className="flex relative">
-          <div className="bg-[#F7F6FB] absolute -top-16 rounded-lg ml-10 w-[25%] h-[max-content] py-6 flex flex-col items-center justify-center">
+        <div className="flex relative flex-col">
+          <div className="bg-[#F7F6FB] md:absolute md:-top-16 rounded-lg md:ml-10 md:w-[25%] h-[max-content] pb-6 md:py-6 flex flex-col items-center justify-center">
             <img
               className="w-28  rounded-full bg-gray-300 p-2"
               src="https://img.icons8.com/ios-glyphs/120/000000/user--v1.png"
@@ -93,7 +93,7 @@ function Account() {
               Log Out
             </div>
           </div>
-          <div className="grow ml-[30%] w-[68%] bg-[#F7F6FB] absolute -top-16 rounded-lg">
+          <div className="grow md:ml-[30%] md:w-[68%] bg-[#F7F6FB] md:absolute -top-16 rounded-lg">
             <div className=" flex justify-around border-b-2 text-lg p-2">
               <div
                 className={` cursor-pointer ${
@@ -115,7 +115,6 @@ function Account() {
               >
                 Password Manager
               </div>
-              
             </div>
             {passManager && (
               <div className="p-4">
