@@ -21,7 +21,7 @@ function Exam() {
   }, []);
 
   return (
-    <div>
+    <div className="w-screen md:w-full">
       <div className="">
         <div className="p-4 text-2xl font-semibold">
           <h3 className="">exam</h3>
@@ -29,7 +29,7 @@ function Exam() {
         {loading && <Loader />}
         <div className="">
           <div className="">
-            <div className="flex justify-between p-4">
+            <div className="flex flex-col md:flex-row gap-4 justify-between p-4">
               <div className="">
                 <div className="">
                   <input
@@ -57,7 +57,7 @@ function Exam() {
                   />
                 </div>
               </div>
-              <div className="">
+              <div className="flex justify-between gap-4">
                 <div className="">
                   <button
                     type="btn"
@@ -66,24 +66,24 @@ function Exam() {
                     Search
                   </button>
                 </div>
-              </div>
-              <div className="">
-                <Link
-                  to="/addexam"
-                  type="btn"
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                >
-                  {" "}
-                  <img
-                    src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
-                    className="w-5 mr-1 text-white"
-                    alt=""
-                  />
-                  Add
-                </Link>
+                <div className="">
+                  <Link
+                    to="/addexam"
+                    type="btn"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                  >
+                    {" "}
+                    <img
+                      src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
+                      className="w-5 mr-1 text-white"
+                      alt=""
+                    />
+                    Add
+                  </Link>
+                </div>
               </div>
             </div>
-            <div className="m-4 bg-[#F7F6FB] rounded-xl p-4">
+            <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 overflow-auto">
               <table className=" w-full">
                 <thead className="">
                   <tr className="text-lg p-4">
@@ -117,7 +117,7 @@ function Exam() {
                             </td>
                           ))}
                         </tr>
-                      )
+                      );
                     })}
                 </tbody>
               </table>

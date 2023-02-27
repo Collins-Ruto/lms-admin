@@ -82,7 +82,7 @@ function FeeData() {
         )}
         </div>
       </div>
-      <div className="m-4 bg-[#F7F6FB] rounded-xl p-6">
+      <div className="m-4 bg-[#F7F6FB] rounded-xl p-6 overflow-auto">
         <table className="w-full">
           <thead className="">
             <tr>

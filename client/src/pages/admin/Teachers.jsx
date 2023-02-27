@@ -109,7 +109,7 @@ function Teachers() {
   console.log(teachers);
 
   return (
-    <div className="">
+    <div className="w-screen md:w-full">
       {isDelete && <ConfirmDel />}
       <div className="p-4 text-2xl font-semibold">
         <h3 className="">Teachers</h3>
@@ -117,7 +117,7 @@ function Teachers() {
       {loading && <Loader />}
       <div className="">
         <div className="">
-          <div className="flex justify-between p-4">
+          <div className="flex flex-col md:flex-row gap-4 justify-between p-4">
             <div className="">
               <div className="">
                 <input
@@ -145,7 +145,7 @@ function Teachers() {
                 />
               </div>
             </div>
-            <div className="">
+            <div className="flex justify-between gap-4">
               <div className="">
                 <button
                   type="btn"
@@ -154,24 +154,24 @@ function Teachers() {
                   Search
                 </button>
               </div>
-            </div>
-            <div className="">
-              <Link
-                to="/addteacher"
-                type="btn"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-              >
-                {" "}
-                <img
-                  src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
-                  className="w-5 mr-1"
-                  alt=""
-                />
-                Add
-              </Link>
+              <div className="">
+                <Link
+                  to="/addteacher"
+                  type="btn"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                >
+                  {" "}
+                  <img
+                    src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png"
+                    className="w-5 mr-1"
+                    alt=""
+                  />
+                  Add
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="m-4 bg-[#F7F6FB] rounded-xl p-4">
+          <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 overflow-auto">
             <table className=" w-full">
               <thead className="">
                 <tr>
