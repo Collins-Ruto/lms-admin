@@ -8,6 +8,7 @@ function Login({ setLogin }) {
   const [submit, setSubmit] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [invalid, setInvalid] = useState(false);
+  const [passView, setPassView] = useState(false);
 
   const handleInput = (event) => {
     const target = event.target;
@@ -125,20 +126,30 @@ function Login({ setLogin }) {
                 </div>
               </div>
             </div>
-            <div className="mb-4">
+            <div className="mb-4 ">
               <label>
                 Password <span className="text-red-500">*</span>
               </label>
-              <input
-                onChange={(e) => {
-                  handleInput(e);
-                }}
-                checked={isChecked}
-                name="password"
-                value={user.password}
-                className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pass-input"
-                type="password"
-              />
+              <div className="flex relative items-center">
+                <input
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
+                  checked={isChecked}
+                  name="password"
+                  value={user.password}
+                  className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pass-input"
+                  type={`${passView ? "text" : "password"}`}
+                />
+                <div className="cursor-pointer right-0 absolute px-2 text-gray-700">
+                  <img
+                    onClick={() => {setPassView(!passView)}}
+                    src={`${passView ? "https://img.icons8.com/ios-filled/50/000000/visible--v2.png" : "https://img.icons8.com/ios/50/000000/closed-eye.png"}`}
+                    alt="user"
+                    className="fill-current w-8 p-1"
+                  />
+                </div>
+              </div>
             </div>
             <div className="forgotpass">
               <div className="remember-me">

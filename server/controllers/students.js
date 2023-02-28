@@ -123,11 +123,11 @@ export const addStudent = async (req, res) => {
     const result = await graphQLClient.request(query, req.body);
 
     res.status(200).json(result);
-    
-     const published = await graphQLClient.request(publish, {
-       id: result.createStudent.id,
-     });
-     console.log("published", published);
+
+    const published = await graphQLClient.request(publish, {
+      id: result.createStudent.id,
+    });
+    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }
@@ -166,7 +166,7 @@ export const editStudent = async (req, res) => {
     }
   }
 `;
-  
+
   try {
     const result = await graphQLClient.request(query, req.body);
 
@@ -204,14 +204,14 @@ export const editPassword = async (req, res) => {
       const result = await graphQLClient.request(query, req.body);
       console.log(result);
       res.status(200).json({ message: "success" });
+
+      const published = await graphQLClient.request(publish, {
+        id: result.updateStudent.id,
+      });
+      console.log("sdt published", published);
     } else {
       res.json({ message: "Invalid Password" });
     }
-
-    const published = await graphQLClient.request(publish, {
-      id: result.updateStudent.id,
-    });
-    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }

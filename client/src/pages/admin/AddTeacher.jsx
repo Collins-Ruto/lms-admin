@@ -33,7 +33,7 @@ function AddTeacher() {
   const handleSubmit = () => {
     setSubmit(true);
     axios
-      .post("http://localhost:8000/teachers", teacher)
+      .post("https://lmsadmin.onrender.com/teachers", teacher)
       .then((res) => {
         setSubmit(false);
       });

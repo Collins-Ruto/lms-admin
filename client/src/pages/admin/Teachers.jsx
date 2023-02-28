@@ -22,7 +22,7 @@ function Teachers() {
 
   const searchSubmit = async () => {
     const data = await axios.get(
-      `http://localhost:8000/teachers/teacher?name=${search}`
+      `https://lmsadmin.onrender.com/teachers/teacher?name=${search}`
     );
     setTeachers(data.data)
     setSubmit(false)

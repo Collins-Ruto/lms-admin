@@ -37,12 +37,12 @@ function Account() {
       .then((res) => {
         setSubmit(false);
         console.log("res", res.data.message);
-        res.data.message === "success" &&
-          setEditUser({
-            password: "",
-            oldPassword: "",
-            email: "",
-          });
+        res.data.message === "success" && setConfPass("");
+        setEditUser({
+          password: "",
+          oldPassword: "",
+          email: "",
+        });
       });
     //   axios
     //     .post("https://lmsadmin.onrender.com/teachers", editUser)
@@ -134,7 +134,7 @@ function Account() {
                           }}
                           value={editUser.oldPassword}
                           name="oldPassword"
-                          type="oldPassword"
+                          type="password"
                           className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           placeholder="Enter Old Password"
                           required

@@ -29,7 +29,7 @@ app.use('/students', studentsRoutes)
 app.use('/exams', examRoutes)
 app.use('/fees', feeRoutes)
 app.use('/teachers', teachersRoutes)
-app.use("/admin", adminRoutes);
+app.use("/admins", adminRoutes);
 
 app.listen(port, () => console.log(`🚀 Running on port ${port}`));
 

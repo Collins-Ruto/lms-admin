@@ -34,7 +34,7 @@ function FeeData() {
 
   const searchSubmit = async () => {
     const data = await axios.get(
-      `http://localhost:8000/fees/search?name=${search.name}&id=${search.id}`
+      `https://lmsadmin.onrender.com/fees/search?name=${search.name}&id=${search.id}`
     );
     const neData = data.data.feeSearch.concat(
       data.data.studentSearch.length ? data.data.studentSearch[0].node.fees : []

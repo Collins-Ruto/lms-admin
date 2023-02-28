@@ -34,7 +34,7 @@ function Exam() {
 
   const searchSubmit = async () => {
     const data = await axios.get(
-      `http://localhost:8000/exams/search?name=${search.name}&id=${search.id}`
+      `https://lmsadmin.onrender.com/exams/search?name=${search.name}&id=${search.id}`
     );
     const neData = data.data.examSearch.concat(
       data.data.studentSearch.length ? data.data.studentSearch[0].node.exams : []
