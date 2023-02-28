@@ -47,7 +47,7 @@ function AddFee() {
       </div>
       <div className="row">
         <div className="col-sm-12">
-          <div className="m-4 bg-[#F7F6FB] rounded-xl p-6">
+          <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 md:p-6">
             <div className="card-body">
               <form>
                 <div className="row">
@@ -59,7 +59,7 @@ function AddFee() {
                       <span>Fees Information</span>
                     </h5>
                   </div>
-                  <div className="grid grid-cols-3 gap-4 gap-y-8">
+                  <div className="flex flex-col md:grid grid-cols-3 gap-4 md:gap-y-8">
                     <div className="">
                       <div className="">
                         <label>

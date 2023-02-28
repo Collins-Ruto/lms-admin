@@ -76,7 +76,7 @@ function AddExam() {
       {loading && <Loader />}
       <div className="">
         <h2 className="px-4 text-sm">Search for student in the system first</h2>
-        <div className="flex px-4 pb-">
+        <div className="flex px-4 justify-between md:justify-start">
           <div className="md:mr-8">
             <div className="">
               <input
@@ -104,7 +104,7 @@ function AddExam() {
             </div>
           </div>
         </div>
-        <div className="m-4 bg-[#F7F6FB] rounded-xl flex justify-between p-4">
+        <div className="m-4 bg-[#F7F6FB] rounded-xl flex flex-col md:flex-row justify-between p-4">
           <div>
             Student :{" "}
             <span className="font-semibold text-lg">{student?.name}</span>
@@ -120,7 +120,7 @@ function AddExam() {
           </div>
         </div>
 
-        <div className="m-4 bg-[#F7F6FB] flex gap-4 rounded-xl p-6">
+        <div className="m-4 flex-col bg-[#F7F6FB] flex md:flex-row gap-4 rounded-xl p-4 md:p-6">
           <div className="">
             <label>
               Exam Name <span className="text-red-500">*</span>
