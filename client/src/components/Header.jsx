@@ -19,14 +19,14 @@ function Header({ user }) {
       <div className="pl-4">
         <nav className="flex items-center justify-between">
           <div
-            className="space-y-2 cursor-pointer p-2"
+            className="space-y-1 md:space-y-2 cursor-pointer p-2"
             onClick={() => {
               setOpened(!opened);
             }}
           >
-            <div className="w-8 h-1 bg-blue-600"></div>
-            <div className="w-8 h-1 bg-blue-600"></div>
-            <div className="w-8 h-1 bg-blue-600"></div>
+            <div className="w-6 rounded md:w-8 h-1 bg-blue-600"></div>
+            <div className="w-6 rounded md:w-8 h-1 bg-blue-600"></div>
+            <div className="w-6 rounded md:w-8 h-1 bg-blue-600"></div>
           </div>
           <div>
             <div className="relative inline-block text-left">
@@ -40,12 +40,14 @@ function Header({ user }) {
                   aria-haspopup="true"
                 >
                   <img
-                    className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                    className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
                     src="https://img.icons8.com/material-rounded/24/000000/user.png"
                     alt=""
                   />
                   <div className="flex flex-col ">
-                    <span className="text-lg m-0">{user.name}</span>
+                    <span className="text-md md:text-lg -mb-2">
+                      {user.name}
+                    </span>
                     <span className="text-sm text-center text-blue-600">
                       {user.type}
                     </span>
@@ -127,7 +129,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/dashboard-layout.png"
                 alt=""
               />
@@ -145,7 +147,7 @@ function Header({ user }) {
                 }
               >
                 <img
-                  className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                  className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
                   src="https://img.icons8.com/material-rounded/24/000000/student-center.png"
                   alt=""
                 />
@@ -164,7 +166,7 @@ function Header({ user }) {
                 }
               >
                 <img
-                  className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                  className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
                   src="https://img.icons8.com/material-rounded/24/000000/teacher.png"
                   alt=""
                 />
@@ -182,7 +184,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/test-partial-passed.png"
                 alt=""
               />
@@ -199,7 +201,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/2012.png"
                 alt=""
               />
@@ -216,7 +218,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/currency-exchange.png"
                 alt=""
               />
@@ -232,7 +234,7 @@ function Header({ user }) {
                   }`
                 }
               >
-                <img className="w-8 mr-2 bg-[#F7F6FB] rounded-sm" src="https://img.icons8.com/material-rounded/24/000000/user.png" alt="" />
+                <img className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm" src="https://img.icons8.com/material-rounded/24/000000/user.png" alt="" />
                 <span className="text-lg">Assignments</span>
               </NavLink> */}
             <NavLink
@@ -246,7 +248,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/user.png"
                 alt=""
               />

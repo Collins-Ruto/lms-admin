@@ -126,9 +126,6 @@ export default function Calender({ full, user }) {
   };
   const selectedDayLessons = selectedDayLessonsFun();
 
-  console.log("user", user);
-  console.log("select", selectedDayLessons);
-
   return (
     <div className={` rounded-lg ${full ? "w-full p-4" : "sm:w-full"}`}>
       <div className="md:max-w-m mx-auto lg:px-4 lg:max-w-4xl">

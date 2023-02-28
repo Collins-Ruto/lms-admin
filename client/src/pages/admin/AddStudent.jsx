@@ -28,7 +28,7 @@ function AddStudent() {
 
     setStudent({ ...student, [name]: value });
   };
-
+  //localhost:8000
   const handleSubmit = () => {
     setSubmit(true);
     axios
@@ -36,9 +36,6 @@ function AddStudent() {
       .then((res) => {
         setSubmit(false);
       });
-    // axios
-    //   .post("http://localhost:8000/students", student)
-    //   .then((res) => console.log(res));
   };
 
   return (

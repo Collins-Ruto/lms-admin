@@ -10,7 +10,7 @@ function FeeData() {
 
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"));
     setUserType(user.type);
 
     axios.get("https://lmsadmin.onrender.com/fees").then((res) => {
