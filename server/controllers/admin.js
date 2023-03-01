@@ -126,18 +126,17 @@ export const editPassword = async (req, res) => {
 
     if (validPassword) {
       const result = await graphQLClient.request(query, req.body);
-      console.log(result);
+      console.log(result.updateAdmin.id);
       res.status(200).json({ message: "success" });
+      
+      const published = await graphQLClient.request(publish, {
+        id: result.updateAdmin.id,
+      });
+     console.log("published", published);
     } else {
       res.json({ message: "Invalid Password" });
     }
 
-    res.status(200).json(result);
-
-    const published = await graphQLClient.request(publish, {
-      id: result.updateAdmin.id,
-    });
-     console.log("published", published);
 
   } catch (error) {
     console.log(error.message);
