@@ -20,7 +20,13 @@ export const getStudents = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        studentsConnection {
+        studentsConnection(orderBy: publishedAt_DESC) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
           edges {
             node {
               dateOfBirth
@@ -43,7 +49,49 @@ export const getStudents = async (req, res) => {
 
     const result = await request(graphqlAPI, query);
 
-    res.status(200).json(result.studentsConnection.edges);
+    res.status(200).json(result.studentsConnection);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getStudentsPage = async (req, res) => {
+  console.log(req.body);
+  const direction = req.body.direction
+  try {
+    const query = gql`
+      query MyQuery( $cursor: String) {
+        studentsConnection( orderBy: publishedAt_DESC, ${direction}: $cursor) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            cursor
+            node {
+              dateOfBirth
+              name
+              parent
+              phone
+              gender
+              slug
+              stream {
+                ... on Stream {
+                  slug
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, req.body);
+
+    res.status(200).json(result.studentsConnection);
   } catch (error) {
     console.log(error.message);
   }
@@ -84,8 +132,7 @@ export const getSearchStudent = async (req, res) => {
 };
 
 export const addStudent = async (req, res) => {
-  const encryptedPass =
-    req.body.slug && (await bcrypt.hash(req.body.slug, 10));
+  const encryptedPass = req.body.slug && (await bcrypt.hash(req.body.slug, 10));
   req.body.password = encryptedPass;
 
   console.log(req.body);
