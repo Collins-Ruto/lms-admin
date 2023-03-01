@@ -85,7 +85,7 @@ export const getSearchStudent = async (req, res) => {
 
 export const addStudent = async (req, res) => {
   const encryptedPass =
-    req.body.password && (await bcrypt.hash(req.body.slug, 10));
+    req.body.slug && (await bcrypt.hash(req.body.slug, 10));
   req.body.password = encryptedPass;
 
   console.log(req.body);
