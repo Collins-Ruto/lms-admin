@@ -11,18 +11,33 @@ function Students() {
   const [delStudent, setDelStudent] = useState("");
   const [userType, setUserType] = useState("");
   const [search, setSearch] = useState("");
+  const [pages, setPages] = useState({});
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setUserType(user.type);
-    console.log("user", user);
 
     axios.get("https://lmsadmin.onrender.com/students").then((res) => {
-      setStudents(res.data);
+      setStudents(res.data.edges);
+      setPages(res.data.pageInfo);
       setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const changePage = (direction) => {
+    const data = {
+      ...pages,
+      direction: direction,
+      cursor: direction === "after" ? pages.endCursor : pages.startCursor,
+    };
+    axios
+      .post("https://lmsadmin.onrender.com/students/page", data)
+      .then((res) => {
+        setPages(res.data.pageInfo);
+        setStudents(res.data.edges);
+      });
+  };
 
   const searchSubmit = async () => {
     const data = await axios.get(
@@ -45,6 +60,9 @@ function Students() {
     );
     setStudents(newStudent);
   };
+
+  console.log("students", students);
+  console.log("pages", pages);
 
   const ConfirmDel = () => {
     return (
@@ -238,6 +256,58 @@ function Students() {
                   ))}
                 </tbody>
               </table>
+              <div className="flex align-middle justify-center">
+                <div
+                  onClick={() => {
+                    pages.hasPreviousPage && changePage("before");
+                  }}
+                  className={` ${
+                    pages.hasPreviousPage
+                      ? "bg-slate-700 cursor-pointer text-gray-100 hover:bg-gray-600 hover:text-white"
+                      : "bg-gray-300 text-gray-800"
+                  }  inline-flex items-center px-4 py-2 mr-3 text-sm font-medium border border-gray-300 rounded-lg `}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  Previous
+                </div>
+                <div
+                  onClick={() => {
+                    pages.hasNextPage && changePage("after");
+                  }}
+                  className={` ${
+                    pages.hasNextPage
+                      ? "bg-slate-700 cursor-pointer text-gray-100 hover:bg-gray-600 hover:text-white"
+                      : "bg-gray-300 text-gray-800"
+                  }  inline-flex items-center px-4 py-2 mr-3 text-sm font-medium border border-gray-300 rounded-lg `}
+                >
+                  Next
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5 ml-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>

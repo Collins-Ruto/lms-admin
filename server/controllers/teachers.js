@@ -20,7 +20,13 @@ export const getTeachers = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        teachersConnection {
+        teachersConnection(orderBy: publishedAt_DESC) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
           edges {
             node {
               name
@@ -42,7 +48,48 @@ export const getTeachers = async (req, res) => {
 
     const result = await request(graphqlAPI, query);
 
-    res.status(200).json(result.teachersConnection.edges);
+    res.status(200).json(result.teachersConnection);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getTeachersPage = async (req, res) => {
+  console.log(req.body);
+  const direction = req.body.direction;
+  try {
+    const query = gql`
+      query MyQuery( $cursor: String) {
+        teachersConnection( orderBy: publishedAt_DESC, ${direction}: $cursor) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            cursor
+            node {
+              name
+              email
+              phone
+              password
+              slug
+              dateOfBirth
+              joiningDate
+              streams {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, req.body);
+
+    res.status(200).json(result.teachersConnection);
   } catch (error) {
     console.log(error.message);
   }

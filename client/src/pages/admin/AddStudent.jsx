@@ -17,7 +17,7 @@ const dum2 = {
 };
 
 function AddStudent() {
-  const [student, setStudent] = useState({});
+  const [student, setStudent] = useState({password: ''});
   const [submit, setSubmit] = useState(false);
   const [status, setStatus] = useState({});
 

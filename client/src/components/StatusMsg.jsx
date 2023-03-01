@@ -13,7 +13,7 @@ function StatusMsg({ status }) {
   }, [status]);
 
   return (
-    <div className="fixed right-4 top-14 z-10">
+    <div className="fixed right-4 top-14 z-10 rounded">
       {show && (
         <div
           className={`opacity-80 ${
