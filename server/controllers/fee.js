@@ -19,7 +19,13 @@ export const getFees = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        feesConnection {
+        feesConnection(orderBy: publishedAt_DESC) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
           edges {
             node {
               name
@@ -50,7 +56,57 @@ export const getFees = async (req, res) => {
 
     const result = await request(graphqlAPI, query);
 
-    res.status(200).json(result.feesConnection.edges);
+    res.status(200).json(result.feesConnection);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getFeesPage = async (req, res) => {
+  console.log(req.body);
+  const direction = req.body.direction;
+  try {
+    const query = gql`
+      query MyQuery( $cursor: String) {
+        feesConnection( orderBy: publishedAt_DESC, ${direction}: $cursor) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            cursor
+            node {
+              name
+              type
+              slug
+              term
+              payday
+              amount
+              student {
+                ... on Student {
+                  name
+                  slug
+                  balance
+                  stream {
+                    ... on Stream {
+                      id
+                      name
+                      slug
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, req.body);
+
+    res.status(200).json(result.feesConnection);
   } catch (error) {
     console.log(error.message);
   }
@@ -88,7 +144,7 @@ export const getFeeSearch = async (req, res) => {
           }
         }
       }
-      studentSearch: studentsConnection(where: { name_contains: $name }) {
+      studentSearch: feesConnection(where: { name_contains: $name }) {
         edges {
           node {
             fees {
@@ -180,7 +236,7 @@ export const getStudentFees = async (req, res) => {
   try {
     const query = gql`
       query MyQuery($slug: String!) {
-        studentsConnection(where: { slug: $slug }) {
+        feesConnection(where: { slug: $slug }) {
           edges {
             node {
               fees {
@@ -200,7 +256,7 @@ export const getStudentFees = async (req, res) => {
     const result = await request(graphqlAPI, query, req.query);
     console.log(result);
 
-    return res.status(200).json(result.studentsConnection.edges);
+    return res.status(200).json(result.feesConnection.edges);
   } catch (error) {
     console.log(error.message);
   }
@@ -211,7 +267,7 @@ export const StudentFees = async (slug) => {
   try {
     const query = gql`
       query MyQuery($slug: String!) {
-        studentsConnection(where: { slug: $slug }) {
+        feesConnection(where: { slug: $slug }) {
           edges {
             node {
               fees {
@@ -229,7 +285,7 @@ export const StudentFees = async (slug) => {
 
     const result = await request(graphqlAPI, query, { slug: slug });
 
-    return result.studentsConnection.edges;
+    return result.feesConnection.edges;
   } catch (error) {
     console.log(error.message);
   }

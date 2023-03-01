@@ -259,7 +259,8 @@ function Students() {
                   ))}
                 </tbody>
               </table>
-              <div className="flex align-middle justify-center">
+            </div>
+              <div className="flex align-middle justify-center pb-10 md:pb-8">
                 <div
                   onClick={() => {
                     pages.hasPreviousPage && changePage("before");
@@ -311,7 +312,6 @@ function Students() {
                   </svg>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

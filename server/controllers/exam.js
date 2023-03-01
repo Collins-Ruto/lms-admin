@@ -11,7 +11,13 @@ export const getExams = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        examsConnection {
+        examsConnection(first: 5, orderBy: publishedAt_DESC) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
           edges {
             node {
               examDate
@@ -34,7 +40,49 @@ export const getExams = async (req, res) => {
 
     const result = await request(graphqlAPI, query);
 
-    res.status(200).json(result.examsConnection.edges);
+    res.status(200).json(result.examsConnection);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getExamsPage = async (req, res) => {
+  console.log(req.body);
+  const direction = req.body.direction;
+  try {
+    const query = gql`
+      query MyQuery( $cursor: String) {
+        examsConnection( orderBy: publishedAt_DESC, ${direction}: $cursor) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            cursor
+            node {
+              examDate
+              id
+              name
+              results
+              slug
+              term
+              student {
+                ... on Student {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const result = await request(graphqlAPI, query, req.body);
+
+    res.status(200).json(result.examsConnection);
   } catch (error) {
     console.log(error.message);
   }
@@ -64,7 +112,7 @@ export const getExamSearch = async (req, res) => {
           }
         }
       }
-      studentSearch: studentsConnection(where: { name_contains: $name }) {
+      studentSearch: examsConnection(where: { name_contains: $name }) {
         edges {
           node {
             exams {

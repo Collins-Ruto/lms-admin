@@ -5,7 +5,7 @@ export const getSubjects = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        subjects {
+        subjects(first: 20) {
           name
           slug
         }
