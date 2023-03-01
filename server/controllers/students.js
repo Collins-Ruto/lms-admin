@@ -84,7 +84,8 @@ export const getSearchStudent = async (req, res) => {
 };
 
 export const addStudent = async (req, res) => {
-  const encryptedPass = await bcrypt.hash(req.body.slug, 10);
+  const encryptedPass =
+    req.body.password && (await bcrypt.hash(req.body.slug, 10));
   req.body.password = encryptedPass;
 
   console.log(req.body);
@@ -122,7 +123,7 @@ export const addStudent = async (req, res) => {
   try {
     const result = await graphQLClient.request(query, req.body);
 
-    res.status(200).json(result);
+    res.status(200).json({ message: "success" });
 
     const published = await graphQLClient.request(publish, {
       id: result.createStudent.id,
@@ -130,6 +131,7 @@ export const addStudent = async (req, res) => {
     console.log("published", published);
   } catch (error) {
     console.log(error.message);
+    res.json({ message: error.response.errors[0].message });
   }
 };
 
@@ -156,6 +158,7 @@ export const getStudent = async (slug, oldPassword) => {
 
 export const editStudent = async (req, res) => {
   console.log(req.body);
+  delete req.body.data.oldPassword;
 
   const query = `
   mutation updateModel($slug: String!, $data: StudentUpdateInput!) {
@@ -170,14 +173,15 @@ export const editStudent = async (req, res) => {
   try {
     const result = await graphQLClient.request(query, req.body);
 
-    res.status(200).json(result);
+    res.status(200).json({ message: "success" });
+
     const published = await graphQLClient.request(publish, {
       id: result.updateStudent.id,
     });
     console.log("published", published);
   } catch (error) {
     console.log(error.message);
-    res.json(false);
+    res.json({ message: error.response.errors[0].message });
   }
 };
 
@@ -197,7 +201,8 @@ export const editPassword = async (req, res) => {
   }
   `;
   try {
-    const encryptedPass = await bcrypt.hash(req.body.data.password, 10);
+    const encryptedPass =
+      req.body.data.password && (await bcrypt.hash(req.body.data.password, 10));
     req.body.data.password = encryptedPass;
 
     if (validPassword) {
@@ -214,6 +219,7 @@ export const editPassword = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.json({ message: error.response.errors[0].message });
   }
 };
 

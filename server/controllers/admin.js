@@ -17,7 +17,8 @@ const publish = gql`
 `;
 
 export const addAdmin = async (req, res) => {
-  const encryptedPass = await bcrypt.hash(req.body.password, 10);
+  const encryptedPass =
+    req.body.password && (await bcrypt.hash(req.body.password, 10));
   req.body.password = encryptedPass;
 
   console.log(req.body);
@@ -45,7 +46,7 @@ export const addAdmin = async (req, res) => {
   try {
     const result = await graphQLClient.request(query, req.body);
 
-    res.status(200).json(result);
+    res.status(200).json({ message: "success" });
 
     const published = await graphQLClient.request(publish, {
       id: result.createAdmin.id,
@@ -53,34 +54,7 @@ export const addAdmin = async (req, res) => {
     console.log("published", published);
   } catch (error) {
     console.log(error.message);
-  }
-};
-
-export const editAdmin = async (req, res) => {
-  console.log(req.body);
-
-  const query = `
-  mutation updateModel($slug: String!, $data: AdminUpdateInput!) {
-    updateAdmin(where: {slug: $slug}, data: $data) {
-      email
-      phone
-      id
-    }
-  }
-`;
-  try {
-    const result = await graphQLClient.request(query, req.body);
-
-    res.status(200).json(result);
-
-    const published = await graphQLClient.request(publish, {
-      id: result.updateAdmin.id,
-    });
-    console.log("published", published);
-
-  } catch (error) {
-    console.log(error.message);
-    res.json(false);
+    res.json({ message: error.response.errors[0].message });
   }
 };
 
@@ -105,6 +79,36 @@ export const getAdmin = async (slug, oldPassword) => {
   }
 };
 
+export const editAdmin = async (req, res) => {
+  console.log(req.body);
+  delete req.body.data.oldPassword;
+
+  const query = `
+  mutation updateModel($slug: String!, $data: AdminUpdateInput!) {
+    updateAdmin(where: {slug: $slug}, data: $data) {
+      email
+      phone
+      id
+    }
+  }
+`;
+  try {
+    const result = await graphQLClient.request(query, req.body);
+
+    res.status(200).json({ message: "success" });
+
+    const published = await graphQLClient.request(publish, {
+      id: result.updateAdmin.id,
+    });
+    console.log("published", published);
+
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.response.errors[0].message });
+  }
+};
+
+
 export const editPassword = async (req, res) => {
   const validPassword = await getAdmin(
     req.body.slug,
@@ -121,11 +125,13 @@ export const editPassword = async (req, res) => {
   }
   `;
   try {
-    const encryptedPass = await bcrypt.hash(req.body.data.password, 10);
+    const encryptedPass =
+      req.body.data.password && (await bcrypt.hash(req.body.data.password, 10));
     req.body.data.password = encryptedPass;
 
     if (validPassword) {
       const result = await graphQLClient.request(query, req.body);
+
       console.log(result.updateAdmin.id);
       res.status(200).json({ message: "success" });
       
@@ -134,12 +140,12 @@ export const editPassword = async (req, res) => {
       });
      console.log("published", published);
     } else {
-      res.json({ message: "Invalid Password" });
+      res.json({ message: "invalid password" });
     }
-
 
   } catch (error) {
     console.log(error.message);
+    res.json({ message: error.response.errors[0].message });
   }
 };
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, DateTime, Loader } from "../components";
+import StatusMsg from "../components/StatusMsg";
 
 const data = {
   examDate: "10-03-2020",
@@ -14,6 +15,7 @@ function AddExam() {
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [submit, setSubmit] = useState(false);
+  const [status, setStatus] = useState({});
 
   useEffect(() => {
     axios.get("https://lmsadmin.onrender.com/subjects").then((res) => {
@@ -50,6 +52,14 @@ function AddExam() {
       .then((res) => {
         res.status === 200 && setExam(data);
         setSubmit(false);
+        setStatus(
+          res.data.day
+            ? {
+                type: "success",
+                message: `succesfully added ${exam.dame} results for ${student.name}`,
+              }
+            : { type: "error", message: res.data.message }
+        );
       });
   };
 
@@ -68,6 +78,7 @@ function AddExam() {
   };
   return (
     <div>
+      {<StatusMsg status={status} />}
       <div className="p-4 text-2xl font-semibold">
         <h3>Add Exam Results</h3>
       </div>

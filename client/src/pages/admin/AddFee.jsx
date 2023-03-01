@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Button, DateTime } from "../../components";
 import axios from "axios";
+import StatusMsg from "../../components/StatusMsg";
 
 function AddFee() {
   const [fee, setFee] = useState({ pday: DateTime() });
   const [submit, setSubmit] = useState(false);
+  const [status, setStatus] = useState({});
 
   const handleInput = (event) => {
     const target = event.target;
@@ -24,10 +26,17 @@ function AddFee() {
     setSubmit(true);
     axios.post("https://lmsadmin.onrender.com/fees", fee).then((res) => {
       setSubmit(false);
+      const data = res.data;
+      setStatus(
+        data.day
+          ? {
+              type: "success",
+              message: `${fee.type} of ${fee.amount} to ${fee.stdt_slug} is succesfull`,
+            }
+          : { type: "error", message: data.message }
+      );
     });
-    // axios
-    //   .post("http://localhost:8000/fees", fee)
-    //   .then((res) => console.log(res));
+    //   http://localhost:8000
   };
 
   const idGenerator = () => {
@@ -41,6 +50,7 @@ function AddFee() {
 
   return (
     <div>
+      {<StatusMsg status={status} />}
       <div className="p-4 text-2xl font-semibold">
         <h3>Add Fees</h3>
       </div>

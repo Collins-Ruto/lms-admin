@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "../components";
+import StatusMsg from "../components/StatusMsg";
 
 function Account() {
   const [user, setUser] = useState();
@@ -11,6 +12,7 @@ function Account() {
   const [passManager, setPassManager] = useState(false);
   const [confPass, setConfPass] = useState("");
   const [submit, setSubmit] = useState(false);
+  const [status, setStatus] = useState({});
 
   useEffect(() => {
     const user = JSON?.parse(localStorage?.getItem("user"));
@@ -41,13 +43,17 @@ function Account() {
         setEditUser({
           password: "",
           oldPassword: "",
-          email: "",
         });
+        console.log(res.data);
+        setStatus(
+          res.data.message === "success"
+            ? {
+                type: "success",
+                message: `succesfully updated your credidentials`,
+              }
+            : { type: "error", message: res.data.message }
+        );
       });
-    //   axios
-    //     .post("http://localhost:8000/teachers", editUser)
-    //     .then((res) => {
-    // setSubmit(false)});
   };
 
   const logOut = () => {
@@ -65,6 +71,7 @@ function Account() {
 
   return (
     <div>
+      {<StatusMsg status={status} />}
       <div className="flex flex-col gap-4 h-[100vh_-_4rem]">
         <div className="w-full h-60 bg-[url('https://b1311116.smushcdn.com/1311116/wp-content/uploads/2021/12/great-school-website-01.png?size=912x479&lossy=1&strip=1&webp=1')] bg-cover bg-center">
           <div className="min-w-full text-2xl font-semibold h-full flex text-white justify-center items-center backdrop-brightness-50">

@@ -163,7 +163,7 @@ export const addFee = async (req, res) => {
     const result = await graphQLClient.request(query, req.body);
     computeFee(req.body);
 
-    res.status(200).json(result);
+    res.status(200).json({ message: "success" });
 
     const published = await graphQLClient.request(publish, {
       id: result.createFee.id,
@@ -171,6 +171,7 @@ export const addFee = async (req, res) => {
     console.log("published", published);
   } catch (error) {
     console.log(error.message);
+    res.json({ message: error.response.errors[0].message });
   }
 };
 

@@ -1,23 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button } from "../components";
+import StatusMsg from "../components/StatusMsg";
 
 // eslint-disable-next-line no-unused-vars
-const dum2 = {
-  name: "Cynthia Graham",
-  email: "cynthia@gmail.com",
-  gender: "Female",
-  parent: "George Graham",
-  admid: "19",
-  phone: 7122342729,
-  dob: "2-6-2002",
-  slug: "19cynthia",
-  stream_slug: "1e",
-};
 
 function AddLesson() {
   const [lesson, setLesson] = useState({});
   const [submit, setSubmit] = useState(false);
+  const [status, setStatus] = useState({});
 
   const handleInput = (event) => {
     const target = event.target;
@@ -36,11 +27,21 @@ function AddLesson() {
     //   .then((res) => console.log(res.message));
     axios.post("https://lmsadmin.onrender.com/lessons", lesson).then((res) => {
       setSubmit(false);
+      console.log(res.data);
+      setStatus(
+        res.data.day
+          ? {
+              type: "success",
+              message: `succesfully Created a ${res.data.subject.name} lesson for ${res.data.stream.name} on ${res.data.day}`,
+            }
+          : { type: "error", message: res.data.message }
+      );
     });
   };
 
   return (
     <div>
+      {<StatusMsg status={status} />}
       <div className="p-2 md:p-4 text-2xl font-semibold">
         <h3>Add lessons</h3>
       </div>

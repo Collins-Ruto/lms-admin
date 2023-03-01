@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button } from "../../components";
+import StatusMsg from "../../components/StatusMsg";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -17,9 +18,10 @@ const dum2 = {
 };
 
 function AddTeacher() {
-  const [teacher, setTeacher] = useState({});
+  const [teacher, setTeacher] = useState({dum2});
   const [confPass, setConfPass] = useState("");
   const [submit, setSubmit] = useState(false);
+  const [status, setStatus] = useState({});
 
   const handleInput = (event) => {
     const target = event.target;
@@ -36,6 +38,14 @@ function AddTeacher() {
       .post("https://lmsadmin.onrender.com/teachers", teacher)
       .then((res) => {
         setSubmit(false);
+        setStatus(
+          res.data.day
+            ? {
+                type: "success",
+                message: `succesfully added ${teacher.name} as a ${teacher.quali} teacher`,
+              }
+            : { type: "error", message: res.data.message }
+        );
       });
   };
 
@@ -45,6 +55,7 @@ function AddTeacher() {
 
   return (
     <div>
+      {<StatusMsg status={status} />}
       <div className="p-4 text-2xl font-semibold">
         <h3>Add Teachers</h3>
       </div>
