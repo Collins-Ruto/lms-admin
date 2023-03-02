@@ -2,8 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import homepic from "../res/homepic1.webp";
 import { Button } from "../components";
+import {  useNavigate } from "react-router-dom";
 
 function Login({ setLogin }) {
+  const navigate = useNavigate()
+  
   const [user, setUser] = useState({ password: "" });
   const [submit, setSubmit] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -40,7 +43,8 @@ function Login({ setLogin }) {
           localStorage.setItem("saved", JSON.stringify(isChecked));
           axios.defaults.headers.common["Authorization"] = `${
             res.data[user.group].token
-          }`;
+            }`;
+          navigate("/")
         } else {
           setInvalid(true);
         }
