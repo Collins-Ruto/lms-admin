@@ -53,6 +53,9 @@ function Account() {
               }
             : { type: "error", message: res.data.message }
         );
+        setTimeout(() => {
+          res.data.message === "success" && window.location.reload(true);
+        }, 2000);
       });
   };
 

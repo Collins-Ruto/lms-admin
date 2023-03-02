@@ -18,7 +18,7 @@ function AddExam() {
   const [status, setStatus] = useState({});
 
   useEffect(() => {
-    axios.get("https://lmsadmin.onrender.com/subjects").then((res) => {
+    axios.get("https://lmsadmin.onrender.com/infos").then((res) => {
       setSubjects(res.data.subjects);
       setLoading(false);
     });
@@ -60,6 +60,9 @@ function AddExam() {
               }
             : { type: "error", message: res.data.message }
         );
+        setTimeout(() => {
+          res.data.message === "success" && window.location.reload(true);
+        }, 2000);
       });
   };
 

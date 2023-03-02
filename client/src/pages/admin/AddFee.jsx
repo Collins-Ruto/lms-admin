@@ -38,6 +38,9 @@ function AddFee() {
             }
           : { type: "error", message: data.message }
       );
+      setTimeout(() => {
+        res.data.message === "success" && window.location.reload(true);
+      }, 2000);
     });
     //   http://localhost:8000
   };

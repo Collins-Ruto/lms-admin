@@ -138,7 +138,7 @@ function Teachers() {
   console.log(teachers);
 
   return (
-    <div className="w-screen md:w-full">
+    <div className="w-screen md:w-full md:pb-8">
       {isDelete && <ConfirmDel />}
       <div className="p-4 text-2xl font-semibold">
         <h3>Teachers</h3>

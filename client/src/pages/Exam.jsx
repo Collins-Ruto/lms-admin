@@ -21,7 +21,7 @@ function Exam() {
       setPages(res.data.pageInfo);
     });
 
-    axios.get("https://lmsadmin.onrender.com/subjects").then((res) => {
+    axios.get("https://lmsadmin.onrender.com/infos").then((res) => {
       setSubjects(res.data.subjects);
       setLoading(false);
     });

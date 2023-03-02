@@ -29,13 +29,16 @@ function AddLesson() {
       setSubmit(false);
       console.log(res.data);
       setStatus(
-        res.data.day
+        res.data.message === "success"
           ? {
               type: "success",
               message: `succesfully Created a ${res.data.subject.name} lesson for ${res.data.stream.name} on ${res.data.day}`,
             }
           : { type: "error", message: res.data.message }
       );
+      setTimeout(() => {
+        res.data.message === "success" && window.location.reload(true);
+      }, 2000);
     });
   };
 

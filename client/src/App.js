@@ -17,6 +17,7 @@ import {
   AddAdmin,
   AddFee,
   AddStudent,
+  AddSubject,
   AddTeacher,
   Dashboard,
   Teachers,
@@ -24,6 +25,7 @@ import {
 import { Student, StudentExam, StudentFee } from "./pages/student";
 import { Teacher } from "./pages/teacher";
 import axios from "axios";
+import AddStream from "./pages/admin/AddStream";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -61,6 +63,8 @@ function App() {
                 <Route path="/addteacher" element={<AddTeacher />} />
                 <Route path="/addadmin" element={<AddAdmin />} />
                 <Route path="/addfee" element={<AddFee />} />
+                <Route path="/addstream" element={<AddStream />} />
+                <Route path="/addsubject" element={<AddSubject />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="*" element={<Dashboard />} />
               </Routes>
@@ -95,7 +99,9 @@ function App() {
       ) : (
         <Login setLogin={setUser} />
       )}
-      <div className="absolute left-[33%] md:left-[50%] bottom-10 z-10">{user ? <Footer /> : ""}</div>
+      <div className="absolute left-[33%] md:left-[50%] bottom-10 z-10">
+        {user ? <Footer /> : ""}
+      </div>
     </div>
   );
 }

@@ -40,7 +40,7 @@ function Header({ user }) {
                   aria-haspopup="true"
                 >
                   <img
-                    className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                    className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                     src="https://img.icons8.com/material-rounded/24/000000/user.png"
                     alt=""
                   />
@@ -116,7 +116,7 @@ function Header({ user }) {
               setOpened(!opened);
             }}
             className="
-                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-[#F7F6FB] "
+                flex flex-col absolute left-0 w-[60%] md:w-60 p-4 h-screen opacity-100 bg-blend-darken bg-[#F7F6FB] overflow-y-auto "
           >
             <NavLink
               to="/"
@@ -129,7 +129,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/dashboard-layout.png"
                 alt=""
               />
@@ -147,7 +147,7 @@ function Header({ user }) {
                 }
               >
                 <img
-                  className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                  className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                   src="https://img.icons8.com/material-rounded/24/000000/student-center.png"
                   alt=""
                 />
@@ -167,28 +167,11 @@ function Header({ user }) {
                   }
                 >
                   <img
-                    className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                    className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                     src="https://img.icons8.com/material-rounded/24/000000/teacher.png"
                     alt=""
                   />
                   <span className="text-lg">Teachers</span>
-                </NavLink>
-                <NavLink
-                  to="/addadmin"
-                  className={({ isActive }) =>
-                    `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
-                      isActive
-                        ? "bg-blue-700 text-white hover:text hover:text-white"
-                        : ""
-                    }`
-                  }
-                >
-                  <img
-                    className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                    src="https://img.icons8.com/ios-filled/50/000000/admin-settings-male.png"
-                    alt=""
-                  />
-                  <span className="text-lg">Admins</span>
                 </NavLink>
               </div>
             )}
@@ -203,7 +186,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/test-partial-passed.png"
                 alt=""
               />
@@ -220,30 +203,13 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/2012.png"
                 alt=""
               />
               <span className="text-lg">Calender</span>
             </NavLink>
 
-            <NavLink
-              to="/addlesson"
-              className={({ isActive }) =>
-                `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
-                  isActive
-                    ? "bg-blue-700 text-white hover:text hover:text-white"
-                    : ""
-                }`
-              }
-            >
-              <img
-                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
-                src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-lesson-university-vitaliy-gorbachev-fill-vitaly-gorbachev-1.png"
-                alt=""
-              />
-              <span className="text-lg">Lessons</span>
-            </NavLink>
             <NavLink
               to="/fee"
               className={({ isActive }) =>
@@ -255,12 +221,87 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/currency-exchange.png"
                 alt=""
               />
               <span className="text-lg">Finance</span>
             </NavLink>
+            {user.type === "admin" && (
+              <div className="">
+                <h2 className="text-sm px-2 text-gray-600 border-b pt-1 w-fit">
+                  Data Management
+                </h2>
+                <NavLink
+                  to="/addadmin"
+                  className={({ isActive }) =>
+                    `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                      isActive
+                        ? "bg-blue-700 text-white hover:text hover:text-white"
+                        : ""
+                    }`
+                  }
+                >
+                  <img
+                    className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
+                    src="https://img.icons8.com/ios-filled/50/000000/admin-settings-male.png"
+                    alt=""
+                  />
+                  <span className="text-lg">Add Admin</span>
+                </NavLink>
+                <NavLink
+                  to="/addlesson"
+                  className={({ isActive }) =>
+                    `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                      isActive
+                        ? "bg-blue-700 text-white hover:text hover:text-white"
+                        : ""
+                    }`
+                  }
+                >
+                  <img
+                    className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
+                    src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-lesson-university-vitaliy-gorbachev-fill-vitaly-gorbachev-1.png"
+                    alt=""
+                  />
+                  <span className="text-lg">Add Lessons</span>
+                </NavLink>
+                <NavLink
+                  to="/addstream"
+                  className={({ isActive }) =>
+                    `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                      isActive
+                        ? "bg-blue-700 text-white hover:text hover:text-white"
+                        : ""
+                    }`
+                  }
+                >
+                  <img
+                    className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
+                    src="https://img.icons8.com/material/24/000000/school-building.png"
+                    alt=""
+                  />
+                  <span className="text-lg">Add Stream</span>
+                </NavLink>
+                <NavLink
+                  to="/addsubject"
+                  className={({ isActive }) =>
+                    `mt-4 align-middle p-2 rounded-md flex items-center text-gray-800 hover:text-blue-700 cursor-pointer ${
+                      isActive
+                        ? "bg-blue-700 text-white hover:text hover:text-white"
+                        : ""
+                    }`
+                  }
+                >
+                  <img
+                    className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
+                    src="https://img.icons8.com/ios-filled/50/000000/wordbook.png"
+                    alt=""
+                  />
+                  <span className="text-lg">Add Subject</span>
+                </NavLink>
+              </div>
+            )}
             {/* <NavLink
                 to="/class"
                 className={({ isActive }) =>
@@ -271,7 +312,7 @@ function Header({ user }) {
                   }`
                 }
               >
-                <img className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm" src="https://img.icons8.com/material-rounded/24/000000/user.png" alt="" />
+                <img className="w-6 mr-2 bg-[#F7F6FB] rounded-sm" src="https://img.icons8.com/material-rounded/24/000000/user.png" alt="" />
                 <span className="text-lg">Assignments</span>
               </NavLink> */}
             <NavLink
@@ -285,7 +326,7 @@ function Header({ user }) {
               }
             >
               <img
-                className="w-6 md:w-8 mr-2 bg-[#F7F6FB] rounded-sm"
+                className="w-6 mr-2 bg-[#F7F6FB] rounded-sm"
                 src="https://img.icons8.com/material-rounded/24/000000/user.png"
                 alt=""
               />
