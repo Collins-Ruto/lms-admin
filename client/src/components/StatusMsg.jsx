@@ -16,7 +16,7 @@ function StatusMsg({ status }) {
     <div className="fixed right-4 top-14 z-10 rounded">
       {show && (
         <div
-          className={`opacity-80 ${
+          className={`opacity-90 ${
             status.type === "success"
               ? "bg-green-600 "
               : status.type === "error"
@@ -30,7 +30,7 @@ function StatusMsg({ status }) {
               onClick={() => {
                 setShow(false);
               }}
-              className="w-6 ml-4 cursor-pointer"
+              className="w-8 h-8 ml-4 cursor-pointer"
               src="https://img.icons8.com/material-rounded/24/FFE6E6/multiply--v1.png"
               alt=""
             />

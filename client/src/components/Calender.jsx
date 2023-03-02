@@ -264,10 +264,10 @@ function Lesson({ lesson }) {
   inputDate.setMinutes(inputTime.split(":")[1]);
 
   return (
-    <div className="flex gap-4 pb-4 divide-x-4 text-gray-700 divide-blue-600 ">
+    <div className="grid grid-flow-col border-b gap-4 pb-2 mb-2 divide-x-4 text-gray-700 divide-blue-600 ">
       <div className="flex flex-col border-r-3">
-        <span className="font-semibold">{lesson.day}</span>
-        <span>{lesson.stream?.name}</span>
+        <span className="font-semibold flex-1">{lesson.day}</span>
+        <span className="flex-1">{lesson.stream?.name}</span>
       </div>
       <div className="flex pl-2 justify-between grow ">
         <div>

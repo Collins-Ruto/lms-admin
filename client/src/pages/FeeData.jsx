@@ -28,8 +28,6 @@ function FeeData() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("fees", fees)
-
   const changePage = (direction) => {
     const data = {
       ...pages,
@@ -65,7 +63,7 @@ function FeeData() {
   };
 
   return (
-    <div className="w-screen md:w-full">
+    <div className="w-screen md:w-full md:pb-8">
       <div className="p-4 text-2xl font-semibold">
         <h3>Fee Details</h3>
       </div>

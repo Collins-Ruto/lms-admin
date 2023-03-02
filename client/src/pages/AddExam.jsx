@@ -53,7 +53,7 @@ function AddExam() {
         res.status === 200 && setExam(data);
         setSubmit(false);
         setStatus(
-          res.data.day
+          res.data.message === "success"
             ? {
                 type: "success",
                 message: `succesfully added ${exam.dame} results for ${student.name}`,

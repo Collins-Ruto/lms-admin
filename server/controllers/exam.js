@@ -11,7 +11,7 @@ export const getExams = async (req, res) => {
   try {
     const query = gql`
       query MyQuery {
-        examsConnection( orderBy: publishedAt_DESC) {
+        examsConnection(orderBy: publishedAt_DESC) {
           pageInfo {
             hasNextPage
             hasPreviousPage
@@ -90,33 +90,35 @@ export const getExamsPage = async (req, res) => {
 
 export const getExamSearch = async (req, res) => {
   console.log(req.query);
+  req.query.name = req.query.name === '' ? undefined : req.query.name
+  req.query.id = req.query.id === '' ? undefined : req.query.id
   const results = {};
 
   const query = gql`
-    query MyQuery($id: String!, $name: String!) {
+    query MyQuery($id: String, $name: String) {
       examSearch: examsConnection(where: { slug_contains: $id }) {
         edges {
           node {
             examDate
-              id
-              name
-              results
-              slug
-              term
-              student {
-                ... on Student {
-                  name
-                  slug
-                }
+            id
+            name
+            results
+            slug
+            term
+            student {
+              ... on Student {
+                name
+                slug
               }
+            }
           }
         }
       }
-      studentSearch: examsConnection(where: { name_contains: $name }) {
+      studentSearch: studentsConnection(where: { name_contains: $name }) {
         edges {
           node {
             exams {
-             examDate
+              examDate
               id
               name
               results
@@ -146,7 +148,6 @@ export const getExamSearch = async (req, res) => {
     console.log(error.message);
   }
 };
-
 
 export const getStudent = async (req, res) => {
   console.log(req.query);
@@ -224,7 +225,6 @@ export const addExams = async (req, res) => {
       id: result.createExam.id,
     });
     console.log("published", published);
-    
   } catch (error) {
     console.log(error.message);
     res.json({ message: error.response.errors[0].message });

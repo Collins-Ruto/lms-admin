@@ -136,10 +136,12 @@ export const getFeesPage = async (req, res) => {
 
 export const getFeeSearch = async (req, res) => {
   console.log(req.query);
+  req.query.name = req.query.name === "" ? undefined : req.query.name;
+  req.query.id = req.query.id === "" ? undefined : req.query.id;
   const results = {};
 
   const query = gql`
-    query MyQuery($id: String!, $name: String!) {
+    query MyQuery($id: String, $name: String) {
       feeSearch: feesConnection(where: { slug_contains: $id }) {
         edges {
           node {
@@ -166,7 +168,7 @@ export const getFeeSearch = async (req, res) => {
           }
         }
       }
-      studentSearch: feesConnection(where: { name_contains: $name }) {
+      studentSearch: studentsConnection(where: { name_contains: $name }) {
         edges {
           node {
             fees {

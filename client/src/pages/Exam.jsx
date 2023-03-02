@@ -28,19 +28,17 @@ function Exam() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-   const changePage = (direction) => {
-     const data = {
-       ...pages,
-       direction: direction,
-       cursor: direction === "after" ? pages.endCursor : pages.startCursor,
-     };
-     axios
-       .post("https://lmsadmin.onrender.com/exams/page", data)
-       .then((res) => {
-         setPages(res.data.pageInfo);
-         setExam(res.data.edges);
-       });
-   };
+  const changePage = (direction) => {
+    const data = {
+      ...pages,
+      direction: direction,
+      cursor: direction === "after" ? pages.endCursor : pages.startCursor,
+    };
+    axios.post("https://lmsadmin.onrender.com/exams/page", data).then((res) => {
+      setPages(res.data.pageInfo);
+      setExam(res.data.edges);
+    });
+  };
 
   const handleInput = (event) => {
     const target = event.target;
@@ -65,7 +63,6 @@ function Exam() {
     setSubmit(false);
     setSearch({ name: "", id: "" });
   };
-  console.log("exams", exam);
 
   return (
     <div className="w-screen md:w-full">

@@ -39,7 +39,7 @@ function AddTeacher() {
       .then((res) => {
         setSubmit(false);
         setStatus(
-          res.data.day
+          res.data.message === "success"
             ? {
                 type: "success",
                 message: `succesfully added ${teacher.name} as a ${teacher.quali} teacher`,

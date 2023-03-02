@@ -10,6 +10,8 @@ function AddFee() {
 
   const handleInput = (event) => {
     const target = event.target;
+    const type =
+      target.name === "type" && target.value === "invoice" ? "INV" : "CRD";
     // const value = target.type === "checkbox" ? target.checked : target.value;
     const value =
       target.type === "number"
@@ -19,16 +21,17 @@ function AddFee() {
         : target.value;
     const name = target.name;
 
-    setFee({ ...fee, [name]: value });
+    setFee({ ...fee, [name]: value, slug: `${type}${Math.floor(Date.now() / 1000)}` });
   };
 
   const handleSubmit = () => {
     setSubmit(true);
     axios.post("https://lmsadmin.onrender.com/fees", fee).then((res) => {
       setSubmit(false);
+      console.log(res.data)
       const data = res.data;
       setStatus(
-        data.day
+        res.data.message === "success"
           ? {
               type: "success",
               message: `${fee.type} of ${fee.amount} to ${fee.stdt_slug} is succesfull`,
@@ -39,14 +42,7 @@ function AddFee() {
     //   http://localhost:8000
   };
 
-  const idGenerator = () => {
-    const type = fee.type === "invoice" ? "INV" : "CRD";
-    setFee({
-      ...fee,
-      slug: `${type}${Math.floor(Date.now() / 1000)}`,
-    });
-    handleSubmit();
-  };
+  console.log(fee)
 
   return (
     <div>
@@ -171,7 +167,7 @@ function AddFee() {
               <Button />
             ) : (
               <div
-                onClick={() => idGenerator()}
+                onClick={() => handleSubmit()}
                 // type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-32 py-2 px-10 rounded"
               >

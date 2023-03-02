@@ -39,7 +39,7 @@ function AddAdmin() {
       .then((res) => {
         setSubmit(false);
         setStatus(
-          res.data.day
+          res.data.message === "success"
             ? {
                 type: "success",
                 message: `succesfully added ${admin.name} as a ${admin.quali} admin`,
