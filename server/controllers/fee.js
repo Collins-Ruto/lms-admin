@@ -38,7 +38,10 @@ export const getFees = async (req, res) => {
                 ... on Student {
                   name
                   slug
-                  balance
+                  fees {
+                    type
+                    amount
+                  }
                   stream {
                     ... on Stream {
                       id
@@ -55,7 +58,26 @@ export const getFees = async (req, res) => {
     `;
 
     const result = await request(graphqlAPI, query);
+    console.log(result)
 
+    const students = result.feesConnection.edges;
+    result.feesConnection.edges = students.map((student) => {
+      const fees = student.node.student.fees;
+      let invoice = 0;
+      let credit = 0;
+
+      fees.forEach((fee) => {
+        fee.type === "invoice"
+          ? (invoice += parseFloat(fee.amount))
+          : (credit += parseFloat(fee.amount));
+      });
+       (
+        invoice - credit
+      ).toString();
+
+      return {...student, balance:(invoice - credit).toString()}
+    });
+    
     res.status(200).json(result.feesConnection);
   } catch (error) {
     console.log(error.message);
@@ -217,7 +239,6 @@ export const addFee = async (req, res) => {
 
   try {
     const result = await graphQLClient.request(query, req.body);
-    computeFee(req.body);
 
     res.status(200).json({ message: "success" });
 
@@ -236,7 +257,8 @@ export const getStudentFees = async (req, res) => {
   try {
     const query = gql`
       query MyQuery($slug: String!) {
-        feesConnection(where: { slug: $slug }) {
+        studentsConnection(where: { slug: $slug }, orderBy: publishedAt_DESC, first: 20 )
+        {
           edges {
             node {
               fees {
@@ -256,7 +278,20 @@ export const getStudentFees = async (req, res) => {
     const result = await request(graphqlAPI, query, req.query);
     console.log(result);
 
-    return res.status(200).json(result.feesConnection.edges);
+    const fees = result.studentsConnection.edges[0].node.fees;
+    let invoice = 0;
+    let credit = 0;
+
+    fees.forEach((fee) => {
+      fee.type === "invoice"
+        ? (invoice += parseFloat(fee.amount))
+        : (credit += parseFloat(fee.amount));
+    });
+    result.studentsConnection.edges[0].node.balance = (
+      invoice - credit
+    ).toString();
+
+    return res.status(200).json(result.studentsConnection.edges);
   } catch (error) {
     console.log(error.message);
   }
@@ -284,59 +319,9 @@ export const StudentFees = async (slug) => {
     `;
 
     const result = await request(graphqlAPI, query, { slug: slug });
+    console.log(result)
 
     return result.feesConnection.edges;
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-const computeFee = async (feeData) => {
-  console.log("feeData", feeData);
-  const studentData = await StudentFees(feeData.stdt_slug);
-  console.log("studentData", studentData);
-  let invoice = 0;
-  let credit = 0;
-
-  studentData &&
-    studentData[0].node.fees.forEach((fee) => {
-      fee.type === "invoice"
-        ? (invoice += parseFloat(fee.amount))
-        : (credit += parseFloat(fee.amount));
-    });
-
-  feeData && feeData.type === "invoice"
-    ? (invoice += parseFloat(feeData.amount))
-    : (credit += parseFloat(feeData.amount));
-
-  const balance = (invoice - credit).toString();
-
-  console.log(invoice, "credit", credit, "balance", balance);
-  const data = { balance: balance, slug: feeData.stdt_slug };
-
-  updateStudentFee(data);
-};
-
-export const updateStudentFee = async (data) => {
-  const query = gql`
-    mutation MyMutation($slug: String!, $balance: String!) {
-      updateStudent(data: { balance: $balance }, where: { slug: $slug }) {
-        balance
-        slug
-        id
-      }
-    }
-  `;
-
-  try {
-    const result = await graphQLClient
-      .request(query, data)
-      .then((data) => console.log(data));
-    
-    const published = await graphQLClient.request(publish, {
-      id: result.updateStudent.id,
-    });
-    console.log("published", published);
   } catch (error) {
     console.log(error.message);
   }

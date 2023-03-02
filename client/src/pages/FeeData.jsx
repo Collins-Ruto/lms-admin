@@ -28,6 +28,8 @@ function FeeData() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log("fees", fees)
+
   const changePage = (direction) => {
     const data = {
       ...pages,
@@ -134,7 +136,7 @@ function FeeData() {
         </div>
       </div>
       <div className="m-4 bg-[#F7F6FB] rounded-xl p-6 overflow-auto">
-        <table className="w-full">
+        <table className="w-full text-justify">
           <thead>
             <tr>
               <th className="p-4">ID</th>
@@ -152,7 +154,10 @@ function FeeData() {
               const fee = fees && (fees?.node || fees);
 
               return (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className={` p-4 ${index % 2 === 0 && "bg-white"}`}
+                >
                   <td className="p-4">{fee.slug}</td>
                   <td className="p-4">
                     <h2 className=" ">
@@ -166,13 +171,11 @@ function FeeData() {
                   <td className="p-4">
                     {fee.type === "credit" ? fee.amount : "0.00"}
                   </td>
-                  <td className="p-4">{fee.student?.balance}</td>
+                  <td className="p-4">{fees.balance}</td>
                   <td className="p-4">{fee.payday}</td>
-                  <td className="text-end">
+                  <td className="text-end p-4">
                     <span>
-                      {parseFloat(fee.student?.balance) > 0
-                        ? "Paid"
-                        : "Arrears"}
+                      {parseFloat(fees.balance) < 1 ? "Paid" : "Arrears"}
                     </span>
                   </td>
                 </tr>

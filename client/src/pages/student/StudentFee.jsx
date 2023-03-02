@@ -6,6 +6,8 @@ function FeeData() {
   const [student, setStudent] = useState({});
   const [loading, setLoading] = useState(true);
 
+  // https://lmsadmin.onrender.com
+
   useEffect(() => {
     const user = JSON?.parse(localStorage.getItem("user"));
     console.log(user);
@@ -28,7 +30,7 @@ function FeeData() {
       {loading && <Loader />}
 
       <div className="m-4 bg-[#F7F6FB] rounded-xl p-6 overflow-auto">
-        <table className="w-full">
+        <table className="w-full text-justify">
           <thead>
             <tr>
               <th className="p-4">ID</th>
@@ -36,7 +38,6 @@ function FeeData() {
               <th className="p-4">Credited</th>
               <th className="p-4">Balance</th>
               <th className="p-4">Paid Date</th>
-              <th className="text-end">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -52,13 +53,6 @@ function FeeData() {
                   </td>
                   <td className="p-4">{student?.balance}</td>
                   <td className="p-4">{fee.payday}</td>
-                  <td className="text-end">
-                    <span>
-                      {parseFloat(fee.student?.balance) > 0
-                        ? "Paid"
-                        : "Arrears"}
-                    </span>
-                  </td>
                 </tr>
               );
             })}

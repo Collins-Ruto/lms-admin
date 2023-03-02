@@ -36,7 +36,7 @@ function Exam() {
           </div>
         ) : (
           <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 overflow-auto">
-            <table className=" w-full">
+            <table className=" w-full text-justify">
               <thead>
                 <tr className="text-lg p-4">
                   <th className="p-4">Exam</th>

@@ -36,10 +36,7 @@ export const getTeachers = async (req, res) => {
               slug
               dateOfBirth
               joiningDate
-              streams {
-                name
-                slug
-              }
+              qualification
             }
           }
         }

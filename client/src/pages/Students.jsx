@@ -202,7 +202,7 @@ function Students() {
               </div>
             </div>
             <div className="m-4 bg-[#F7F6FB] rounded-xl p-4 overflow-auto">
-              <table className=" w-full overflow-scroll">
+              <table className=" w-full overflow-scroll text-justify">
                 <thead>
                   <tr>
                     <th className="p-4">ID</th>
@@ -260,58 +260,58 @@ function Students() {
                 </tbody>
               </table>
             </div>
-              <div className="flex align-middle justify-center pb-10 md:pb-8">
-                <div
-                  onClick={() => {
-                    pages.hasPreviousPage && changePage("before");
-                  }}
-                  className={` ${
-                    pages.hasPreviousPage
-                      ? "bg-slate-700 cursor-pointer text-gray-100 hover:bg-gray-600 hover:text-white"
-                      : "bg-gray-300 text-gray-800"
-                  }  inline-flex items-center px-4 py-2 mr-3 text-sm font-medium border border-gray-300 rounded-lg `}
+            <div className="flex align-middle justify-center pb-10 md:pb-8">
+              <div
+                onClick={() => {
+                  pages.hasPreviousPage && changePage("before");
+                }}
+                className={` ${
+                  pages.hasPreviousPage
+                    ? "bg-slate-700 cursor-pointer text-gray-100 hover:bg-gray-600 hover:text-white"
+                    : "bg-gray-300 text-gray-800"
+                }  inline-flex items-center px-4 py-2 mr-3 text-sm font-medium border border-gray-300 rounded-lg `}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="w-5 h-5 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="w-5 h-5 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                  Previous
-                </div>
-                <div
-                  onClick={() => {
-                    pages.hasNextPage && changePage("after");
-                  }}
-                  className={` ${
-                    pages.hasNextPage
-                      ? "bg-slate-700 cursor-pointer text-gray-100 hover:bg-gray-600 hover:text-white"
-                      : "bg-gray-300 text-gray-800"
-                  }  inline-flex items-center px-4 py-2 mr-3 text-sm font-medium border border-gray-300 rounded-lg `}
-                >
-                  Next
-                  <svg
-                    aria-hidden="true"
-                    className="w-5 h-5 ml-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                </div>
+                  <path
+                    fillRule="evenodd"
+                    d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                Previous
               </div>
+              <div
+                onClick={() => {
+                  pages.hasNextPage && changePage("after");
+                }}
+                className={` ${
+                  pages.hasNextPage
+                    ? "bg-slate-700 cursor-pointer text-gray-100 hover:bg-gray-600 hover:text-white"
+                    : "bg-gray-300 text-gray-800"
+                }  inline-flex items-center px-4 py-2 mr-3 text-sm font-medium border border-gray-300 rounded-lg `}
+              >
+                Next
+                <svg
+                  aria-hidden="true"
+                  className="w-5 h-5 ml-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
