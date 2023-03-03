@@ -21,10 +21,7 @@ function CreateTask() {
     Object.entries(task).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    // formData.append("title", task.title);
-    // formData.append("description", task.description);
-    // formData.append("file", task.file);
-    // setSubmit(true);
+    
     const res = await axios.post(
       "http://localhost:8000/infos/addtask",
       formData,
