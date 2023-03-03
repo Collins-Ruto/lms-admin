@@ -1,48 +1,38 @@
-// import axios from "axios";
-
-// function TeacherTask() {
-//   const handleFileUpload = async (event) => {
-//     const formData = new FormData();
-//     formData.append("file", event.target.files[0]);
-//     console.log(formData)
-//     // await axios.post("/upload", formData);
-//   };
-
-//   return (
-//     <form>
-//       <input type="file" onChange={handleFileUpload} />
-//     </form>
-//   );
-// }
-
-// export default TeacherTask;
-
 import React, { useState } from "react";
 import axios from "axios";
-import { Button } from "../../components";
-import StatusMsg from "../../components/StatusMsg";
+import { Button, StatusMsg } from "../../components";
 
 function CreateTask() {
   const [task, setTask] = useState({});
   const [submit, setSubmit] = useState(false);
   const [status, setStatus] = useState({});
 
-  const formData = new FormData();
-
   const handleInput = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.type === "file" ? target.files[0] : target.value;
 
-    formData.append([name], value);
+    // formData.append(`${name}`, value);
     setTask({ ...task, [name]: value });
   };
 
   async function handleSubmit() {
-    setSubmit(true);
+    const formData = new FormData();
+    Object.entries(task).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    // formData.append("title", task.title);
+    // formData.append("description", task.description);
+    // formData.append("file", task.file);
+    // setSubmit(true);
     const res = await axios.post(
       "http://localhost:8000/infos/addtask",
-      formData
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     setSubmit(false);
     setStatus(
@@ -58,7 +48,7 @@ function CreateTask() {
     }, 2000);
   }
 
-  console.log(formData);
+  console.log(task);
 
   return (
     <div>
@@ -72,7 +62,7 @@ function CreateTask() {
             <div>
               <div>
                 <label>
-                 Task title <span className="text-red-500">*</span>
+                  Task title <span className="text-red-500">*</span>
                 </label>
                 <input
                   onChange={(e) => {
@@ -148,12 +138,21 @@ function CreateTask() {
             </div>
           </div>
           <div>
-
-            
-<label class="block mb-2 font-medium" for="file_input">Upload file</label>
-<input class="block w-fit leading-loose text-lg text-gray-900 bg-gray-500 rounded cursor-pointer focus:outline-none" type="file"/>
-<p class="mt-1 text-sm text-gray-600" id="file_input_help">SVG, PNG, JPG or Any Document Type.</p>
-
+            <label className="block mb-2 font-medium" htmlFor="file_input">
+              Upload file
+            </label>
+            <input
+              onChange={(e) => {
+                handleInput(e);
+              }}
+              className="block w-fit leading-loose text-lg text-gray-900 bg-gray-500 rounded cursor-pointer focus:outline-none"
+              type="file"
+              name="file"
+              id="file_input"
+            />
+            <p className="mt-1 text-sm text-gray-600" id="file_input_help">
+              SVG, PNG, JPG or Any Document Type.
+            </p>
           </div>
 
           <div className=" mt-4">
@@ -161,13 +160,12 @@ function CreateTask() {
               {submit ? (
                 <Button />
               ) : (
-                <button
+                <div
                   onClick={() => handleSubmit()}
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
+                  className="bg-blue-500 w-fit hover:bg-blue-700 text-white font-bold py-2 px-10 rounded"
                 >
                   Submit
-                </button>
+                </div>
               )}
             </div>
           </div>

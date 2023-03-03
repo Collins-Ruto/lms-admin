@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button } from "../../components";
-import StatusMsg from "../../components/StatusMsg";
+import { Button, StatusMsg } from "../../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -18,7 +17,7 @@ const dum2 = {
 };
 
 function AddTeacher() {
-  const [teacher, setTeacher] = useState({dum2});
+  const [teacher, setTeacher] = useState({ dum2 });
   const [confPass, setConfPass] = useState("");
   const [submit, setSubmit] = useState(false);
   const [status, setStatus] = useState({});

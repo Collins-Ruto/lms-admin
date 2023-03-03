@@ -66,6 +66,8 @@ function App() {
                 <Route path="/addstream" element={<AddStream />} />
                 <Route path="/addsubject" element={<AddSubject />} />
                 <Route path="/account" element={<Account />} />
+                <Route path="/tasks" element={<Task />} />
+
                 <Route path="*" element={<Dashboard />} />
               </Routes>
             )}
@@ -81,6 +83,7 @@ function App() {
                 <Route path="/addExam" element={<AddExam />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="/task" element={<TeacherTask />} />
+                <Route path="/tasks" element={<Task />} />
                 <Route path="*" element={<Teacher />} />
               </Routes>
             )}

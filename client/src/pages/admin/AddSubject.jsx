@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button } from "../../components";
-import StatusMsg from "../../components/StatusMsg";
+import { Button, StatusMsg } from "../../components";
 
 // eslint-disable-next-line no-unused-vars
 
@@ -36,9 +35,9 @@ function AddSubject() {
               }
             : { type: "error", message: res.data.message }
         );
-          setTimeout(() => {
-            res.data.message === "success" && window.location.reload(true);
-          }, 2000);
+        setTimeout(() => {
+          res.data.message === "success" && window.location.reload(true);
+        }, 2000);
       });
   };
 

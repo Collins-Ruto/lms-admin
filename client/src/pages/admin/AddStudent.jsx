@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button } from "../../components";
-import StatusMsg from "../../components/StatusMsg";
+import { Button, StatusMsg } from "../../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -17,7 +16,7 @@ const dum2 = {
 };
 
 function AddStudent() {
-  const [student, setStudent] = useState({password: ''});
+  const [student, setStudent] = useState({ password: "" });
   const [submit, setSubmit] = useState(false);
   const [status, setStatus] = useState({});
 
@@ -37,14 +36,14 @@ function AddStudent() {
       .post("https://lmsadmin.onrender.com/students", student)
       .then((res) => {
         setSubmit(false);
-         setStatus(
-           res.data.message === "success"
-             ? {
-                 type: "success",
-                 message: `succesfully added ${student.name} as student`,
-               }
-             : { type: "error", message: res.data.message }
-         );
+        setStatus(
+          res.data.message === "success"
+            ? {
+                type: "success",
+                message: `succesfully added ${student.name} as student`,
+              }
+            : { type: "error", message: res.data.message }
+        );
         setTimeout(() => {
           res.data.message === "success" && window.location.reload(true);
         }, 2000);

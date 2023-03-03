@@ -105,7 +105,8 @@ export const addTask = async (req, res) => {
       $stid: String!, 
       $sid: String!, 
       $tid: String!, 
-      $description: String!, $file: Upload!) {
+      $description: String!, 
+      $file: Upload!) {
     createTask(data: {
       name: $name,
       description: $description,
@@ -153,7 +154,7 @@ export const addTask = async (req, res) => {
     });
     console.log("published", published);
   } catch (error) {
-    fs.unlinkSync(filePath);
+    // fs.unlinkSync(filePath);
     console.log(error.message);
     res.json({ message: error.response.errors[0].message });
   }

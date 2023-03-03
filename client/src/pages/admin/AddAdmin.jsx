@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Button } from "../../components";
-import StatusMsg from "../../components/StatusMsg";
+import { Button, StatusMsg } from "../../components";
 
 // eslint-disable-next-line no-unused-vars
 const dum2 = {
@@ -34,22 +33,20 @@ function AddAdmin() {
 
   const handleSubmit = () => {
     setSubmit(true);
-    axios
-      .post("https://lmsadmin.onrender.com/admins", admin)
-      .then((res) => {
-        setSubmit(false);
-        setStatus(
-          res.data.message === "success"
-            ? {
-                type: "success",
-                message: `succesfully added ${admin.name} as a ${admin.quali} admin`,
-              }
-            : { type: "error", message: res.data.message }
-        );
-        setTimeout(() => {
-          res.data.message === "success" && window.location.reload(true);
-        }, 2000);
-      });
+    axios.post("https://lmsadmin.onrender.com/admins", admin).then((res) => {
+      setSubmit(false);
+      setStatus(
+        res.data.message === "success"
+          ? {
+              type: "success",
+              message: `succesfully added ${admin.name} as a ${admin.quali} admin`,
+            }
+          : { type: "error", message: res.data.message }
+      );
+      setTimeout(() => {
+        res.data.message === "success" && window.location.reload(true);
+      }, 2000);
+    });
   };
 
   const handleVerify = (e) => {
