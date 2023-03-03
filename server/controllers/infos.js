@@ -1,7 +1,6 @@
 import { GraphQLClient, request, gql } from "graphql-request";
 import { graphqlAPI, GRAPHCMS_TOKEN } from "../config.js";
-import fs from 'fs'
-import multer from 'multer'
+import fs from "fs";
 
 const graphQLClient = new GraphQLClient(graphqlAPI, {
   headers: {
@@ -95,11 +94,32 @@ export const addSubject = async (req, res) => {
 };
 
 export const addTask = async (req, res) => {
+  const { path: filePath, originalname } = req.file;
+
   console.log(req.body);
+  console.log(req.file);
+
   const query = gql`
-    mutation createTask($id: String!, $name: String) {
-      createTask(data: { slug: $id, name: $name }) {
-        id
+    mutation CreateTask(
+      $name: String!, 
+      $stid: String!, 
+      $sid: String!, 
+      $tid: String!, 
+      $description: String!, $file: Upload!) {
+    createTask(data: {
+      name: $name,
+      description: $description,
+      file: {
+        create: {
+          filename: $file.filename,
+          handle: $file.createReadStream
+        }
+      }
+      stream: {connect: {Stream: {slug: stid}}}
+      subject: {connect: {Subject: {slug: sid}}}
+      teacher: {connect: {Teacher: {slug: tid}}}
+    }) {
+      id
       }
     }
   `;
@@ -113,7 +133,18 @@ export const addTask = async (req, res) => {
   `;
 
   try {
-    const result = await graphQLClient.request(query, req.body);
+    const stream = fs.createReadStream(filePath);
+    const result = await graphQLClient.request(query, {
+      name: req.body.title,
+      sid: req.body.sid,
+      stid: req.body.stid,
+      tid: req.body.tid,
+      description: req.body.description,
+      file: stream,
+      fileName: originalname,
+    });
+
+    fs.unlinkSync(filePath);
 
     res.status(200).json({ message: "success" });
 
@@ -122,29 +153,18 @@ export const addTask = async (req, res) => {
     });
     console.log("published", published);
   } catch (error) {
+    fs.unlinkSync(filePath);
     console.log(error.message);
     res.json({ message: error.response.errors[0].message });
   }
 };
 
-const express = require("express");
-const multer = require("multer");
-const { GraphQLClient } = require("graphql-request");
-const fs = require("fs");
-
-const app = express();
-const upload = multer({ dest: "uploads/" });
-
-const graphcmsClient = new GraphQLClient(
-  "https://api-eu-central-1.graphcms.com/v2/<your-project-id>/master"
-);
-
-app.post("/upload", upload.single("file"), async (req, res) => {
+export const addTask2 = async (req, res) => {
   const { path: filePath, originalname } = req.file;
 
   try {
     const stream = fs.createReadStream(filePath);
-    const { createAsset } = await graphcmsClient.request(
+    const { createAsset } = await graphQLClient.request(
       `
       mutation ($file: Upload!, $fileName: String!) {
         createAsset(data: { file: $file, fileName: $fileName }) {
@@ -166,10 +186,4 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 
     res.status(500).json({ message: error.message });
   }
-});
-
-app.listen(3000, () => {
-  console.log("Server listening on port 3000");
-});
-
-
+};
