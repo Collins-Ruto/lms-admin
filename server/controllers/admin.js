@@ -28,7 +28,7 @@ export const addAdmin = async (req, res) => {
       $email: String!
       $phone: Int
       $slug: String!
-      $password: String
+      $password: String!
     ) {
       createAdmin(
         data: {
