@@ -36,6 +36,7 @@ export const addAdmin = async (req, res) => {
           email: $email
           phone: $phone
           slug: $slug
+          userName: $slug
           password: $password
         }
       ) {
