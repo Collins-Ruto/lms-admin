@@ -86,6 +86,7 @@ function Login({ setLogin }) {
                   onChange={(e) => {
                     handleInput(e);
                   }}
+                  required
                   name="group"
                   value={user.group}
                   className="block appearance-none w-full text-black bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"

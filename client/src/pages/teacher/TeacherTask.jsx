@@ -4,6 +4,7 @@ import { Button, StatusMsg } from "../../components";
 
 function CreateTask() {
   const [task, setTask] = useState({});
+  const [file, setFile] = useState();
   const [submit, setSubmit] = useState(false);
   const [status, setStatus] = useState({});
 
@@ -11,38 +12,38 @@ function CreateTask() {
     const target = event.target;
     const name = target.name;
     const value = target.type === "file" ? target.files[0] : target.value;
-
-    // formData.append(`${name}`, value);
-    setTask({ ...task, [name]: value });
+    target.type === "file"
+      ? setFile(target.files[0])
+      : setTask({ ...task, [name]: value });
   };
 
   async function handleSubmit() {
     const formData = new FormData();
-    Object.entries(task).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+    // Object.entries(task).forEach(([key, value]) => {
+    //   formData.append(key, value);
+    // });
+    formData.append("file", file);
+
+    // const formData2 = new FormData();
     
-    const res = await axios.post(
-      "http://localhost:8000/infos/addtask",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const res = await axios.post("http://localhost:8000/infos/addasset", formData);
+    console.log(res)
+
+    const taskData = {...task, fileId: res.data.id}
+
+    const resTask = await axios.post("http://localhost:8000/infos/addtask", taskData);
     setSubmit(false);
-    setStatus(
-      res.data.message === "success"
-        ? {
-            type: "success",
-            message: `succesfully Created a ${res.data.subject.name} lesson for ${res.data.stream.name} on ${res.data.day}`,
-          }
-        : { type: "error", message: res.data.message }
-    );
-    setTimeout(() => {
-      res.data.message === "success" && window.location.reload(true);
-    }, 2000);
+    // setStatus(
+    //   res.data.message === "success"
+    //     ? {
+    //         type: "success",
+    //         message: `succesfully Created a ${res.data.subject.name} lesson for ${res.data.stream.name} on ${res.data.day}`,
+    //       }
+    //     : { type: "error", message: res.data.message }
+    // );
+    // setTimeout(() => {
+    //   res.data.message === "success" && window.location.reload(true);
+    // }, 2000);
   }
 
   console.log(task);
@@ -82,11 +83,11 @@ function CreateTask() {
                   onChange={(e) => {
                     handleInput(e);
                   }}
-                  value={task.sid}
+                  value={task.subjectId}
                   className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   placeholder="eg. geo"
-                  name="sid"
+                  name="subjectId"
                 />
               </div>
             </div>
@@ -97,11 +98,11 @@ function CreateTask() {
                   onChange={(e) => {
                     handleInput(e);
                   }}
-                  value={task.stid}
+                  value={task.streamId}
                   className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   placeholder="eg. 1n"
-                  name="stid"
+                  name="streamId"
                 />
               </div>
             </div>
@@ -113,11 +114,11 @@ function CreateTask() {
                 onChange={(e) => {
                   handleInput(e);
                 }}
-                value={task.tid}
+                value={task.teacherId}
                 className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder="eg. 456erick"
-                name="tid"
+                name="teacherId"
               />
             </div>
             <div>
