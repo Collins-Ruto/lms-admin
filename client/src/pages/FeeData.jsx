@@ -3,6 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Loader } from "../components";
 
+const testUser = {                                   name: "John Doe",                                 slug: "johndoe",                                  type: "admin",
+   email: "johndoe@gmail.com",
+   phone: "0711339134"
+}
+
 function FeeData() {
   const [fees, setFees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +23,8 @@ function FeeData() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    setUserType(user.type);
+    console.log(user)
+    setUserType(testUser.type);
 
     axios.get("https://lmsadmin.onrender.com/fees").then((res) => {
       setFees(res.data.edges);

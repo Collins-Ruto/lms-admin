@@ -3,8 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../components";
 import StatusMsg from "../components/StatusMsg";
 
+const testUser = {                                   name: "John Doe",                                 slug: "johndoe",                                  type: "admin",
+   email: "johndoe@gmail.com",
+   phone: "0711339134"
+  }
+
 function Account() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(testUser);
   const [editUser, setEditUser] = useState({
     email: user?.email,
     phone: user?.phone,
