@@ -27,9 +27,17 @@ import { Teacher } from "./pages/teacher";
 import axios from "axios";
 import AddStream from "./pages/admin/AddStream";
 
+const testUser = {
+  name: "John Doe",
+  slug: "johndoe",
+  type: "admin",
+  email: "johndoe@gmail.com",
+  phone: "0711339134"
+}
+
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(testUser);
 
   useEffect(() => {
     const saved = JSON?.parse(localStorage?.getItem("saved"));
