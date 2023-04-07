@@ -7,12 +7,15 @@ const graphQLClient = new GraphQLClient(graphqlAPI, {
     authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
   },
 });
-const graphQLClient2 = new GraphQLClient(`${graphqlAPI}/upload`, {
-  headers: {
-    authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
-    "Content-Type": "multipart/form-data",
-  },
-});
+const graphQLClient2 = new GraphQLClient(
+  `https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/cle2syke34vja01um747d0nxv/master/upload`,
+  {
+    headers: {
+      authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
 
 export const getSubjects = async (req, res) => {
   try {
@@ -100,38 +103,24 @@ export const addSubject = async (req, res) => {
 };
 
 export const addTask = async (req, res) => {
-  const { path: filePath, originalname } = req.file;
-
   console.log(req.body);
-  console.log(req.file);
-
   const query = gql`
     mutation CreateTask(
       $title: String!
-      $stid: String!
-      $sid: String!
-      $tid: String!
+      $streamId: String!
+      $subjectId: String!
+      $teacherId: String!
       $description: String!
+      $fileId: ID
     ) {
       createTask(
         data: {
           name: $title
           description: $description
-          stream: { connect: { Stream: { slug: $stid } } }
-          subject: { connect: { Subject: { slug: $sid } } }
-          teacher: { connect: { Teacher: { slug: $tid } } }
-        }
-      ) {
-        id
-      }
-    }
-  `;
-
-  const assetQuery = gql`
-    mutation CreateAsset($file: Upload!) {
-      createAsset(
-        data: {
-          file: $file
+          stream: { connect: { Stream: { slug: $streamId } } }
+          subject: { connect: { Subject: { slug: $subjectId } } }
+          teacher: { connect: { Teacher: { slug: $teacherId } } }
+          file: { connect: { id: $fileId } }
         }
       ) {
         id
@@ -147,6 +136,37 @@ export const addTask = async (req, res) => {
     }
   `;
 
+  try {
+    const result = await graphQLClient.request(query, req.body);
+
+    res.status(200).json({ message: "success" });
+
+   const published = await graphQLClient.request(publish, {
+     id: result.createTask.id,
+   });
+   console.log("published", published);
+
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.response.errors[0].message });
+  }
+};
+
+export const addAsset = async (req, res) => {
+  const { path: filePath, originalname } = req.file;
+
+  console.log(graphQLClient2);
+  console.log(req.file);
+
+  const assetQuery = gql`
+    mutation CreateAsset($file: Upload!) {
+      createAsset(data: { file: { create: { upload: $file } } }) {
+        id
+        url
+      }
+    }
+  `;
+
   const publishAsset = gql`
     mutation MyMutation($id: ID) {
       publishAsset(where: { id: $id }, to: PUBLISHED) {
@@ -156,19 +176,13 @@ export const addTask = async (req, res) => {
   `;
 
   try {
-    const stream = fs.createReadStream(filePath);
-    const result = await graphQLClient.request(query, req.body);
-
-    const published = await graphQLClient.request(publish, {
-      id: result.createTask.id,
-    });
-    console.log("published", published);
+    const stream = fs.createReadStream(req.file.path);
 
     const assetResult = await graphQLClient2.request(assetQuery, {
       file: stream,
     });
 
-    const publishedAsset = await graphQLClient.request(publishAsset, {
+    const publishedAsset = await graphQLClient2.request(publishAsset, {
       id: assetResult.createAsset.id,
     });
 
@@ -176,7 +190,7 @@ export const addTask = async (req, res) => {
 
     // fs.unlinkSync(filePath);
 
-    res.status(200).json({ message: "success" });
+    res.status(200).json(assetResult.createAsset.id);
   } catch (error) {
     // fs.unlinkSync(filePath);
     console.log(error.message);

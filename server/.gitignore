@@ -11,6 +11,8 @@
 # production
 /build
 
+/uploads
+
 # misc
 .env
 .DS_Store
