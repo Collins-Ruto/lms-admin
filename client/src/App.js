@@ -33,7 +33,7 @@ const testUser = {
   type: "admin",
   email: "johndoe@gmail.com",
   phone: "0711339134"
-}
+};
 
 function App() {
   // eslint-disable-next-line no-unused-vars
