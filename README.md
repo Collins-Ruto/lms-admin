@@ -1,5 +1,11 @@
 # Getting Started with Create React App
 
+## School and learning management system
+
+### Hosted at: [learnhq](https://lms-adm.netlify.app)
+
+![collins ruto](./client/public/learnhq.webp)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
