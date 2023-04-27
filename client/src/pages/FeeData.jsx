@@ -34,6 +34,8 @@ function FeeData() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(fees)
+
   const changePage = (direction) => {
     const data = {
       ...pages,

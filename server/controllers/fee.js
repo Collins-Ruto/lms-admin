@@ -62,6 +62,7 @@ export const getFees = async (req, res) => {
 
     const students = result.feesConnection.edges;
     result.feesConnection.edges = students.map((student) => {
+      console.log(student)
       const fees = student.node.student.fees;
       let invoice = 0;
       let credit = 0;
@@ -221,7 +222,7 @@ export const addFee = async (req, res) => {
       $type: String
       $slug: String!
       $amount: String
-      $stdt_slug: String
+      $stdt_slug: String!
     ) {
       createFee(
         data: {

@@ -74,6 +74,7 @@ function AddFee() {
                 type="text"
                 placeholder="Enter Username"
                 name="stdt_slug"
+                required
               />
             </div>
             <div>
