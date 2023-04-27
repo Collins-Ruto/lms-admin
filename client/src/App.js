@@ -32,7 +32,7 @@ const testUser = {
   slug: "johndoe",
   type: "admin",
   email: "johndoe@gmail.com",
-  phone: "0711339134"
+  phone: "0711339134",
 };
 
 function App() {
@@ -40,12 +40,12 @@ function App() {
   const [user, setUser] = useState(testUser);
 
   useEffect(() => {
+    // TODO remove line below for actual login
+    localStorage.setItem("user", JSON.stringify(testUser));
     const saved = JSON?.parse(localStorage?.getItem("saved"));
     const user = saved && JSON?.parse(localStorage?.getItem("user"));
     user && setUser(user);
-    axios.defaults.headers.common["Authorization"] = `${
-      user?.token
-    }`;
+    axios.defaults.headers.common["Authorization"] = `${user?.token}`;
   }, []);
 
   console.log(user);
