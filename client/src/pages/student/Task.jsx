@@ -37,6 +37,8 @@ function Task() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    // TODO: remove this line post build
+    setTasks({})
   };
 
   return (
