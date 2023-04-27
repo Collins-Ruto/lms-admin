@@ -25,13 +25,13 @@ function CreateTask() {
     formData.append("file", file);
 
     // const formData2 = new FormData();
-    
+    setStatus({})
     const res = await axios.post("http://localhost:8000/infos/addasset", formData);
     console.log(res)
 
-    const taskData = {...task, fileId: res.data.id}
+    // const taskData = {...task, fileId: res.data.id}
 
-    const resTask = await axios.post("http://localhost:8000/infos/addtask", taskData);
+    // const resTask = await axios.post("http://localhost:8000/infos/addtask", taskData);
     setSubmit(false);
     // setStatus(
     //   res.data.message === "success"
