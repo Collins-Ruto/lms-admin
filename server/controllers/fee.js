@@ -58,11 +58,10 @@ export const getFees = async (req, res) => {
     `;
 
     const result = await request(graphqlAPI, query);
-    console.log(result)
+    console.log(result);
 
     const students = result.feesConnection.edges;
     result.feesConnection.edges = students.map((student) => {
-      console.log(student)
       const fees = student.node.student.fees;
       let invoice = 0;
       let credit = 0;
@@ -72,13 +71,11 @@ export const getFees = async (req, res) => {
           ? (invoice += parseFloat(fee.amount))
           : (credit += parseFloat(fee.amount));
       });
-       (
-        invoice - credit
-      ).toString();
+      (invoice - credit).toString();
 
-      return {...student, balance:(invoice - credit).toString()}
+      return { ...student, balance: (invoice - credit).toString() };
     });
-    
+
     res.status(200).json(result.feesConnection);
   } catch (error) {
     console.log(error.message);
@@ -260,8 +257,11 @@ export const getStudentFees = async (req, res) => {
   try {
     const query = gql`
       query MyQuery($slug: String!) {
-        studentsConnection(where: { slug: $slug }, orderBy: publishedAt_DESC, first: 20 )
-        {
+        studentsConnection(
+          where: { slug: $slug }
+          orderBy: publishedAt_DESC
+          first: 20
+        ) {
           edges {
             node {
               fees {
@@ -322,7 +322,7 @@ export const StudentFees = async (slug) => {
     `;
 
     const result = await request(graphqlAPI, query, { slug: slug });
-    console.log(result)
+    console.log(result);
 
     return result.feesConnection.edges;
   } catch (error) {
