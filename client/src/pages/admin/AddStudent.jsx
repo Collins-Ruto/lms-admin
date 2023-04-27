@@ -15,6 +15,16 @@ const dum2 = {
   stream_slug: "1e",
 };
 
+const streams = [
+  { name: "1 East", slug: "1e" },
+  { name: "1 North", slug: "1n" },
+  { name: "1 West", slug: "1w" },
+  { name: "2 North", slug: "2n" },
+  { name: "2 East", slug: "2e" },
+  { name: "3 East", slug: "3e" },
+  { name: "3 Noth", slug: "3n" },
+];
+
 function AddStudent() {
   const [student, setStudent] = useState({ password: "" });
   const [submit, setSubmit] = useState(false);
@@ -204,16 +214,34 @@ function AddStudent() {
                     <label>
                       Stream ID<span className="text-red-500">*</span>
                     </label>
-                    <input
-                      onChange={(e) => {
-                        handleInput(e);
-                      }}
-                      value={student.stream_slug}
-                      className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      type="text"
-                      placeholder="Sream ID:  eg. 1w"
-                      name="stream_slug"
-                    />
+                    <div className="flex items-center cursor-pointer">
+                      <select
+                        onChange={(e) => {
+                          handleInput(e);
+                        }}
+                        value={student.stream_slug}
+                        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-3 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                        name="stream_slug"
+                      >
+                        <option>Select Stream</option>
+                        {streams.map((stream, index) => {
+                          return (
+                            <option key={index} value={stream.slug}>
+                              {stream.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <div className="pointer-events-none absolute right-0 flex items-center px-2 text-gray-700">
+                        <svg
+                          className="fill-current h-4 w-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
 
                   <div>
