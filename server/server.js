@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 app.use('/user', userRoutes)
 app.use('/lessons', lessonRoutes)
 app.use('/data', dataRoutes)
-// app.use(auth)
+app.use(auth)
 app.use("/infos", infoRoutes);
 app.use('/students', studentsRoutes)
 app.use('/exams', examRoutes)
