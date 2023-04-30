@@ -27,21 +27,22 @@ import { Teacher, TeacherTask } from "./pages/teacher";
 import axios from "axios";
 import AddStream from "./pages/admin/AddStream";
 
-const testUser = {
-  name: "John Doe",
-  slug: "johndoe",
-  type: "admin",
-  email: "johndoe@gmail.com",
-  phone: "0711339134",
-};
+//const testUser = {
+//  name: "John Doe",
+//  slug: "johndoe",
+//  type: "admin",
+//  email: "johndoe@gmail.com",
+//  phone: "0711339134",
+//};
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState(testUser);
+  const [user, setUser] = useState();
+
 
   useEffect(() => {
     // TODO remove line below for actual login
-    localStorage.setItem("user", JSON.stringify(testUser));
+    // localStorage.setItem("user", JSON.stringify(testUser));
     const saved = JSON?.parse(localStorage?.getItem("saved"));
     const user = saved && JSON?.parse(localStorage?.getItem("user"));
     user && setUser(user);
